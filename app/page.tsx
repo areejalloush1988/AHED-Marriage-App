@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { type FormEvent, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -31,6 +31,10 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  getSupabaseClient,
+  isSupabaseConfigured,
+} from "@/lib/supabase";
 
 type Gender = "woman" | "man";
 type Step =
@@ -43,6 +47,65 @@ type Step =
   | "waitlist"
   | "waitlist-complete";
 type Plan = "basic" | "pro" | "matchmaker";
+
+type WomanDraft = {
+  firstName: string;
+  birthDate: string;
+  country: string;
+  city: string;
+  phone: string;
+  email: string;
+  password: string;
+  maritalStatus: string;
+  nationality: string;
+  occupation: string;
+  education: string;
+  bio: string;
+  preferredAgeFrom: string;
+  preferredAgeTo: string;
+};
+
+const emptyWomanDraft: WomanDraft = {
+  firstName: "",
+  birthDate: "",
+  country: "",
+  city: "",
+  phone: "",
+  email: "",
+  password: "",
+  maritalStatus: "",
+  nationality: "",
+  occupation: "",
+  education: "",
+  bio: "",
+  preferredAgeFrom: "",
+  preferredAgeTo: "",
+};
+
+function textValue(data: FormData, name: string): string {
+  return String(data.get(name) ?? "").trim();
+}
+
+function isAdult(birthDate: string): boolean {
+  const birth = new Date(`${birthDate}T00:00:00`);
+  if (Number.isNaN(birth.getTime())) return false;
+
+  const today = new Date();
+  const cutoff = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate(),
+  );
+  return birth <= cutoff;
+}
+
+function submissionErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message === "SUPABASE_NOT_CONFIGURED") {
+    return "قاعدة بيانات عَهْد قيد التجهيز حالياً. لم تُحفظ أي بيانات بعد.";
+  }
+
+  return "تعذّر حفظ الطلب الآن. تأكدي من البيانات والاتصال ثم حاولي مرة أخرى.";
+}
 
 const stepProgress: Record<Step, number> = {
   entry: 8,
@@ -171,6 +234,12 @@ export default function Home() {
   const [plan, setPlan] = useState<Plan>("basic");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [waitlistSent, setWaitlistSent] = useState(false);
+  const [waitlistTermsAccepted, setWaitlistTermsAccepted] = useState(false);
+  const [womanDraft, setWomanDraft] =
+    useState<WomanDraft>(emptyWomanDraft);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [registrationEmail, setRegistrationEmail] = useState("");
   const selectedPlan = useMemo(() => planDetails[plan], [plan]);
 
   const goBack = () => {
@@ -183,6 +252,7 @@ export default function Home() {
       waitlist: "entry",
       "waitlist-complete": "waitlist",
     };
+    setSubmitError("");
     setStep(previous[step] ?? "entry");
   };
 
@@ -192,11 +262,143 @@ export default function Home() {
     setPlan("basic");
     setTermsAccepted(false);
     setWaitlistSent(false);
+    setWaitlistTermsAccepted(false);
+    setWomanDraft(emptyWomanDraft);
+    setIsSubmitting(false);
+    setSubmitError("");
+    setRegistrationEmail("");
   };
 
   const continueFromEntry = () => {
+    setSubmitError("");
     if (gender === "woman") setStep("account");
     if (gender === "man") setStep("waitlist");
+  };
+
+  const saveAccountStep = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const birthDate = textValue(data, "birthDate");
+
+    if (!isAdult(birthDate)) {
+      setSubmitError("يجب أن يكون العمر 18 عاماً أو أكثر لإكمال التسجيل.");
+      return;
+    }
+
+    setWomanDraft((current) => ({
+      ...current,
+      firstName: textValue(data, "firstName"),
+      birthDate,
+      country: textValue(data, "country"),
+      city: textValue(data, "city"),
+      phone: textValue(data, "phone"),
+      email: textValue(data, "email").toLowerCase(),
+      password: textValue(data, "password"),
+    }));
+    setSubmitError("");
+    setStep("profile");
+  };
+
+  const saveProfileStep = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const preferredAgeFrom = textValue(data, "preferredAgeFrom");
+    const preferredAgeTo = textValue(data, "preferredAgeTo");
+
+    if (Number(preferredAgeFrom) > Number(preferredAgeTo)) {
+      setSubmitError("العمر المناسب من يجب أن يكون أصغر من أو مساوياً للعمر إلى.");
+      return;
+    }
+
+    setWomanDraft((current) => ({
+      ...current,
+      maritalStatus: textValue(data, "maritalStatus"),
+      nationality: textValue(data, "nationality"),
+      occupation: textValue(data, "occupation"),
+      education: textValue(data, "education"),
+      bio: textValue(data, "bio"),
+      preferredAgeFrom,
+      preferredAgeTo,
+    }));
+    setSubmitError("");
+    setStep("verification");
+  };
+
+  const submitWomanRegistration = async () => {
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      if (!isSupabaseConfigured) {
+        throw new Error("SUPABASE_NOT_CONFIGURED");
+      }
+
+      const supabase = getSupabaseClient();
+      const emailRedirectTo = `${window.location.origin}/?email-confirmed=1`;
+      const { error } = await supabase.auth.signUp({
+        email: womanDraft.email,
+        password: womanDraft.password,
+        options: {
+          emailRedirectTo,
+          data: {
+            first_name: womanDraft.firstName,
+            birth_date: womanDraft.birthDate,
+            country: womanDraft.country,
+            city: womanDraft.city,
+            phone: womanDraft.phone,
+            marital_status: womanDraft.maritalStatus,
+            nationality: womanDraft.nationality,
+            occupation: womanDraft.occupation,
+            education: womanDraft.education,
+            bio: womanDraft.bio,
+            preferred_age_from: Number(womanDraft.preferredAgeFrom),
+            preferred_age_to: Number(womanDraft.preferredAgeTo),
+            requested_plan: plan,
+            terms_accepted: true,
+          },
+        },
+      });
+
+      if (error) throw error;
+
+      setRegistrationEmail(womanDraft.email);
+      setWomanDraft((current) => ({ ...current, password: "" }));
+      setStep("complete");
+    } catch (error) {
+      setSubmitError(submissionErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const submitMenWaitlist = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      if (!isSupabaseConfigured) {
+        throw new Error("SUPABASE_NOT_CONFIGURED");
+      }
+
+      const data = new FormData(event.currentTarget);
+      const supabase = getSupabaseClient();
+      const { error } = await supabase.from("men_waitlist").insert({
+        first_name: textValue(data, "waitlistName"),
+        country: textValue(data, "waitlistCountry"),
+        phone: textValue(data, "waitlistPhone"),
+        email: textValue(data, "waitlistEmail").toLowerCase(),
+      });
+
+      if (error && error.code !== "23505") throw error;
+
+      setWaitlistSent(true);
+      setStep("waitlist-complete");
+    } catch (error) {
+      setSubmitError(submissionErrorMessage(error));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -347,10 +549,7 @@ export default function Home() {
             {step === "account" ? (
               <form
                 className="step-content"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  setStep("profile");
-                }}
+                onSubmit={saveAccountStep}
               >
                 <StepHeader
                   eyebrow="الخطوة 1 من 4"
@@ -364,6 +563,7 @@ export default function Home() {
                       name="firstName"
                       placeholder="مثال: مريم"
                       autoComplete="given-name"
+                      defaultValue={womanDraft.firstName}
                       required
                     />
                   </Field>
@@ -373,6 +573,7 @@ export default function Home() {
                       name="birthDate"
                       type="date"
                       autoComplete="bday"
+                      defaultValue={womanDraft.birthDate}
                       required
                     />
                   </Field>
@@ -381,7 +582,7 @@ export default function Home() {
                       id="country"
                       name="country"
                       className="w-full"
-                      defaultValue=""
+                      defaultValue={womanDraft.country}
                       required
                     >
                       <NativeSelectOption value="" disabled>
@@ -400,6 +601,7 @@ export default function Home() {
                       name="city"
                       placeholder="مثال: دبي"
                       autoComplete="address-level2"
+                      defaultValue={womanDraft.city}
                       required
                     />
                   </Field>
@@ -413,6 +615,7 @@ export default function Home() {
                         dir="ltr"
                         placeholder="+971 5X XXX XXXX"
                         autoComplete="tel"
+                        defaultValue={womanDraft.phone}
                         required
                       />
                     </div>
@@ -427,6 +630,7 @@ export default function Home() {
                         dir="ltr"
                         placeholder="name@example.com"
                         autoComplete="email"
+                        defaultValue={womanDraft.email}
                         required
                       />
                     </div>
@@ -443,12 +647,18 @@ export default function Home() {
                           placeholder="••••••••"
                           minLength={8}
                           autoComplete="new-password"
+                          defaultValue={womanDraft.password}
                           required
                         />
                       </div>
                     </Field>
                   </div>
                 </div>
+                {submitError ? (
+                  <p className="form-alert form-alert--error" role="alert">
+                    {submitError}
+                  </p>
+                ) : null}
                 <Button type="submit" size="lg" className="primary-action">
                   حفظ ومتابعة
                   <ArrowLeft />
@@ -459,10 +669,7 @@ export default function Home() {
             {step === "profile" ? (
               <form
                 className="step-content"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  setStep("verification");
-                }}
+                onSubmit={saveProfileStep}
               >
                 <StepHeader
                   eyebrow="الخطوة 2 من 4"
@@ -475,7 +682,7 @@ export default function Home() {
                       id="maritalStatus"
                       name="maritalStatus"
                       className="w-full"
-                      defaultValue=""
+                      defaultValue={womanDraft.maritalStatus}
                       required
                     >
                       <NativeSelectOption value="" disabled>
@@ -487,13 +694,19 @@ export default function Home() {
                     </NativeSelect>
                   </Field>
                   <Field id="nationality" label="الجنسية">
-                    <Input id="nationality" name="nationality" required />
+                    <Input
+                      id="nationality"
+                      name="nationality"
+                      defaultValue={womanDraft.nationality}
+                      required
+                    />
                   </Field>
                   <Field id="occupation" label="مجال العمل">
                     <Input
                       id="occupation"
                       name="occupation"
                       placeholder="مثال: التعليم"
+                      defaultValue={womanDraft.occupation}
                       required
                     />
                   </Field>
@@ -502,7 +715,7 @@ export default function Home() {
                       id="education"
                       name="education"
                       className="w-full"
-                      defaultValue=""
+                      defaultValue={womanDraft.education}
                       required
                     >
                       <NativeSelectOption value="" disabled>
@@ -522,6 +735,7 @@ export default function Home() {
                         maxLength={400}
                         rows={5}
                         placeholder="اكتبي باختصار عن شخصيتك وقيمك وما تتوقعينه من الزواج..."
+                        defaultValue={womanDraft.bio}
                         required
                       />
                     </Field>
@@ -534,6 +748,7 @@ export default function Home() {
                       min={18}
                       max={80}
                       placeholder="25"
+                      defaultValue={womanDraft.preferredAgeFrom}
                       required
                     />
                   </Field>
@@ -545,10 +760,16 @@ export default function Home() {
                       min={18}
                       max={80}
                       placeholder="35"
+                      defaultValue={womanDraft.preferredAgeTo}
                       required
                     />
                   </Field>
                 </div>
+                {submitError ? (
+                  <p className="form-alert form-alert--error" role="alert">
+                    {submitError}
+                  </p>
+                ) : null}
                 <Button type="submit" size="lg" className="primary-action">
                   متابعة إلى التوثيق
                   <ArrowLeft />
@@ -684,14 +905,20 @@ export default function Home() {
                   type="button"
                   size="lg"
                   className="primary-action"
-                  onClick={() => setStep("complete")}
+                  disabled={isSubmitting}
+                  onClick={submitWomanRegistration}
                 >
-                  تأكيد الباقة
+                  {isSubmitting ? "جاري إنشاء الحساب..." : "إنشاء الحساب وحفظ الطلب"}
                   <ArrowLeft />
                 </Button>
+                {submitError ? (
+                  <p className="form-alert form-alert--error" role="alert">
+                    {submitError}
+                  </p>
+                ) : null}
                 <p className="microcopy">
-                  لن يتم سحب أي مبلغ في هذه النسخة. بوابة الدفع ستُربط قبل الإطلاق
-                  العام.
+                  إنشاء الحساب لا يسحب أي مبلغ. الدفع يُفتح فقط بعد مراجعة الملف
+                  والموافقة عليه.
                 </p>
               </section>
             ) : null}
@@ -701,11 +928,12 @@ export default function Home() {
                 <span className="completion-icon">
                   <Check />
                 </span>
-                <span className="step-eyebrow">اكتملت معاينة الهيكل</span>
-                <h1>رحلة التسجيل النسائية جاهزة</h1>
+                <span className="step-eyebrow">تم إنشاء الحساب</span>
+                <h1>راجعي بريدك لتأكيد الحساب</h1>
                 <p>
-                  أصبح لدينا الهيكل الكامل من إنشاء الحساب إلى التوثيق واختيار
-                  الباقة. الخطوة التالية هي ربط قاعدة البيانات والدفع الحقيقي.
+                  حُفظ طلبك الحقيقي بأمان. أرسلنا رابط التأكيد إلى
+                  {registrationEmail ? ` ${registrationEmail}` : " بريدك الإلكتروني"}،
+                  وبعد التأكيد ينتقل الملف إلى المراجعة.
                 </p>
                 <div className="completion-summary">
                   <div>
@@ -717,8 +945,8 @@ export default function Home() {
                     <strong>{selectedPlan.name}</strong>
                   </div>
                   <div>
-                    <span>الدفع</span>
-                    <strong>{selectedPlan.price} درهماً مرة واحدة</strong>
+                    <span>حالة الدفع</span>
+                    <strong>لاحقاً بعد قبول الملف</strong>
                   </div>
                 </div>
                 <Button
@@ -736,11 +964,7 @@ export default function Home() {
             {step === "waitlist" ? (
               <form
                 className="step-content"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  setWaitlistSent(true);
-                  setStep("waitlist-complete");
-                }}
+                onSubmit={submitMenWaitlist}
               >
                 <StepHeader
                   eyebrow="التسجيل الرجالي يفتح لاحقاً"
@@ -803,10 +1027,34 @@ export default function Home() {
                     </div>
                   </Field>
                 </div>
-                <Button type="submit" size="lg" className="primary-action">
-                  الانضمام إلى قائمة الانتظار
+                <Label htmlFor="waitlistTerms" className="consent-row">
+                  <Checkbox
+                    id="waitlistTerms"
+                    checked={waitlistTermsAccepted}
+                    onCheckedChange={(checked) =>
+                      setWaitlistTermsAccepted(checked === true)
+                    }
+                  />
+                  <span>
+                    أوافق على سياسة الخصوصية، وأؤكد أن عمري 18 عاماً أو أكثر.
+                  </span>
+                </Label>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="primary-action"
+                  disabled={!waitlistTermsAccepted || isSubmitting}
+                >
+                  {isSubmitting
+                    ? "جاري حفظ الطلب..."
+                    : "الانضمام إلى قائمة الانتظار"}
                   <ArrowLeft />
                 </Button>
+                {submitError ? (
+                  <p className="form-alert form-alert--error" role="alert">
+                    {submitError}
+                  </p>
+                ) : null}
                 <p className="microcopy">لا دفع ولا بطاقة بنكية في هذه المرحلة.</p>
               </form>
             ) : null}
@@ -817,10 +1065,10 @@ export default function Home() {
                   <MessageCircleHeart />
                 </span>
                 <span className="step-eyebrow">قائمة انتظار الرجال</span>
-                <h1>تمت معاينة مسار قائمة الانتظار</h1>
+                <h1>تم حفظ طلبك في قائمة الانتظار</h1>
                 <p>
-                  عند ربط قاعدة البيانات سيصل إشعار فتح التسجيل فقط بعد تجهيز
-                  مجتمع حقيقي مناسب، ومن دون تحصيل أي مبلغ مسبقاً.
+                  سيصل إشعار فتح التسجيل فقط بعد تجهيز مجتمع حقيقي مناسب، ومن
+                  دون تحصيل أي مبلغ مسبقاً.
                 </p>
                 <Button
                   type="button"

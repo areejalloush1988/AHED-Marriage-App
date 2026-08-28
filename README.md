@@ -44,6 +44,6 @@ npm run build
 
 - Build command: `npm run build`
 - Output directory: `out`
-- Node.js: 20 أو أحدث
+- Node.js: 22 أو أحدث
 
 المشروع يستخدم هوية AHED وألوان الخمري والشامبانيا والعاجي، ولا يعتمد على أي مشروع آخر.
