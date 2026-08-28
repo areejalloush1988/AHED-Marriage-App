@@ -17,8 +17,6 @@ create table if not exists public.profiles (
     constraint profiles_country_length check (char_length(country) between 2 and 80),
   city text not null
     constraint profiles_city_length check (char_length(city) between 2 and 80),
-  phone text not null unique
-    constraint profiles_phone_format check (phone ~ '^[+0-9 ()-]{7,24}$'),
   marital_status text not null
     constraint profiles_marital_status_check check (marital_status in ('single', 'divorced', 'widowed')),
   nationality text not null
@@ -57,8 +55,6 @@ create table if not exists public.men_waitlist (
     constraint men_waitlist_first_name_length check (char_length(first_name) between 2 and 60),
   country text not null
     constraint men_waitlist_country_length check (char_length(country) between 2 and 80),
-  phone text not null unique
-    constraint men_waitlist_phone_format check (phone ~ '^[+0-9 ()-]{7,24}$'),
   email text not null
     constraint men_waitlist_email_format check (
       email ~ '^[^@[:space:]]+@[^@[:space:]]+\.[^@[:space:]]+$'
@@ -117,7 +113,6 @@ begin
     birth_date,
     country,
     city,
-    phone,
     marital_status,
     nationality,
     occupation,
@@ -135,7 +130,6 @@ begin
     (metadata ->> 'birth_date')::date,
     trim(metadata ->> 'country'),
     trim(metadata ->> 'city'),
-    trim(metadata ->> 'phone'),
     metadata ->> 'marital_status',
     trim(metadata ->> 'nationality'),
     trim(metadata ->> 'occupation'),
@@ -214,7 +208,6 @@ grant update (
   birth_date,
   country,
   city,
-  phone,
   marital_status,
   nationality,
   occupation,
@@ -224,9 +217,190 @@ grant update (
   preferred_age_to
 ) on table public.profiles to authenticated;
 
-grant insert (first_name, country, phone, email)
+grant insert (first_name, country, email)
 on table public.men_waitlist to anon, authenticated;
 grant usage, select on sequence public.men_waitlist_id_seq to anon, authenticated;
+
+
+create table if not exists public.conversations (
+  id uuid primary key default gen_random_uuid(),
+  participant_a uuid not null references auth.users(id) on delete cascade,
+  participant_b uuid not null references auth.users(id) on delete cascade,
+  created_by uuid not null references auth.users(id) on delete cascade,
+  status text not null default 'active'
+    constraint conversations_status_check check (status in ('active', 'blocked', 'closed')),
+  last_message_at timestamptz not null default now(),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint conversations_distinct_participants_check
+    check (participant_a <> participant_b),
+  constraint conversations_creator_is_participant_check
+    check (created_by in (participant_a, participant_b))
+);
+
+create unique index if not exists conversations_active_pair_unique_idx
+  on public.conversations (
+    least(participant_a, participant_b),
+    greatest(participant_a, participant_b)
+  )
+  where status = 'active';
+create index if not exists conversations_participant_a_recent_idx
+  on public.conversations (participant_a, last_message_at desc);
+create index if not exists conversations_participant_b_recent_idx
+  on public.conversations (participant_b, last_message_at desc);
+create index if not exists conversations_created_by_idx
+  on public.conversations (created_by);
+
+create table if not exists public.messages (
+  id bigint generated always as identity primary key,
+  conversation_id uuid not null references public.conversations(id) on delete cascade,
+  sender_id uuid not null references auth.users(id) on delete cascade,
+  body text not null
+    constraint messages_body_length_check check (char_length(btrim(body)) between 1 and 2000),
+  read_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists messages_conversation_created_idx
+  on public.messages (conversation_id, created_at desc);
+create index if not exists messages_unread_idx
+  on public.messages (conversation_id, sender_id, created_at)
+  where read_at is null;
+create index if not exists messages_sender_id_idx
+  on public.messages (sender_id);
+
+create or replace function private.touch_ahed_conversation_after_message()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  update public.conversations
+  set
+    last_message_at = greatest(last_message_at, new.created_at),
+    updated_at = now()
+  where id = new.conversation_id;
+
+  return new;
+end;
+$$;
+
+revoke execute on function private.touch_ahed_conversation_after_message()
+from public, anon, authenticated;
+
+drop trigger if exists messages_touch_conversation on public.messages;
+create trigger messages_touch_conversation
+after insert on public.messages
+for each row execute function private.touch_ahed_conversation_after_message();
+
+alter table public.conversations enable row level security;
+alter table public.messages enable row level security;
+
+drop policy if exists conversations_select_participant on public.conversations;
+create policy conversations_select_participant
+on public.conversations for select
+to authenticated
+using (
+  (select auth.uid()) = participant_a
+  or (select auth.uid()) = participant_b
+);
+
+drop policy if exists conversations_insert_participant on public.conversations;
+create policy conversations_insert_participant
+on public.conversations for insert
+to authenticated
+with check (
+  (select auth.uid()) = created_by
+  and (
+    (select auth.uid()) = participant_a
+    or (select auth.uid()) = participant_b
+  )
+);
+
+drop policy if exists messages_select_participant on public.messages;
+create policy messages_select_participant
+on public.messages for select
+to authenticated
+using (
+  exists (
+    select 1
+    from public.conversations as conversation
+    where conversation.id = messages.conversation_id
+      and (
+        (select auth.uid()) = conversation.participant_a
+        or (select auth.uid()) = conversation.participant_b
+      )
+  )
+);
+
+drop policy if exists messages_insert_participant on public.messages;
+create policy messages_insert_participant
+on public.messages for insert
+to authenticated
+with check (
+  (select auth.uid()) = sender_id
+  and exists (
+    select 1
+    from public.conversations as conversation
+    where conversation.id = messages.conversation_id
+      and conversation.status = 'active'
+      and (
+        (select auth.uid()) = conversation.participant_a
+        or (select auth.uid()) = conversation.participant_b
+      )
+  )
+);
+
+drop policy if exists messages_mark_received_as_read on public.messages;
+create policy messages_mark_received_as_read
+on public.messages for update
+to authenticated
+using (
+  sender_id <> (select auth.uid())
+  and exists (
+    select 1
+    from public.conversations as conversation
+    where conversation.id = messages.conversation_id
+      and (
+        (select auth.uid()) = conversation.participant_a
+        or (select auth.uid()) = conversation.participant_b
+      )
+  )
+)
+with check (
+  sender_id <> (select auth.uid())
+  and exists (
+    select 1
+    from public.conversations as conversation
+    where conversation.id = messages.conversation_id
+      and (
+        (select auth.uid()) = conversation.participant_a
+        or (select auth.uid()) = conversation.participant_b
+      )
+  )
+);
+
+revoke all on table public.conversations from anon, authenticated;
+revoke all on table public.messages from anon, authenticated;
+grant select, insert on table public.conversations to authenticated;
+grant select, insert on table public.messages to authenticated;
+grant update (read_at) on table public.messages to authenticated;
+grant usage, select on sequence public.messages_id_seq to authenticated;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'messages'
+  ) then
+    alter publication supabase_realtime add table public.messages;
+  end if;
+end;
+$$;
 
 comment on table public.profiles is
   'Private AHED marriage profiles. Users can only read and edit their own row.';
