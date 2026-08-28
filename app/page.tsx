@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useMemo, useState } from "react";
+import { type FormEvent, useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -13,7 +13,6 @@ import {
   LockKeyhole,
   Mail,
   MessageCircleHeart,
-  Phone,
   ShieldCheck,
   Sparkles,
   UserRoundCheck,
@@ -53,7 +52,6 @@ type WomanDraft = {
   birthDate: string;
   country: string;
   city: string;
-  phone: string;
   email: string;
   password: string;
   maritalStatus: string;
@@ -70,7 +68,6 @@ const emptyWomanDraft: WomanDraft = {
   birthDate: "",
   country: "",
   city: "",
-  phone: "",
   email: "",
   password: "",
   maritalStatus: "",
@@ -242,6 +239,15 @@ export default function Home() {
   const [registrationEmail, setRegistrationEmail] = useState("");
   const selectedPlan = useMemo(() => planDetails[plan], [plan]);
 
+  useEffect(() => {
+    const requestedStep = new URLSearchParams(window.location.search).get("step");
+
+    if (requestedStep === "account") {
+      setGender("woman");
+      setStep("account");
+    }
+  }, []);
+
   const goBack = () => {
     const previous: Partial<Record<Step, Step>> = {
       account: "entry",
@@ -291,7 +297,6 @@ export default function Home() {
       birthDate,
       country: textValue(data, "country"),
       city: textValue(data, "city"),
-      phone: textValue(data, "phone"),
       email: textValue(data, "email").toLowerCase(),
       password: textValue(data, "password"),
     }));
@@ -345,7 +350,6 @@ export default function Home() {
             birth_date: womanDraft.birthDate,
             country: womanDraft.country,
             city: womanDraft.city,
-            phone: womanDraft.phone,
             marital_status: womanDraft.maritalStatus,
             nationality: womanDraft.nationality,
             occupation: womanDraft.occupation,
@@ -386,7 +390,6 @@ export default function Home() {
       const { error } = await supabase.from("men_waitlist").insert({
         first_name: textValue(data, "waitlistName"),
         country: textValue(data, "waitlistCountry"),
-        phone: textValue(data, "waitlistPhone"),
         email: textValue(data, "waitlistEmail").toLowerCase(),
       });
 
@@ -605,21 +608,6 @@ export default function Home() {
                       required
                     />
                   </Field>
-                  <Field id="phone" label="رقم الهاتف" hint="للتوثيق فقط">
-                    <div className="input-with-icon">
-                      <Phone />
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        dir="ltr"
-                        placeholder="+971 5X XXX XXXX"
-                        autoComplete="tel"
-                        defaultValue={womanDraft.phone}
-                        required
-                      />
-                    </div>
-                  </Field>
                   <Field id="email" label="البريد الإلكتروني">
                     <div className="input-with-icon">
                       <Mail />
@@ -636,7 +624,7 @@ export default function Home() {
                     </div>
                   </Field>
                   <div className="form-span-2">
-                    <Field id="password" label="كلمة المرور" hint="8 أحرف على الأقل">
+                    <Field id="password" label="كلمة المرور" hint="6 أرقام فقط">
                       <div className="input-with-icon">
                         <LockKeyhole />
                         <Input
@@ -644,10 +632,19 @@ export default function Home() {
                           name="password"
                           type="password"
                           dir="ltr"
-                          placeholder="••••••••"
-                          minLength={8}
+                          inputMode="numeric"
+                          pattern="[0-9]{6}"
+                          title="كلمة المرور يجب أن تتكوّن من 6 أرقام فقط"
+                          placeholder="••••••"
+                          minLength={6}
+                          maxLength={6}
                           autoComplete="new-password"
                           defaultValue={womanDraft.password}
+                          onInput={(event) => {
+                            event.currentTarget.value = event.currentTarget.value
+                              .replace(/\D/g, "")
+                              .slice(0, 6);
+                          }}
                           required
                         />
                       </div>
@@ -782,16 +779,16 @@ export default function Home() {
                 <StepHeader
                   eyebrow="الخطوة 3 من 4"
                   title="الثقة تبدأ من التوثيق"
-                  description="لن يظهر مستندك أو رقمك لأي مستخدم. تُستخدم خطوات التوثيق لحماية المجتمع فقط."
+                  description="لن يظهر مستندك أو بريدك لأي مستخدم. تُستخدم خطوات التوثيق لحماية المجتمع فقط."
                 />
                 <div className="verification-list">
                   <article>
                     <span className="verification-icon">
-                      <Phone />
+                      <Mail />
                     </span>
                     <div>
-                      <strong>تأكيد رقم الهاتف</strong>
-                      <p>رمز من ستة أرقام يُرسل إلى رقمك.</p>
+                      <strong>تأكيد البريد الإلكتروني</strong>
+                      <p>رابط تأكيد يُرسل إلى بريدك.</p>
                     </div>
                     <span className="stage-tag">مطلوب</span>
                   </article>
@@ -999,19 +996,6 @@ export default function Home() {
                         </NativeSelectOption>
                       ))}
                     </NativeSelect>
-                  </Field>
-                  <Field id="waitlistPhone" label="رقم الهاتف">
-                    <div className="input-with-icon">
-                      <Phone />
-                      <Input
-                        id="waitlistPhone"
-                        name="waitlistPhone"
-                        type="tel"
-                        dir="ltr"
-                        placeholder="+971 5X XXX XXXX"
-                        required
-                      />
-                    </div>
                   </Field>
                   <Field id="waitlistEmail" label="البريد الإلكتروني">
                     <div className="input-with-icon">
