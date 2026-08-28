@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useEffect, useMemo, useState } from "react";
+import { type FormEvent, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -225,9 +225,15 @@ function StepHeader({
   );
 }
 
-export default function Home() {
-  const [step, setStep] = useState<Step>("entry");
-  const [gender, setGender] = useState<Gender | undefined>();
+export function AhedRegistration({
+  initialStep = "entry",
+  initialGender,
+}: {
+  initialStep?: Step;
+  initialGender?: Gender;
+}) {
+  const [step, setStep] = useState<Step>(initialStep);
+  const [gender, setGender] = useState<Gender | undefined>(initialGender);
   const [plan, setPlan] = useState<Plan>("basic");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [waitlistSent, setWaitlistSent] = useState(false);
@@ -238,15 +244,6 @@ export default function Home() {
   const [submitError, setSubmitError] = useState("");
   const [registrationEmail, setRegistrationEmail] = useState("");
   const selectedPlan = useMemo(() => planDetails[plan], [plan]);
-
-  useEffect(() => {
-    const requestedStep = new URLSearchParams(window.location.search).get("step");
-
-    if (requestedStep === "account") {
-      setGender("woman");
-      setStep("account");
-    }
-  }, []);
 
   const goBack = () => {
     const previous: Partial<Record<Step, Step>> = {
@@ -411,9 +408,14 @@ export default function Home() {
           <button className="brand-button" type="button" onClick={restart}>
             <Brand compact />
           </button>
-          <div className="launch-chip">
-            <span className="live-dot" />
-            مرحلة التأسيس للنساء
+          <div className="topbar-actions">
+            <a className="topbar-login-link" href="/login">
+              تسجيل الدخول
+            </a>
+            <div className="launch-chip">
+              <span className="live-dot" />
+              مرحلة التأسيس للنساء
+            </div>
           </div>
         </div>
       </header>
@@ -1078,4 +1080,8 @@ export default function Home() {
       </footer>
     </main>
   );
+}
+
+export default function Home() {
+  return <AhedRegistration />;
 }
