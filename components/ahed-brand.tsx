@@ -59,7 +59,7 @@ export function AhedWordmark({ className }: AhedWordmarkProps) {
           width="620"
           height="364"
           maskUnits="userSpaceOnUse"
-          maskType="alpha"
+          style={{ maskType: "alpha" }}
         >
           <image
             filter="url(#ahed-wordmark-alpha)"
