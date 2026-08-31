@@ -88,10 +88,24 @@ textarea {
 }
 
 .ahed-app {
+  position: relative;
   min-height: 100svh;
+  overflow: hidden;
   background:
     radial-gradient(circle at 4% 0%, rgba(243, 228, 207, 0.8), transparent 32rem),
     #fff9f3;
+  isolation: isolate;
+}
+
+.ahed-app::before {
+  position: absolute;
+  z-index: -1;
+  inset: 96px clamp(16px, 4vw, 76px) 116px;
+  border: 1px solid rgba(111, 29, 56, 0.32);
+  border-radius: 3px 3px 28px 28px;
+  box-shadow: inset 0 0 0 5px rgba(111, 29, 56, 0.022);
+  content: "";
+  pointer-events: none;
 }
 
 .topbar {
@@ -149,56 +163,65 @@ textarea {
 }
 
 .brand-lockup {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 13px;
+  overflow: hidden;
+  border-radius: 14px;
+  isolation: isolate;
 }
 
-.brand-mark {
-  display: grid;
-  width: 68px;
-  height: 68px;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 22px;
-  background: #6f1d38;
-  box-shadow: 0 14px 32px rgba(79, 16, 38, 0.22);
+.brand-lockup--compact {
+  animation: registration-brand-float 4.6s ease-in-out infinite;
 }
 
-.brand-mark svg {
-  width: 50px;
-  height: 50px;
+.brand-lockup--compact::after {
+  position: absolute;
+  z-index: 2;
+  top: -28px;
+  bottom: -28px;
+  left: -32px;
+  width: 28px;
+  background: linear-gradient(90deg, transparent, rgba(255, 238, 177, 0.74), transparent);
+  content: "";
+  transform: translateX(-54px) rotate(18deg);
+  animation: registration-brand-shine 4.2s ease-in-out infinite;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
-.brand-mark--compact {
-  width: 46px;
-  height: 46px;
-  border-radius: 15px;
-  box-shadow: 0 9px 22px rgba(79, 16, 38, 0.18);
+.registration-brand-logo {
+  display: block;
+  width: 160px;
+  height: auto;
 }
 
-.brand-mark--compact svg {
-  width: 34px;
-  height: 34px;
+.brand-lockup--panel {
+  overflow: visible;
+  border-radius: 0;
 }
 
-.brand-words {
-  display: grid;
-  line-height: 1;
+.registration-brand-icon {
+  position: relative;
+  display: block;
+  width: 78px;
+  height: 78px;
+  overflow: hidden;
+  border: 1px solid rgba(238, 204, 130, 0.48);
+  border-radius: 26px;
+  box-shadow:
+    0 0 0 6px rgba(213, 166, 74, 0.055),
+    0 14px 34px rgba(0, 0, 0, 0.2);
 }
 
-.brand-words strong {
-  color: #6f1d38;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.7rem;
-}
-
-.brand-words small {
-  margin-top: 6px;
-  color: #755e67;
-  font-size: 0.62rem;
-  font-weight: 900;
-  letter-spacing: 0.28em;
+.registration-brand-icon-source {
+  position: absolute;
+  top: -21.5px;
+  right: -9px;
+  display: block;
+  width: 285px;
+  max-width: none;
+  height: auto;
 }
 
 .launch-chip {
@@ -224,15 +247,17 @@ textarea {
 
 .app-frame {
   display: grid;
-  grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.42fr);
-  width: min(1380px, calc(100% - 40px));
+  grid-template-columns: minmax(340px, 0.8fr) minmax(0, 1.4fr);
+  width: min(1180px, calc(100% - 80px));
   min-height: calc(100svh - 120px);
-  margin: 26px auto 58px;
-  overflow: hidden;
-  border: 1px solid rgba(111, 29, 56, 0.12);
-  border-radius: 36px;
-  background: #fffdf9;
-  box-shadow: 0 24px 75px rgba(79, 16, 38, 0.11);
+  align-items: center;
+  gap: clamp(48px, 7vw, 94px);
+  margin: 30px auto 64px;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .brand-panel {
@@ -242,37 +267,45 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  padding: 54px;
-  color: #fff9f3;
+  padding: 158px 48px 42px;
+  border: 1px solid rgba(234, 203, 165, 0.28);
+  border-radius: 50% 50% 40px 40px / 20% 20% 40px 40px;
+  color: #edcf98;
   background:
     radial-gradient(circle at 12% 8%, rgba(243, 228, 207, 0.21), transparent 20rem),
     linear-gradient(155deg, #7f2c49 0%, #6f1d38 47%, #4f1026 100%);
+  box-shadow: 0 30px 76px rgba(79, 16, 38, 0.2);
 }
 
 .brand-panel::after {
   position: absolute;
-  right: -170px;
-  bottom: -180px;
-  width: 430px;
-  height: 430px;
-  border: 1px solid rgba(243, 228, 207, 0.13);
-  border-radius: 50%;
+  inset: 13px;
+  border: 1px solid rgba(234, 203, 165, 0.16);
+  border-radius: 50% 50% 30px 30px / 19% 19% 30px 30px;
   content: "";
+  pointer-events: none;
 }
 
-.brand-panel .brand-words strong,
-.brand-panel .brand-words small {
-  color: #fff9f3;
+.brand-panel__content {
+  position: static;
+  z-index: 1;
 }
 
-.brand-panel__content,
 .founding-note {
   position: relative;
   z-index: 1;
 }
 
+.brand-panel__content > .brand-lockup--panel {
+  position: absolute;
+  z-index: 2;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .brand-statement {
-  margin-top: 70px;
+  margin-top: 0;
 }
 
 .brand-statement > span {
@@ -288,12 +321,13 @@ textarea {
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2.25rem, 3.6vw, 3.7rem);
   line-height: 1.35;
+  color: #f4d99e;
 }
 
 .brand-statement p {
   max-width: 500px;
   margin: 20px 0 0;
-  color: rgba(255, 249, 243, 0.73);
+  color: rgba(241, 210, 148, 0.72);
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 2;
@@ -310,7 +344,7 @@ textarea {
   align-items: center;
   gap: 14px;
   padding: 14px 16px;
-  border: 1px solid rgba(243, 228, 207, 0.14);
+  border: 1px solid rgba(234, 203, 165, 0.14);
   border-radius: 17px;
   background: rgba(255, 249, 243, 0.055);
 }
@@ -330,7 +364,7 @@ textarea {
 
 .trust-points small {
   margin-top: 3px;
-  color: rgba(255, 249, 243, 0.6);
+  color: rgba(241, 210, 148, 0.6);
   font-size: 0.7rem;
 }
 
@@ -339,10 +373,11 @@ textarea {
   align-items: flex-start;
   gap: 13px;
   margin-top: 40px;
-  padding: 18px;
-  border-radius: 19px;
-  color: #4f1026;
-  background: #f3e4cf;
+  padding: 18px 2px 0;
+  border-top: 1px solid rgba(234, 203, 165, 0.16);
+  border-radius: 0;
+  color: #e7c27f;
+  background: transparent;
 }
 
 .founding-note svg {
@@ -366,10 +401,8 @@ textarea {
 
 .flow-panel {
   min-width: 0;
-  padding: clamp(38px, 5vw, 76px);
-  background:
-    radial-gradient(circle at 92% 4%, rgba(243, 228, 207, 0.58), transparent 25rem),
-    #fffdf9;
+  padding: clamp(32px, 4vw, 64px) clamp(10px, 3vw, 36px);
+  background: transparent;
 }
 
 .flow-shell {
@@ -428,6 +461,35 @@ textarea {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes registration-brand-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes registration-brand-shine {
+  0%,
+  34% {
+    transform: translateX(-54px) rotate(18deg);
+    opacity: 0;
+  }
+
+  47% {
+    opacity: 0.88;
+  }
+
+  62%,
+  100% {
+    transform: translateX(230px) rotate(18deg);
+    opacity: 0;
   }
 }
 
@@ -993,19 +1055,23 @@ textarea {
 @media (max-width: 1080px) {
   .app-frame {
     grid-template-columns: 1fr;
+    width: min(760px, calc(100% - 40px));
+    gap: 26px;
   }
 
   .brand-panel {
-    min-height: auto;
-    padding: 42px;
+    width: min(560px, 100%);
+    min-height: 650px;
+    margin-inline: auto;
+    padding: 144px 42px 36px;
   }
 
   .brand-statement {
-    margin-top: 45px;
+    margin-top: 0;
   }
 
   .trust-points {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .trust-points > div {
@@ -1028,6 +1094,14 @@ textarea {
     min-height: 68px;
   }
 
+  .ahed-app::before {
+    display: none;
+  }
+
+  .registration-brand-logo {
+    width: 138px;
+  }
+
   .launch-chip {
     padding: 8px 11px;
     font-size: 0.65rem;
@@ -1041,15 +1115,17 @@ textarea {
 
   .app-frame {
     margin-top: 14px;
-    border-radius: 25px;
+    border-radius: 0;
   }
 
   .brand-panel {
-    padding: 30px 24px;
+    min-height: 610px;
+    padding: 136px 28px 30px;
+    border-radius: 50% 50% 32px 32px / 18% 18% 32px 32px;
   }
 
   .brand-panel > .brand-panel__content > .brand-lockup {
-    display: none;
+    top: 44px;
   }
 
   .brand-statement {
@@ -1118,12 +1194,8 @@ textarea {
 }
 
 @media (max-width: 460px) {
-  .brand-words strong {
-    font-size: 1.4rem;
-  }
-
-  .brand-words small {
-    font-size: 0.52rem;
+  .registration-brand-logo {
+    width: 126px;
   }
 
   .launch-chip {

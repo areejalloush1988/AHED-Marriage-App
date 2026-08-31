@@ -6,6 +6,10 @@ type AhedBrandProps = {
   priority?: boolean;
 };
 
+type AhedWordmarkProps = {
+  className?: string;
+};
+
 export function AhedBrand({
   alt = "شعار عَهْد",
   className,
@@ -20,5 +24,79 @@ export function AhedBrand({
       src="/ahed-logo.png"
       width={911}
     />
+  );
+}
+
+export function AhedWordmark({ className }: AhedWordmarkProps) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      viewBox="0 0 620 364"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <filter
+          id="ahed-wordmark-alpha"
+          x="-5%"
+          y="-5%"
+          width="110%"
+          height="110%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feColorMatrix type="luminanceToAlpha" />
+          <feComponentTransfer>
+            <feFuncA type="table" tableValues="1 0" />
+          </feComponentTransfer>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="1.45" intercept="-0.12" />
+          </feComponentTransfer>
+        </filter>
+        <mask
+          id="ahed-wordmark-mask"
+          x="0"
+          y="0"
+          width="620"
+          height="364"
+          maskUnits="userSpaceOnUse"
+          maskType="alpha"
+        >
+          <image
+            filter="url(#ahed-wordmark-alpha)"
+            height="364"
+            href="/ahed-logo.png"
+            preserveAspectRatio="none"
+            width="911"
+            x="0"
+            y="0"
+          />
+        </mask>
+        <linearGradient id="ahed-wordmark-gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#b77b22" />
+          <stop offset="0.32" stopColor="#f7e4a5" />
+          <stop offset="0.56" stopColor="#d5a64a" />
+          <stop offset="0.76" stopColor="#fff0bb" />
+          <stop offset="1" stopColor="#b77b22" />
+          <animate
+            attributeName="x1"
+            dur="5.2s"
+            repeatCount="indefinite"
+            values="-0.35;0.25;-0.35"
+          />
+          <animate
+            attributeName="x2"
+            dur="5.2s"
+            repeatCount="indefinite"
+            values="0.65;1.25;0.65"
+          />
+        </linearGradient>
+      </defs>
+      <rect
+        width="620"
+        height="364"
+        fill="url(#ahed-wordmark-gold)"
+        mask="url(#ahed-wordmark-mask)"
+      />
+    </svg>
   );
 }

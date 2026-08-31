@@ -5,8 +5,10 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
+  BadgeCheck,
   Eye,
   EyeOff,
+  HeartHandshake,
   LockKeyhole,
   Mail,
   ShieldCheck,
@@ -80,6 +82,9 @@ export default function LoginPage() {
 
       <section className="login-shell">
         <aside className="login-story">
+          <span className="login-story-brand" aria-hidden="true">
+            <AhedBrand alt="" className="login-story-brand-source" />
+          </span>
           <div>
             <span className="login-eyebrow">
               <Sparkles />
@@ -92,12 +97,28 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <div className="login-trust">
-            <ShieldCheck />
-            <span>
-              <strong>خصوصية قبل كل شيء</strong>
-              <small>لا يظهر رقم الهاتف أو البريد لأي حساب آخر.</small>
-            </span>
+          <div className="login-trust-list">
+            <div className="login-trust">
+              <BadgeCheck />
+              <span>
+                <strong>حسابات موثّقة</strong>
+                <small>مراجعة الملف قبل تفعيل الظهور.</small>
+              </span>
+            </div>
+            <div className="login-trust">
+              <HeartHandshake />
+              <span>
+                <strong>قبول متبادل</strong>
+                <small>لا تبدأ المحادثة قبل موافقة الطرفين.</small>
+              </span>
+            </div>
+            <div className="login-trust">
+              <ShieldCheck />
+              <span>
+                <strong>خصوصيتك بيدك</strong>
+                <small>لا يظهر رقم الهاتف أو البريد لأي حساب آخر.</small>
+              </span>
+            </div>
           </div>
         </aside>
 

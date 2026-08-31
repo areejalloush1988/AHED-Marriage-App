@@ -19,6 +19,7 @@ import {
   UsersRound,
 } from "lucide-react";
 
+import { AhedBrand } from "@/components/ahed-brand";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -148,40 +149,21 @@ const planDetails = {
   { name: string; price: number; description: string; features: string[] }
 >;
 
-function BrandMark({ compact = false }: { compact?: boolean }) {
-  return (
-    <span
-      className={compact ? "brand-mark brand-mark--compact" : "brand-mark"}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 120 120" fill="none">
-        <path
-          d="M60 87C43 87 29 73 29 56C29 39 43 25 60 25C77 25 91 39 91 56"
-          stroke="#F3E4CF"
-          strokeWidth="7"
-          strokeLinecap="round"
-        />
-        <path
-          d="M60 33C77 33 91 47 91 64C91 81 77 95 60 95C43 95 29 81 29 64"
-          stroke="#D8B994"
-          strokeWidth="7"
-          strokeLinecap="round"
-        />
-        <path d="M53 60L60 53L67 60L60 67L53 60Z" fill="#FFF9F3" />
-      </svg>
-    </span>
-  );
-}
-
 function Brand({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className="brand-lockup">
-      <BrandMark compact={compact} />
-      <span className="brand-words">
-        <strong>عَهْد</strong>
-        <small>AHED</small>
+  if (compact) {
+    return (
+      <span className="brand-lockup brand-lockup--compact">
+        <AhedBrand alt="" className="registration-brand-logo" />
       </span>
-    </div>
+    );
+  }
+
+  return (
+    <span className="brand-lockup brand-lockup--panel" aria-label="شعار عَهْد" role="img">
+      <span className="registration-brand-icon" aria-hidden="true">
+        <AhedBrand alt="" className="registration-brand-icon-source" />
+      </span>
+    </span>
   );
 }
 

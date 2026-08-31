@@ -95,6 +95,32 @@
   height: auto;
 }
 
+.brandAnimated {
+  position: relative;
+  animation: footerBrandFloat 4.6s ease-in-out infinite;
+  isolation: isolate;
+}
+
+.brandAnimated::after {
+  position: absolute;
+  z-index: 2;
+  top: -28px;
+  bottom: -28px;
+  left: -32px;
+  width: 28px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 238, 177, 0.74),
+    transparent
+  );
+  content: "";
+  transform: translateX(-54px) rotate(18deg);
+  animation: headerBrandShine 4.2s ease-in-out infinite;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
 .brandLight {
   gap: 14px;
   overflow: visible;
@@ -152,25 +178,10 @@
 }
 
 .footerBrandWord {
-  color: transparent;
-  background: linear-gradient(
-    110deg,
-    #b77b22 5%,
-    #f7e4a5 32%,
-    #d5a64a 53%,
-    #fff0bb 70%,
-    #b77b22 95%
-  );
-  background-size: 220% auto;
-  background-clip: text;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2.15rem;
-  font-weight: 850;
-  line-height: 1;
+  display: block;
+  width: 170px;
+  height: auto;
   filter: drop-shadow(0 5px 13px rgba(0, 0, 0, 0.2));
-  animation: footerBrandGold 5.2s ease-in-out infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 @keyframes footerBrandFloat {
@@ -202,14 +213,21 @@
   }
 }
 
-@keyframes footerBrandGold {
+@keyframes headerBrandShine {
   0%,
-  100% {
-    background-position: 0% 50%;
+  34% {
+    transform: translateX(-54px) rotate(18deg);
+    opacity: 0;
   }
 
-  50% {
-    background-position: 100% 50%;
+  47% {
+    opacity: 0.88;
+  }
+
+  62%,
+  100% {
+    transform: translateX(230px) rotate(18deg);
+    opacity: 0;
   }
 }
 

@@ -18,7 +18,7 @@ import {
   UserRoundCheck,
 } from "lucide-react";
 
-import { AhedBrand } from "@/components/ahed-brand";
+import { AhedBrand, AhedWordmark } from "@/components/ahed-brand";
 
 import { homeContent, type HomeLocale } from "./home-content";
 import styles from "./home.module.css";
@@ -45,15 +45,13 @@ function Brand({
         <span className={styles.footerBrandIcon} aria-hidden="true">
           <AhedBrand alt="" className={styles.footerBrandIconSource} />
         </span>
-        <strong className={styles.footerBrandWord} aria-hidden="true">
-          عَهْد
-        </strong>
+        <AhedWordmark className={styles.footerBrandWord} />
       </span>
     );
   }
 
   return (
-    <span className={styles.brand}>
+    <span className={`${styles.brand} ${styles.brandAnimated}`}>
       <AhedBrand
         alt=""
         className={styles.brandLogo}
@@ -159,11 +157,6 @@ export default function Home() {
             <span className={`${styles.ornament} ${styles.ornamentOne}`} aria-hidden="true" />
             <span className={`${styles.ornament} ${styles.ornamentTwo}`} aria-hidden="true" />
             <div className={styles.covenantHalo} aria-hidden="true" />
-
-            <div className={styles.marriageSeal}>
-              <span>{copy.visual.seal}</span>
-              <small>{copy.visual.sealCaption}</small>
-            </div>
 
             <article className={styles.covenantCard}>
               <span className={styles.covenantKicker}>{copy.visual.kicker}</span>
