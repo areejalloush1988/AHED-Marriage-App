@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   BadgeCheck,
   Check,
-  CircleUserRound,
   EyeOff,
   HeartHandshake,
   LockKeyhole,
@@ -63,7 +62,7 @@ const steps = [
   {
     number: "04",
     title: "تواصل بعد القبول",
-    description: "أرسل طلب اهتمام، وتبدأ المحادثة فقط بعد موافقة الطرفين.",
+    description: "أرسل طلب توافق، وتبدأ المحادثة فقط بعد موافقة الطرفين.",
   },
 ];
 
@@ -76,7 +75,7 @@ const plans = [
     features: [
       "ملف شخصي بعد المراجعة",
       "البحث والترشيحات الأساسية",
-      "طلبات اهتمام",
+      "طلبات توافق للزواج",
       "محادثة بعد القبول المتبادل",
     ],
   },
@@ -116,7 +115,7 @@ const faqs = [
   {
     question: "متى أستطيع بدء المحادثة؟",
     answer:
-      "لا تُفتح المحادثة مباشرة. تُرسل طلب اهتمام أولاً، وتُفتح المحادثة فقط عندما يوافق الطرف الآخر أيضاً.",
+      "لا تُفتح المحادثة مباشرة. يُرسل طلب توافق للزواج أولاً، وتُفتح المحادثة فقط عندما يوافق الطرف الآخر أيضاً.",
   },
   {
     question: "هل يوجد اشتراك شهري أو تجديد تلقائي؟",
@@ -174,9 +173,11 @@ export default function Home() {
     <main id="top" className={styles.site} dir="rtl">
       <div className={styles.announcement}>
         <span className={styles.announcementDot} />
+        منصة مخصّصة للزواج فقط
+        <span className={styles.announcementDivider} />
         تسجيل النساء مفتوح الآن
         <span className={styles.announcementDivider} />
-        تسجيل الرجال عبر قائمة الانتظار
+        الرجال عبر قائمة الانتظار
       </div>
 
       <header className={styles.header}>
@@ -214,21 +215,21 @@ export default function Home() {
               منصة زواج جاد وموثوق
             </span>
             <h1>
-              عَهْد… للزواج الجاد،
-              <span> لا للتعارف العابر.</span>
+              عَهْد… لأن الزواج
+              <span> قرار حياة.</span>
             </h1>
             <p>
-              مساحة تحفظ الخصوصية وتجمع أصحاب النية الواضحة ضمن رحلة تبدأ
-              بالمراجعة، وتنتقل إلى التواصل فقط بعد القبول المتبادل.
+              منصة مخصّصة للزواج فقط؛ تجمع أصحاب النية الواضحة ضمن تجربة تبدأ
+              بالمراجعة وتحفظ الخصوصية، ولا تفتح التواصل إلا بعد القبول المتبادل.
             </p>
 
             <div className={styles.heroActions}>
               <Link className={styles.primaryButton} href="/register">
-                ابدأ إنشاء حسابك
+                ابدأ رحلة الزواج
                 <ArrowLeft />
               </Link>
               <Link className={styles.secondaryButton} href="/inside">
-                معاينة التطبيق
+                معاينة المنصة
               </Link>
             </div>
 
@@ -242,51 +243,56 @@ export default function Home() {
                 تواصل بعد القبول
               </span>
               <span>
+                <ShieldCheck />
+                خصوصية من البداية
+              </span>
+              <span>
                 <Check />
                 دفع مرة واحدة
               </span>
             </div>
           </div>
 
-          <div className={styles.heroVisual} aria-label="نموذج يوضح آلية القبول المتبادل">
-            <div className={styles.visualRing} aria-hidden="true" />
-            <article className={`${styles.profileCard} ${styles.profileCardTop}`}>
-              <div className={styles.avatarWrap}>
-                <CircleUserRound />
-                <span className={styles.verifiedBadge}>
-                  <BadgeCheck />
-                </span>
-              </div>
-              <div>
-                <span className={styles.profileLabel}>ملف تمت مراجعته</span>
-                <strong>نية زواج واضحة</strong>
-                <small>المعلومات الخاصة محفوظة</small>
-              </div>
-            </article>
+          <div className={styles.heroVisual} aria-label="ميثاق عهد للزواج الجاد">
+            <span className={`${styles.ornament} ${styles.ornamentOne}`} aria-hidden="true" />
+            <span className={`${styles.ornament} ${styles.ornamentTwo}`} aria-hidden="true" />
+            <div className={styles.covenantHalo} aria-hidden="true" />
 
-            <div className={styles.matchCore}>
-              <span>
-                <HeartHandshake />
-              </span>
-              <strong>قبول متبادل</strong>
-              <small>تُفتح المحادثة الآن</small>
+            <div className={styles.marriageSeal}>
+              <span>عَهْد</span>
+              <small>للزواج فقط</small>
             </div>
 
-            <article className={`${styles.profileCard} ${styles.profileCardBottom}`}>
-              <div className={styles.avatarWrap}>
-                <CircleUserRound />
-                <span className={styles.verifiedBadge}>
-                  <BadgeCheck />
-                </span>
-              </div>
-              <div>
-                <span className={styles.profileLabel}>طلب اهتمام مقبول</span>
-                <strong>توافق في المواصفات</strong>
-                <small>لا مشاركة لبيانات التواصل</small>
+            <article className={styles.covenantCard}>
+              <span className={styles.covenantKicker}>ميثاق التجربة</span>
+              <h2>نية واضحة قبل أي تواصل.</h2>
+              <p>
+                كل خطوة داخل عَهْد مصممة لتبقى الرحلة جادة ومحترمة، من إنشاء
+                الملف وحتى بدء الحوار.
+              </p>
+
+              <div className={styles.covenantPoints}>
+                <div>
+                  <span><BadgeCheck /></span>
+                  <p><strong>ملف تحت المراجعة</strong><small>قبل الظهور داخل المنصة</small></p>
+                </div>
+                <div>
+                  <span><EyeOff /></span>
+                  <p><strong>بياناتك الخاصة محفوظة</strong><small>لا بريد ولا وسائل تواصل ظاهرة</small></p>
+                </div>
+                <div>
+                  <span><HeartHandshake /></span>
+                  <p><strong>قبول متبادل</strong><small>ثم تبدأ المحادثة داخل عَهْد</small></p>
+                </div>
               </div>
             </article>
 
-            <span className={styles.visualNote}>نموذج توضيحي لرحلة القبول</span>
+            <div className={styles.promiseLine}>
+              <span />
+              <strong>نية · احترام · خصوصية</strong>
+              <span />
+            </div>
+            <span className={styles.visualNote}>قرار زواج، لا مساحة للدردشة العشوائية</span>
           </div>
         </div>
       </section>
