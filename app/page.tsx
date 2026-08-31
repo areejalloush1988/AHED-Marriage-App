@@ -148,10 +148,27 @@ function Brand({
   light?: boolean;
   priority?: boolean;
 }) {
+  if (light) {
+    return (
+      <span
+        aria-label="شعار عَهْد"
+        className={`${styles.brand} ${styles.brandLight}`}
+        role="img"
+      >
+        <span className={styles.footerBrandIcon} aria-hidden="true">
+          <AhedBrand alt="" className={styles.footerBrandIconSource} />
+        </span>
+        <strong className={styles.footerBrandWord} aria-hidden="true">
+          عَهْد
+        </strong>
+      </span>
+    );
+  }
+
   return (
-    <span className={`${styles.brand} ${light ? styles.brandLight : ""}`}>
+    <span className={styles.brand}>
       <AhedBrand
-        alt={light ? "شعار عَهْد" : ""}
+        alt=""
         className={styles.brandLogo}
         priority={priority}
       />

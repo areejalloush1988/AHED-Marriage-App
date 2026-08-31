@@ -91,8 +91,121 @@
 }
 
 .brandLight {
-  background: var(--ivory);
-  box-shadow: 0 10px 28px rgba(31, 4, 13, 0.18);
+  gap: 14px;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.footerBrandIcon {
+  position: relative;
+  display: block;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(238, 204, 130, 0.5);
+  border-radius: 19px;
+  box-shadow:
+    0 0 0 5px rgba(213, 166, 74, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.24),
+    0 0 26px rgba(218, 174, 86, 0.2);
+  animation: footerBrandFloat 4.6s ease-in-out infinite;
+  isolation: isolate;
+}
+
+.footerBrandIcon::after {
+  position: absolute;
+  z-index: 2;
+  top: -28px;
+  bottom: -28px;
+  left: -26px;
+  width: 24px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 238, 177, 0.78),
+    transparent
+  );
+  content: "";
+  transform: translateX(-64px) rotate(18deg);
+  animation: footerBrandShine 4.2s ease-in-out infinite;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.footerBrandIconSource {
+  position: absolute;
+  z-index: 1;
+  top: -18.1px;
+  right: -8px;
+  display: block;
+  width: 236px;
+  max-width: none;
+  height: auto;
+}
+
+.footerBrandWord {
+  color: transparent;
+  background: linear-gradient(
+    110deg,
+    #b77b22 5%,
+    #f7e4a5 32%,
+    #d5a64a 53%,
+    #fff0bb 70%,
+    #b77b22 95%
+  );
+  background-size: 220% auto;
+  background-clip: text;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.15rem;
+  font-weight: 850;
+  line-height: 1;
+  filter: drop-shadow(0 5px 13px rgba(0, 0, 0, 0.2));
+  animation: footerBrandGold 5.2s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes footerBrandFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+@keyframes footerBrandShine {
+  0%,
+  34% {
+    transform: translateX(-64px) rotate(18deg);
+    opacity: 0;
+  }
+
+  47% {
+    opacity: 0.9;
+  }
+
+  62%,
+  100% {
+    transform: translateX(112px) rotate(18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes footerBrandGold {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .nav {

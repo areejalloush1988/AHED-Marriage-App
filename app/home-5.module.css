@@ -89,6 +89,22 @@
     width: 138px;
   }
 
+  .footerBrandIcon {
+    width: 58px;
+    height: 58px;
+    border-radius: 17px;
+  }
+
+  .footerBrandIconSource {
+    top: -16.4px;
+    right: -7.3px;
+    width: 214px;
+  }
+
+  .footerBrandWord {
+    font-size: 1.9rem;
+  }
+
   .loginButton {
     display: none;
   }
