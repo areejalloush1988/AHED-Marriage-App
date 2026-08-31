@@ -4,6 +4,7 @@ import { type FormEvent, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
+  ArrowRight,
   Eye,
   EyeOff,
   LockKeyhole,
@@ -12,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { AhedBrand } from "@/components/ahed-brand";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -62,11 +64,19 @@ export default function LoginPage() {
 
   return (
     <main className="login-page" dir="rtl">
-      <Link className="login-brand" href="/">
-        <span>ع</span>
-        <strong>عَهْد</strong>
-        <small>AHED</small>
-      </Link>
+      <header className="login-topbar">
+        <Link
+          aria-label="العودة إلى الصفحة الرئيسية لموقع عهد"
+          className="login-brand"
+          href="/"
+        >
+          <AhedBrand alt="" className="login-brand-logo" priority />
+        </Link>
+        <Link className="login-home-link" href="/">
+          <ArrowRight aria-hidden="true" />
+          العودة إلى الموقع
+        </Link>
+      </header>
 
       <section className="login-shell">
         <aside className="login-story">

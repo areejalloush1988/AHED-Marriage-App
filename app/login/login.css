@@ -2,7 +2,7 @@
   display: grid;
   min-height: 100svh;
   place-items: center;
-  padding: 90px 24px 34px;
+  padding: 112px 24px 34px;
   color: #2d1820;
   background:
     radial-gradient(circle at 8% 10%, rgba(243, 228, 207, 0.78), transparent 27%),
@@ -10,41 +10,62 @@
     #fff9f3;
 }
 
-.login-brand {
+.login-topbar {
   position: absolute;
-  top: 28px;
-  right: clamp(24px, 6vw, 82px);
+  z-index: 10;
+  top: 0;
+  right: 0;
+  left: 0;
   display: flex;
+  min-height: 78px;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 6px clamp(24px, 6vw, 82px);
+  border-bottom: 1px solid rgba(111, 29, 56, 0.09);
+  background: rgba(255, 250, 244, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.login-brand {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 14px;
   color: #6f1d38;
   text-decoration: none;
 }
 
-.login-brand > span {
-  display: grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
+.login-brand-logo {
+  display: block;
+  width: 160px;
+  height: auto;
+}
+
+.login-home-link {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 16px;
+  border: 1px solid rgba(111, 29, 56, 0.14);
   border-radius: 13px;
-  color: #fff9f3;
-  background: linear-gradient(145deg, #8d405a, #5b142f);
-  box-shadow: 0 10px 24px rgba(111, 29, 56, 0.2);
-  font-family: Georgia, serif;
-  font-size: 1.3rem;
+  color: #6f1d38;
+  background: #fffdf9;
+  font-size: 0.74rem;
   font-weight: 850;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
-.login-brand strong {
-  font-family: Georgia, serif;
-  font-size: 1.25rem;
+.login-home-link:hover {
+  border-color: rgba(111, 29, 56, 0.28);
+  background: #f8ede1;
 }
 
-.login-brand small {
-  color: #8c737c;
-  font-size: 0.63rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+.login-home-link svg {
+  width: 17px;
 }
 
 .login-shell {
@@ -321,12 +342,16 @@
 
 @media (max-width: 780px) {
   .login-page {
-    padding: 82px 16px 24px;
+    padding: 94px 16px 24px;
   }
 
-  .login-brand {
-    top: 21px;
-    right: 20px;
+  .login-topbar {
+    min-height: 70px;
+    padding: 5px 20px;
+  }
+
+  .login-brand-logo {
+    width: 138px;
   }
 
   .login-shell {
@@ -353,6 +378,21 @@
 }
 
 @media (max-width: 470px) {
+  .login-topbar {
+    gap: 10px;
+    padding-inline: 14px;
+  }
+
+  .login-home-link {
+    min-height: 38px;
+    padding-inline: 11px;
+    font-size: 0.66rem;
+  }
+
+  .login-brand-logo {
+    width: 126px;
+  }
+
   .login-story {
     min-height: 245px;
     padding: 26px;
@@ -370,4 +410,3 @@
     font-size: 1.9rem;
   }
 }
-

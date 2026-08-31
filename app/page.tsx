@@ -14,6 +14,8 @@ import {
   UsersRound,
 } from "lucide-react";
 
+import { AhedBrand } from "@/components/ahed-brand";
+
 import styles from "./home.module.css";
 
 const principles = [
@@ -139,31 +141,20 @@ const faqs = [
   },
 ];
 
-function Brand({ light = false }: { light?: boolean }) {
+function Brand({
+  light = false,
+  priority = false,
+}: {
+  light?: boolean;
+  priority?: boolean;
+}) {
   return (
     <span className={`${styles.brand} ${light ? styles.brandLight : ""}`}>
-      <span className={styles.brandMark} aria-hidden="true">
-        <svg viewBox="0 0 120 120" fill="none">
-          <path
-            d="M60 87C43 87 29 73 29 56C29 39 43 25 60 25C77 25 91 39 91 56"
-            stroke="currentColor"
-            strokeWidth="7"
-            strokeLinecap="round"
-          />
-          <path
-            d="M60 33C77 33 91 47 91 64C91 81 77 95 60 95C43 95 29 81 29 64"
-            stroke="currentColor"
-            strokeWidth="7"
-            strokeLinecap="round"
-            opacity="0.58"
-          />
-          <path d="M53 60L60 53L67 60L60 67L53 60Z" fill="currentColor" />
-        </svg>
-      </span>
-      <span className={styles.brandWords}>
-        <strong>عَهْد</strong>
-        <small>AHED</small>
-      </span>
+      <AhedBrand
+        alt={light ? "شعار عَهْد" : ""}
+        className={styles.brandLogo}
+        priority={priority}
+      />
     </span>
   );
 }
@@ -183,7 +174,7 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <a href="#top" aria-label="العودة إلى بداية موقع عهد">
-            <Brand />
+            <Brand priority />
           </a>
 
           <nav className={styles.nav} aria-label="التنقل الرئيسي">

@@ -85,19 +85,8 @@
     gap: 12px;
   }
 
-  .brandMark {
-    width: 40px;
-    height: 40px;
-    border-radius: 13px;
-  }
-
-  .brandMark svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .brandWords strong {
-    font-size: 1.32rem;
+  .brandLogo {
+    width: 138px;
   }
 
   .loginButton {
