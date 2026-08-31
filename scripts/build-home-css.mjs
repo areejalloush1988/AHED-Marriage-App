@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const appDirectory = new URL("../app/", import.meta.url);
 const partNames = Array.from(
-  { length: 5 },
+  { length: 6 },
   (_unused, index) => `home-${index + 1}.module.css`,
 );
 
