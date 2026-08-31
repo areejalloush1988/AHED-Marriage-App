@@ -1,12 +1,8 @@
-"use client";
-
-import { type FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   ArrowLeft,
-  ArrowRight,
   BadgeCheck,
   Check,
-  ChevronLeft,
   CircleUserRound,
   EyeOff,
   HeartHandshake,
@@ -19,1069 +15,527 @@ import {
   UsersRound,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select";
-import { Progress } from "@/components/ui/progress";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  getSupabaseClient,
-  isSupabaseConfigured,
-} from "@/lib/supabase";
+import styles from "./home.module.css";
 
-type Gender = "woman" | "man";
-type Step =
-  | "entry"
-  | "account"
-  | "profile"
-  | "verification"
-  | "plans"
-  | "complete"
-  | "waitlist"
-  | "waitlist-complete";
-type Plan = "basic" | "pro" | "matchmaker";
-
-type WomanDraft = {
-  firstName: string;
-  birthDate: string;
-  country: string;
-  city: string;
-  email: string;
-  password: string;
-  maritalStatus: string;
-  nationality: string;
-  occupation: string;
-  education: string;
-  bio: string;
-  preferredAgeFrom: string;
-  preferredAgeTo: string;
-};
-
-const emptyWomanDraft: WomanDraft = {
-  firstName: "",
-  birthDate: "",
-  country: "",
-  city: "",
-  email: "",
-  password: "",
-  maritalStatus: "",
-  nationality: "",
-  occupation: "",
-  education: "",
-  bio: "",
-  preferredAgeFrom: "",
-  preferredAgeTo: "",
-};
-
-function textValue(data: FormData, name: string): string {
-  return String(data.get(name) ?? "").trim();
-}
-
-function isAdult(birthDate: string): boolean {
-  const birth = new Date(`${birthDate}T00:00:00`);
-  if (Number.isNaN(birth.getTime())) return false;
-
-  const today = new Date();
-  const cutoff = new Date(
-    today.getFullYear() - 18,
-    today.getMonth(),
-    today.getDate(),
-  );
-  return birth <= cutoff;
-}
-
-function submissionErrorMessage(error: unknown): string {
-  if (error instanceof Error && error.message === "SUPABASE_NOT_CONFIGURED") {
-    return "قاعدة بيانات عَهْد قيد التجهيز حالياً. لم تُحفظ أي بيانات بعد.";
-  }
-
-  return "تعذّر حفظ الطلب الآن. تأكدي من البيانات والاتصال ثم حاولي مرة أخرى.";
-}
-
-const stepProgress: Record<Step, number> = {
-  entry: 8,
-  account: 26,
-  profile: 48,
-  verification: 70,
-  plans: 90,
-  complete: 100,
-  waitlist: 58,
-  "waitlist-complete": 100,
-};
-
-const countries = [
-  "الإمارات العربية المتحدة",
-  "المملكة العربية السعودية",
-  "الكويت",
-  "قطر",
-  "البحرين",
-  "سلطنة عُمان",
+const principles = [
+  {
+    icon: ShieldCheck,
+    title: "نية زواج واضحة",
+    description:
+      "المنصة مخصّصة لمن يدخل بهدف الزواج الجاد، وليست مساحة للتعارف العابر.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "مراجعة قبل الظهور",
+    description:
+      "يُراجع الملف وتأكيد البريد قبل تفعيله، مع خطوات تحقق إضافية بحسب مرحلة الإطلاق.",
+  },
+  {
+    icon: EyeOff,
+    title: "خصوصية من البداية",
+    description:
+      "لا يظهر البريد أو أي بيانات تواصل للملفات الأخرى، ولا تبدأ المحادثة دون قبول متبادل.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "قبول متبادل",
+    description:
+      "التواصل يفتح فقط عندما يوافق الطرفان، حتى تبقى الرحلة محترمة وواضحة.",
+  },
 ];
 
-const planDetails = {
-  basic: {
-    name: "عَهْد الأساسي",
-    price: 50,
-    description: "تفعيل لمرة واحدة دون تجديد تلقائي",
-    features: ["ملف موثّق", "طلبات اهتمام", "محادثة بعد القبول"],
+const steps = [
+  {
+    number: "01",
+    title: "أنشئ ملفك",
+    description: "أضف معلوماتك الأساسية ومواصفات شريك الحياة بوضوح وصدق.",
   },
-  pro: {
-    name: "عَهْد Pro",
-    price: 250,
-    description: "خصوصية وتحكم أكبر في رحلة البحث",
-    features: ["كل مزايا الأساسي", "فلاتر دقيقة", "وضع مخفي"],
+  {
+    number: "02",
+    title: "أكمل المراجعة",
+    description: "أكّد بريدك وانتظر مراجعة الملف قبل ظهوره داخل المنصة.",
   },
-  matchmaker: {
-    name: "الموفّق الشخصي",
-    price: 850,
-    description: "مراجعة بشرية وترشيحات مدروسة",
-    features: ["يشمل Pro", "جلسة تعريف", "ترشيحات يدوية"],
+  {
+    number: "03",
+    title: "استعرض الترشيحات",
+    description: "ابحث وفق مواصفات جدية، واطّلع على الملفات المتوافقة مع معاييرك.",
   },
-} satisfies Record<
-  Plan,
-  { name: string; price: number; description: string; features: string[] }
->;
+  {
+    number: "04",
+    title: "تواصل بعد القبول",
+    description: "أرسل طلب اهتمام، وتبدأ المحادثة فقط بعد موافقة الطرفين.",
+  },
+];
 
-function BrandMark({ compact = false }: { compact?: boolean }) {
+const plans = [
+  {
+    name: "عَهْد الأساسي",
+    womenPrice: 50,
+    menPrice: 150,
+    description: "المدخل الواضح لبدء رحلة الزواج الجاد.",
+    features: [
+      "ملف شخصي بعد المراجعة",
+      "البحث والترشيحات الأساسية",
+      "طلبات اهتمام",
+      "محادثة بعد القبول المتبادل",
+    ],
+  },
+  {
+    name: "عَهْد Pro",
+    womenPrice: 250,
+    menPrice: 350,
+    description: "تحكم وخصوصية أكبر خلال رحلة البحث.",
+    featured: true,
+    features: [
+      "كل مزايا عَهْد الأساسي",
+      "فلاتر بحث أكثر دقة",
+      "حفظ مواصفات شريك الحياة",
+      "خيارات ظهور وخصوصية إضافية",
+    ],
+  },
+  {
+    name: "الموفّق الشخصي",
+    womenPrice: 850,
+    menPrice: 950,
+    description: "ترشيحات مدروسة ومتابعة بشرية عند تفعيل الخدمة.",
+    features: [
+      "كل مزايا عَهْد Pro",
+      "جلسة تعريف بالاحتياجات",
+      "ترشيحات يدوية مختارة",
+      "متابعة أكثر تخصيصاً",
+    ],
+  },
+];
+
+const faqs = [
+  {
+    question: "هل عَهْد تطبيق تعارف؟",
+    answer:
+      "لا. عَهْد منصة مخصّصة للزواج الجاد فقط. بُنيت رحلة الاستخدام حول وضوح النية، مراجعة الملفات، والقبول المتبادل قبل أي محادثة.",
+  },
+  {
+    question: "متى أستطيع بدء المحادثة؟",
+    answer:
+      "لا تُفتح المحادثة مباشرة. تُرسل طلب اهتمام أولاً، وتُفتح المحادثة فقط عندما يوافق الطرف الآخر أيضاً.",
+  },
+  {
+    question: "هل يوجد اشتراك شهري أو تجديد تلقائي؟",
+    answer:
+      "لا. الأسعار المعروضة دفعة واحدة لكل مستوى، ولا يوجد اشتراك شهري أو تجديد تلقائي.",
+  },
+  {
+    question: "لماذا تسجيل الرجال على قائمة انتظار؟",
+    answer:
+      "يُطلق عَهْد على مراحل للحفاظ على تجربة متوازنة وحقيقية. تسجيل النساء مفتوح حالياً، ويُفتح تسجيل الرجال عند توفر عدد مناسب من الملفات النشطة.",
+  },
+  {
+    question: "هل تظهر معلومات التواصل للآخرين؟",
+    answer:
+      "لا يظهر البريد الإلكتروني أو أي بيانات تواصل ضمن الملف العام. التواصل يتم داخل المنصة بعد القبول المتبادل.",
+  },
+  {
+    question: "هل أدفع أثناء إنشاء الحساب؟",
+    answer:
+      "لا يتم سحب أي مبلغ أثناء إدخال البيانات. الدفع يُفتح بعد قبول الملف وتحديد المستوى المناسب. والرجال لا يُطلب منهم الدفع قبل فتح التسجيل.",
+  },
+];
+
+function Brand({ light = false }: { light?: boolean }) {
   return (
-    <span
-      className={compact ? "brand-mark brand-mark--compact" : "brand-mark"}
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 120 120" fill="none">
-        <path
-          d="M60 87C43 87 29 73 29 56C29 39 43 25 60 25C77 25 91 39 91 56"
-          stroke="#F3E4CF"
-          strokeWidth="7"
-          strokeLinecap="round"
-        />
-        <path
-          d="M60 33C77 33 91 47 91 64C91 81 77 95 60 95C43 95 29 81 29 64"
-          stroke="#D8B994"
-          strokeWidth="7"
-          strokeLinecap="round"
-        />
-        <path d="M53 60L60 53L67 60L60 67L53 60Z" fill="#FFF9F3" />
-      </svg>
+    <span className={`${styles.brand} ${light ? styles.brandLight : ""}`}>
+      <span className={styles.brandMark} aria-hidden="true">
+        <svg viewBox="0 0 120 120" fill="none">
+          <path
+            d="M60 87C43 87 29 73 29 56C29 39 43 25 60 25C77 25 91 39 91 56"
+            stroke="currentColor"
+            strokeWidth="7"
+            strokeLinecap="round"
+          />
+          <path
+            d="M60 33C77 33 91 47 91 64C91 81 77 95 60 95C43 95 29 81 29 64"
+            stroke="currentColor"
+            strokeWidth="7"
+            strokeLinecap="round"
+            opacity="0.58"
+          />
+          <path d="M53 60L60 53L67 60L60 67L53 60Z" fill="currentColor" />
+        </svg>
+      </span>
+      <span className={styles.brandWords}>
+        <strong>عَهْد</strong>
+        <small>AHED</small>
+      </span>
     </span>
   );
 }
 
-function Brand({ compact = false }: { compact?: boolean }) {
+export default function Home() {
   return (
-    <div className="brand-lockup">
-      <BrandMark compact={compact} />
-      <span className="brand-words">
-        <strong>عَهْد</strong>
-        <small>AHED</small>
-      </span>
-    </div>
-  );
-}
-
-function Field({
-  id,
-  label,
-  hint,
-  children,
-}: {
-  id: string;
-  label: string;
-  hint?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="field-stack">
-      <div className="field-heading">
-        <Label htmlFor={id}>{label}</Label>
-        {hint ? <span>{hint}</span> : null}
+    <main id="top" className={styles.site} dir="rtl">
+      <div className={styles.announcement}>
+        <span className={styles.announcementDot} />
+        تسجيل النساء مفتوح الآن
+        <span className={styles.announcementDivider} />
+        تسجيل الرجال عبر قائمة الانتظار
       </div>
-      {children}
-    </div>
-  );
-}
 
-function StepHeader({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="step-header">
-      <span className="step-eyebrow">{eyebrow}</span>
-      <h1>{title}</h1>
-      <p>{description}</p>
-    </div>
-  );
-}
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <a href="#top" aria-label="العودة إلى بداية موقع عهد">
+            <Brand />
+          </a>
 
-export function AhedRegistration({
-  initialStep = "entry",
-  initialGender,
-}: {
-  initialStep?: Step;
-  initialGender?: Gender;
-}) {
-  const [step, setStep] = useState<Step>(initialStep);
-  const [gender, setGender] = useState<Gender | undefined>(initialGender);
-  const [plan, setPlan] = useState<Plan>("basic");
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [waitlistSent, setWaitlistSent] = useState(false);
-  const [waitlistTermsAccepted, setWaitlistTermsAccepted] = useState(false);
-  const [womanDraft, setWomanDraft] =
-    useState<WomanDraft>(emptyWomanDraft);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [registrationEmail, setRegistrationEmail] = useState("");
-  const selectedPlan = useMemo(() => planDetails[plan], [plan]);
+          <nav className={styles.nav} aria-label="التنقل الرئيسي">
+            <a href="#why">لماذا عَهْد؟</a>
+            <a href="#how">كيف يعمل؟</a>
+            <a href="#safety">الأمان والخصوصية</a>
+            <a href="#plans">الباقات</a>
+            <a href="#faq">الأسئلة الشائعة</a>
+          </nav>
 
-  const goBack = () => {
-    const previous: Partial<Record<Step, Step>> = {
-      account: "entry",
-      profile: "account",
-      verification: "profile",
-      plans: "verification",
-      complete: "plans",
-      waitlist: "entry",
-      "waitlist-complete": "waitlist",
-    };
-    setSubmitError("");
-    setStep(previous[step] ?? "entry");
-  };
-
-  const restart = () => {
-    setStep("entry");
-    setGender(undefined);
-    setPlan("basic");
-    setTermsAccepted(false);
-    setWaitlistSent(false);
-    setWaitlistTermsAccepted(false);
-    setWomanDraft(emptyWomanDraft);
-    setIsSubmitting(false);
-    setSubmitError("");
-    setRegistrationEmail("");
-  };
-
-  const continueFromEntry = () => {
-    setSubmitError("");
-    if (gender === "woman") setStep("account");
-    if (gender === "man") setStep("waitlist");
-  };
-
-  const saveAccountStep = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const birthDate = textValue(data, "birthDate");
-
-    if (!isAdult(birthDate)) {
-      setSubmitError("يجب أن يكون العمر 18 عاماً أو أكثر لإكمال التسجيل.");
-      return;
-    }
-
-    setWomanDraft((current) => ({
-      ...current,
-      firstName: textValue(data, "firstName"),
-      birthDate,
-      country: textValue(data, "country"),
-      city: textValue(data, "city"),
-      email: textValue(data, "email").toLowerCase(),
-      password: textValue(data, "password"),
-    }));
-    setSubmitError("");
-    setStep("profile");
-  };
-
-  const saveProfileStep = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const preferredAgeFrom = textValue(data, "preferredAgeFrom");
-    const preferredAgeTo = textValue(data, "preferredAgeTo");
-
-    if (Number(preferredAgeFrom) > Number(preferredAgeTo)) {
-      setSubmitError("العمر المناسب من يجب أن يكون أصغر من أو مساوياً للعمر إلى.");
-      return;
-    }
-
-    setWomanDraft((current) => ({
-      ...current,
-      maritalStatus: textValue(data, "maritalStatus"),
-      nationality: textValue(data, "nationality"),
-      occupation: textValue(data, "occupation"),
-      education: textValue(data, "education"),
-      bio: textValue(data, "bio"),
-      preferredAgeFrom,
-      preferredAgeTo,
-    }));
-    setSubmitError("");
-    setStep("verification");
-  };
-
-  const submitWomanRegistration = async () => {
-    setIsSubmitting(true);
-    setSubmitError("");
-
-    try {
-      if (!isSupabaseConfigured) {
-        throw new Error("SUPABASE_NOT_CONFIGURED");
-      }
-
-      const supabase = getSupabaseClient();
-      const emailRedirectTo = `${window.location.origin}/?email-confirmed=1`;
-      const { error } = await supabase.auth.signUp({
-        email: womanDraft.email,
-        password: womanDraft.password,
-        options: {
-          emailRedirectTo,
-          data: {
-            first_name: womanDraft.firstName,
-            birth_date: womanDraft.birthDate,
-            country: womanDraft.country,
-            city: womanDraft.city,
-            marital_status: womanDraft.maritalStatus,
-            nationality: womanDraft.nationality,
-            occupation: womanDraft.occupation,
-            education: womanDraft.education,
-            bio: womanDraft.bio,
-            preferred_age_from: Number(womanDraft.preferredAgeFrom),
-            preferred_age_to: Number(womanDraft.preferredAgeTo),
-            requested_plan: plan,
-            terms_accepted: true,
-          },
-        },
-      });
-
-      if (error) throw error;
-
-      setRegistrationEmail(womanDraft.email);
-      setWomanDraft((current) => ({ ...current, password: "" }));
-      setStep("complete");
-    } catch (error) {
-      setSubmitError(submissionErrorMessage(error));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const submitMenWaitlist = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError("");
-
-    try {
-      if (!isSupabaseConfigured) {
-        throw new Error("SUPABASE_NOT_CONFIGURED");
-      }
-
-      const data = new FormData(event.currentTarget);
-      const supabase = getSupabaseClient();
-      const { error } = await supabase.from("men_waitlist").insert({
-        first_name: textValue(data, "waitlistName"),
-        country: textValue(data, "waitlistCountry"),
-        email: textValue(data, "waitlistEmail").toLowerCase(),
-      });
-
-      if (error && error.code !== "23505") throw error;
-
-      setWaitlistSent(true);
-      setStep("waitlist-complete");
-    } catch (error) {
-      setSubmitError(submissionErrorMessage(error));
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <main className="ahed-app">
-      <header className="topbar">
-        <div className="topbar-inner">
-          <button className="brand-button" type="button" onClick={restart}>
-            <Brand compact />
-          </button>
-          <div className="topbar-actions">
-            <a className="topbar-login-link" href="/login">
+          <div className={styles.headerActions}>
+            <Link className={styles.loginButton} href="/login">
               تسجيل الدخول
-            </a>
-            <div className="launch-chip">
-              <span className="live-dot" />
-              مرحلة التأسيس للنساء
-            </div>
+            </Link>
+            <Link className={styles.headerPrimary} href="/register">
+              إنشاء حساب
+              <ArrowLeft />
+            </Link>
           </div>
         </div>
       </header>
 
-      <div className="app-frame">
-        <aside className="brand-panel">
-          <div className="brand-panel__content">
-            <Brand />
-            <div className="brand-statement">
-              <span>للزواج الإسلامي الجاد</span>
-              <h2>البداية الهادئة لقرارٍ يستحق الوضوح.</h2>
-              <p>
-                هيكل التسجيل الأول مبني على الجدية، التحقق، والقبول المتبادل قبل
-                فتح أي محادثة.
-              </p>
-            </div>
-
-            <div className="trust-points">
-              <div>
-                <ShieldCheck />
-                <span>
-                  <strong>ملفات حقيقية فقط</strong>
-                  <small>مراجعة وتوثيق قبل الظهور</small>
-                </span>
-              </div>
-              <div>
-                <EyeOff />
-                <span>
-                  <strong>الخصوصية أساس التجربة</strong>
-                  <small>لا محادثة دون قبول متبادل</small>
-                </span>
-              </div>
-              <div>
-                <HeartHandshake />
-                <span>
-                  <strong>دفع مرة واحدة</strong>
-                  <small>لا اشتراك ولا تجديد تلقائي</small>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="founding-note">
-            <Sparkles />
+      <section className={styles.hero}>
+        <div className={styles.heroGlow} aria-hidden="true" />
+        <div className={styles.heroInner}>
+          <div className={styles.heroCopy}>
+            <span className={styles.eyebrow}>
+              <Sparkles />
+              منصة زواج جاد وموثوق
+            </span>
+            <h1>
+              عَهْد… للزواج الجاد،
+              <span> لا للتعارف العابر.</span>
+            </h1>
             <p>
-              <strong>إطلاق على مراحل</strong>
-              نبدأ بالنساء، ثم نفتح الرجال عند توفر عدد مناسب من الملفات النشطة.
+              مساحة تحفظ الخصوصية وتجمع أصحاب النية الواضحة ضمن رحلة تبدأ
+              بالمراجعة، وتنتقل إلى التواصل فقط بعد القبول المتبادل.
             </p>
-          </div>
-        </aside>
 
-        <section className="flow-panel">
-          <div className="flow-shell">
-            <div className="progress-area" aria-label="تقدم التسجيل">
-              <div className="progress-copy">
-                <span>تجهيز الحساب</span>
-                <strong>{stepProgress[step]}%</strong>
-              </div>
-              <Progress value={stepProgress[step]} />
+            <div className={styles.heroActions}>
+              <Link className={styles.primaryButton} href="/register">
+                ابدأ إنشاء حسابك
+                <ArrowLeft />
+              </Link>
+              <Link className={styles.secondaryButton} href="/inside">
+                معاينة التطبيق
+              </Link>
             </div>
 
-            {step !== "entry" ? (
-              <Button
-                type="button"
-                variant="ghost"
-                className="back-button"
-                onClick={goBack}
-              >
-                <ArrowRight />
-                رجوع
-              </Button>
-            ) : null}
-
-            {step === "entry" ? (
-              <section className="step-content">
-                <StepHeader
-                  eyebrow="أهلاً بك في عَهْد"
-                  title="كيف تريد بدء رحلتك؟"
-                  description="اختر نوع الحساب حتى نعرض لك مرحلة التسجيل المناسبة. التسجيل متاح للبالغين 18 عاماً فما فوق فقط."
-                />
-
-                <RadioGroup
-                  value={gender}
-                  onValueChange={(value) => setGender(value as Gender)}
-                  className="gender-grid"
-                >
-                  <Label
-                    htmlFor="gender-woman"
-                    className="choice-card choice-card--open"
-                  >
-                    <RadioGroupItem value="woman" id="gender-woman" />
-                    <span className="choice-icon">
-                      <CircleUserRound />
-                    </span>
-                    <span className="choice-copy">
-                      <span className="status-pill status-pill--open">
-                        التسجيل مفتوح
-                      </span>
-                      <strong>حساب امرأة</strong>
-                      <small>50 درهماً لمرة واحدة بعد قبول وتوثيق الملف</small>
-                    </span>
-                    <ChevronLeft className="choice-arrow" />
-                  </Label>
-
-                  <Label htmlFor="gender-man" className="choice-card">
-                    <RadioGroupItem value="man" id="gender-man" />
-                    <span className="choice-icon">
-                      <UsersRound />
-                    </span>
-                    <span className="choice-copy">
-                      <span className="status-pill">قائمة انتظار</span>
-                      <strong>حساب رجل</strong>
-                      <small>لن يتم تحصيل 150 درهماً قبل فتح التسجيل</small>
-                    </span>
-                    <ChevronLeft className="choice-arrow" />
-                  </Label>
-                </RadioGroup>
-
-                <Button
-                  type="button"
-                  size="lg"
-                  className="primary-action"
-                  disabled={!gender}
-                  onClick={continueFromEntry}
-                >
-                  متابعة
-                  <ArrowLeft />
-                </Button>
-                <p className="microcopy">
-                  بالمتابعة أنت لا تدفع أي مبلغ الآن. الدفع يُفتح فقط بعد مراجعة
-                  الطلب والموافقة عليه.
-                </p>
-              </section>
-            ) : null}
-
-            {step === "account" ? (
-              <form
-                className="step-content"
-                onSubmit={saveAccountStep}
-              >
-                <StepHeader
-                  eyebrow="الخطوة 1 من 4"
-                  title="أنشئي حسابك بأمان"
-                  description="هذه البيانات خاصة بالحساب ولا يظهر منها للآخرين إلا ما تختارينه لاحقاً."
-                />
-                <div className="form-grid">
-                  <Field id="firstName" label="الاسم الأول">
-                    <Input
-                      id="firstName"
-                      name="firstName"
-                      placeholder="مثال: مريم"
-                      autoComplete="given-name"
-                      defaultValue={womanDraft.firstName}
-                      required
-                    />
-                  </Field>
-                  <Field id="birthDate" label="تاريخ الميلاد" hint="18+ فقط">
-                    <Input
-                      id="birthDate"
-                      name="birthDate"
-                      type="date"
-                      autoComplete="bday"
-                      defaultValue={womanDraft.birthDate}
-                      required
-                    />
-                  </Field>
-                  <Field id="country" label="دولة الإقامة">
-                    <NativeSelect
-                      id="country"
-                      name="country"
-                      className="w-full"
-                      defaultValue={womanDraft.country}
-                      required
-                    >
-                      <NativeSelectOption value="" disabled>
-                        اختاري الدولة
-                      </NativeSelectOption>
-                      {countries.map((country) => (
-                        <NativeSelectOption key={country} value={country}>
-                          {country}
-                        </NativeSelectOption>
-                      ))}
-                    </NativeSelect>
-                  </Field>
-                  <Field id="city" label="المدينة">
-                    <Input
-                      id="city"
-                      name="city"
-                      placeholder="مثال: دبي"
-                      autoComplete="address-level2"
-                      defaultValue={womanDraft.city}
-                      required
-                    />
-                  </Field>
-                  <Field id="email" label="البريد الإلكتروني">
-                    <div className="input-with-icon">
-                      <Mail />
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        dir="ltr"
-                        placeholder="name@example.com"
-                        autoComplete="email"
-                        defaultValue={womanDraft.email}
-                        required
-                      />
-                    </div>
-                  </Field>
-                  <div className="form-span-2">
-                    <Field id="password" label="كلمة المرور" hint="6 أرقام فقط">
-                      <div className="input-with-icon">
-                        <LockKeyhole />
-                        <Input
-                          id="password"
-                          name="password"
-                          type="password"
-                          dir="ltr"
-                          inputMode="numeric"
-                          pattern="[0-9]{6}"
-                          title="كلمة المرور يجب أن تتكوّن من 6 أرقام فقط"
-                          placeholder="••••••"
-                          minLength={6}
-                          maxLength={6}
-                          autoComplete="new-password"
-                          defaultValue={womanDraft.password}
-                          onInput={(event) => {
-                            event.currentTarget.value = event.currentTarget.value
-                              .replace(/\D/g, "")
-                              .slice(0, 6);
-                          }}
-                          required
-                        />
-                      </div>
-                    </Field>
-                  </div>
-                </div>
-                {submitError ? (
-                  <p className="form-alert form-alert--error" role="alert">
-                    {submitError}
-                  </p>
-                ) : null}
-                <Button type="submit" size="lg" className="primary-action">
-                  حفظ ومتابعة
-                  <ArrowLeft />
-                </Button>
-              </form>
-            ) : null}
-
-            {step === "profile" ? (
-              <form
-                className="step-content"
-                onSubmit={saveProfileStep}
-              >
-                <StepHeader
-                  eyebrow="الخطوة 2 من 4"
-                  title="ملف واضح بنية الزواج"
-                  description="المعلومات الجادة تساعد على ترشيحات أقرب، من دون تحويل التجربة إلى تصفح سطحي."
-                />
-                <div className="form-grid">
-                  <Field id="maritalStatus" label="الحالة الاجتماعية">
-                    <NativeSelect
-                      id="maritalStatus"
-                      name="maritalStatus"
-                      className="w-full"
-                      defaultValue={womanDraft.maritalStatus}
-                      required
-                    >
-                      <NativeSelectOption value="" disabled>
-                        اختاري الحالة
-                      </NativeSelectOption>
-                      <NativeSelectOption value="single">لم يسبق لي الزواج</NativeSelectOption>
-                      <NativeSelectOption value="divorced">مطلّقة</NativeSelectOption>
-                      <NativeSelectOption value="widowed">أرملة</NativeSelectOption>
-                    </NativeSelect>
-                  </Field>
-                  <Field id="nationality" label="الجنسية">
-                    <Input
-                      id="nationality"
-                      name="nationality"
-                      defaultValue={womanDraft.nationality}
-                      required
-                    />
-                  </Field>
-                  <Field id="occupation" label="مجال العمل">
-                    <Input
-                      id="occupation"
-                      name="occupation"
-                      placeholder="مثال: التعليم"
-                      defaultValue={womanDraft.occupation}
-                      required
-                    />
-                  </Field>
-                  <Field id="education" label="المستوى التعليمي">
-                    <NativeSelect
-                      id="education"
-                      name="education"
-                      className="w-full"
-                      defaultValue={womanDraft.education}
-                      required
-                    >
-                      <NativeSelectOption value="" disabled>
-                        اختاري المستوى
-                      </NativeSelectOption>
-                      <NativeSelectOption value="secondary">ثانوي</NativeSelectOption>
-                      <NativeSelectOption value="diploma">دبلوم</NativeSelectOption>
-                      <NativeSelectOption value="bachelor">بكالوريوس</NativeSelectOption>
-                      <NativeSelectOption value="postgraduate">دراسات عليا</NativeSelectOption>
-                    </NativeSelect>
-                  </Field>
-                  <div className="form-span-2">
-                    <Field id="bio" label="نبذة جادة عنك" hint="حتى 400 حرف">
-                      <Textarea
-                        id="bio"
-                        name="bio"
-                        maxLength={400}
-                        rows={5}
-                        placeholder="اكتبي باختصار عن شخصيتك وقيمك وما تتوقعينه من الزواج..."
-                        defaultValue={womanDraft.bio}
-                        required
-                      />
-                    </Field>
-                  </div>
-                  <Field id="preferredAgeFrom" label="العمر المناسب من">
-                    <Input
-                      id="preferredAgeFrom"
-                      name="preferredAgeFrom"
-                      type="number"
-                      min={18}
-                      max={80}
-                      placeholder="25"
-                      defaultValue={womanDraft.preferredAgeFrom}
-                      required
-                    />
-                  </Field>
-                  <Field id="preferredAgeTo" label="إلى">
-                    <Input
-                      id="preferredAgeTo"
-                      name="preferredAgeTo"
-                      type="number"
-                      min={18}
-                      max={80}
-                      placeholder="35"
-                      defaultValue={womanDraft.preferredAgeTo}
-                      required
-                    />
-                  </Field>
-                </div>
-                {submitError ? (
-                  <p className="form-alert form-alert--error" role="alert">
-                    {submitError}
-                  </p>
-                ) : null}
-                <Button type="submit" size="lg" className="primary-action">
-                  متابعة إلى التوثيق
-                  <ArrowLeft />
-                </Button>
-              </form>
-            ) : null}
-
-            {step === "verification" ? (
-              <section className="step-content">
-                <StepHeader
-                  eyebrow="الخطوة 3 من 4"
-                  title="الثقة تبدأ من التوثيق"
-                  description="لن يظهر مستندك أو بريدك لأي مستخدم. تُستخدم خطوات التوثيق لحماية المجتمع فقط."
-                />
-                <div className="verification-list">
-                  <article>
-                    <span className="verification-icon">
-                      <Mail />
-                    </span>
-                    <div>
-                      <strong>تأكيد البريد الإلكتروني</strong>
-                      <p>رابط تأكيد يُرسل إلى بريدك.</p>
-                    </div>
-                    <span className="stage-tag">مطلوب</span>
-                  </article>
-                  <article>
-                    <span className="verification-icon">
-                      <BadgeCheck />
-                    </span>
-                    <div>
-                      <strong>مطابقة الهوية والعمر</strong>
-                      <p>نتحقق أن الحساب لشخص حقيقي بالغ.</p>
-                    </div>
-                    <span className="stage-tag">مطلوب</span>
-                  </article>
-                  <article>
-                    <span className="verification-icon">
-                      <UserRoundCheck />
-                    </span>
-                    <div>
-                      <strong>مطابقة صورة الوجه</strong>
-                      <p>فحص سريع لمنع انتحال الهوية.</p>
-                    </div>
-                    <span className="stage-tag">مطلوب</span>
-                  </article>
-                </div>
-                <Label htmlFor="terms" className="consent-row">
-                  <Checkbox
-                    id="terms"
-                    checked={termsAccepted}
-                    onCheckedChange={(checked) =>
-                      setTermsAccepted(checked === true)
-                    }
-                  />
-                  <span>
-                    أوافق على سياسة الخصوصية وشروط الاستخدام، وأؤكد أن عمري 18
-                    عاماً أو أكثر وأن المعلومات صحيحة.
-                  </span>
-                </Label>
-                <Button
-                  type="button"
-                  size="lg"
-                  className="primary-action"
-                  disabled={!termsAccepted}
-                  onClick={() => setStep("plans")}
-                >
-                  متابعة إلى الباقات
-                  <ArrowLeft />
-                </Button>
-                <p className="microcopy">
-                  هذه النسخة تعرض هيكل التوثيق فقط؛ رفع المستندات غير مفعّل بعد.
-                </p>
-              </section>
-            ) : null}
-
-            {step === "plans" ? (
-              <section className="step-content step-content--wide">
-                <StepHeader
-                  eyebrow="الخطوة 4 من 4"
-                  title="اختاري المستوى المناسب"
-                  description="كل باقة تُدفع مرة واحدة فقط. لا يوجد اشتراك شهري أو تجديد تلقائي."
-                />
-                <RadioGroup
-                  value={plan}
-                  onValueChange={(value) => setPlan(value as Plan)}
-                  className="plan-grid"
-                >
-                  {(
-                    Object.entries(planDetails) as [
-                      Plan,
-                      (typeof planDetails)[Plan],
-                    ][]
-                  ).map(([key, item]) => (
-                    <Label
-                      key={key}
-                      htmlFor={`plan-${key}`}
-                      className={`plan-card ${key === "pro" ? "plan-card--featured" : ""}`}
-                    >
-                      {key === "pro" ? (
-                        <span className="recommended-badge">الأكثر توازناً</span>
-                      ) : null}
-                      <div className="plan-topline">
-                        <RadioGroupItem value={key} id={`plan-${key}`} />
-                        <span>{item.name}</span>
-                      </div>
-                      <div className="plan-price">
-                        <strong>{item.price}</strong>
-                        <span>درهماً</span>
-                      </div>
-                      <p>{item.description}</p>
-                      <ul>
-                        {item.features.map((feature) => (
-                          <li key={feature}>
-                            <Check />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </Label>
-                  ))}
-                </RadioGroup>
-                <div className="selection-summary">
-                  <div>
-                    <span>الباقة المختارة</span>
-                    <strong>{selectedPlan.name}</strong>
-                  </div>
-                  <div>
-                    <span>الإجمالي لمرة واحدة</span>
-                    <strong>{selectedPlan.price} درهماً</strong>
-                  </div>
-                </div>
-                <Button
-                  type="button"
-                  size="lg"
-                  className="primary-action"
-                  disabled={isSubmitting}
-                  onClick={submitWomanRegistration}
-                >
-                  {isSubmitting ? "جاري إنشاء الحساب..." : "إنشاء الحساب وحفظ الطلب"}
-                  <ArrowLeft />
-                </Button>
-                {submitError ? (
-                  <p className="form-alert form-alert--error" role="alert">
-                    {submitError}
-                  </p>
-                ) : null}
-                <p className="microcopy">
-                  إنشاء الحساب لا يسحب أي مبلغ. الدفع يُفتح فقط بعد مراجعة الملف
-                  والموافقة عليه.
-                </p>
-              </section>
-            ) : null}
-
-            {step === "complete" ? (
-              <section className="step-content completion-state">
-                <span className="completion-icon">
-                  <Check />
-                </span>
-                <span className="step-eyebrow">تم إنشاء الحساب</span>
-                <h1>راجعي بريدك لتأكيد الحساب</h1>
-                <p>
-                  حُفظ طلبك الحقيقي بأمان. أرسلنا رابط التأكيد إلى
-                  {registrationEmail ? ` ${registrationEmail}` : " بريدك الإلكتروني"}،
-                  وبعد التأكيد ينتقل الملف إلى المراجعة.
-                </p>
-                <div className="completion-summary">
-                  <div>
-                    <span>نوع الحساب</span>
-                    <strong>امرأة</strong>
-                  </div>
-                  <div>
-                    <span>الباقة</span>
-                    <strong>{selectedPlan.name}</strong>
-                  </div>
-                  <div>
-                    <span>حالة الدفع</span>
-                    <strong>لاحقاً بعد قبول الملف</strong>
-                  </div>
-                </div>
-                <Button
-                  type="button"
-                  size="lg"
-                  className="primary-action"
-                  onClick={restart}
-                >
-                  العودة إلى البداية
-                  <ArrowLeft />
-                </Button>
-              </section>
-            ) : null}
-
-            {step === "waitlist" ? (
-              <form
-                className="step-content"
-                onSubmit={submitMenWaitlist}
-              >
-                <StepHeader
-                  eyebrow="التسجيل الرجالي يفتح لاحقاً"
-                  title="انضم إلى قائمة الانتظار"
-                  description="لن نطلب منك الدفع قبل توفر عدد مناسب من الملفات النسائية الحقيقية والمتوافقة مع معاييرك."
-                />
-                <div className="waitlist-banner">
-                  <ShieldCheck />
-                  <p>
-                    <strong>السعر عند فتح التسجيل: 150 درهماً</strong>
-                    دفعة واحدة بعد قبول الملف، دون اشتراك أو تجديد تلقائي.
-                  </p>
-                </div>
-                <div className="form-grid">
-                  <Field id="waitlistName" label="الاسم الأول">
-                    <Input id="waitlistName" name="waitlistName" required />
-                  </Field>
-                  <Field id="waitlistCountry" label="دولة الإقامة">
-                    <NativeSelect
-                      id="waitlistCountry"
-                      name="waitlistCountry"
-                      className="w-full"
-                      defaultValue=""
-                      required
-                    >
-                      <NativeSelectOption value="" disabled>
-                        اختر الدولة
-                      </NativeSelectOption>
-                      {countries.map((country) => (
-                        <NativeSelectOption key={country} value={country}>
-                          {country}
-                        </NativeSelectOption>
-                      ))}
-                    </NativeSelect>
-                  </Field>
-                  <Field id="waitlistEmail" label="البريد الإلكتروني">
-                    <div className="input-with-icon">
-                      <Mail />
-                      <Input
-                        id="waitlistEmail"
-                        name="waitlistEmail"
-                        type="email"
-                        dir="ltr"
-                        placeholder="name@example.com"
-                        required
-                      />
-                    </div>
-                  </Field>
-                </div>
-                <Label htmlFor="waitlistTerms" className="consent-row">
-                  <Checkbox
-                    id="waitlistTerms"
-                    checked={waitlistTermsAccepted}
-                    onCheckedChange={(checked) =>
-                      setWaitlistTermsAccepted(checked === true)
-                    }
-                  />
-                  <span>
-                    أوافق على سياسة الخصوصية، وأؤكد أن عمري 18 عاماً أو أكثر.
-                  </span>
-                </Label>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="primary-action"
-                  disabled={!waitlistTermsAccepted || isSubmitting}
-                >
-                  {isSubmitting
-                    ? "جاري حفظ الطلب..."
-                    : "الانضمام إلى قائمة الانتظار"}
-                  <ArrowLeft />
-                </Button>
-                {submitError ? (
-                  <p className="form-alert form-alert--error" role="alert">
-                    {submitError}
-                  </p>
-                ) : null}
-                <p className="microcopy">لا دفع ولا بطاقة بنكية في هذه المرحلة.</p>
-              </form>
-            ) : null}
-
-            {step === "waitlist-complete" && waitlistSent ? (
-              <section className="step-content completion-state">
-                <span className="completion-icon">
-                  <MessageCircleHeart />
-                </span>
-                <span className="step-eyebrow">قائمة انتظار الرجال</span>
-                <h1>تم حفظ طلبك في قائمة الانتظار</h1>
-                <p>
-                  سيصل إشعار فتح التسجيل فقط بعد تجهيز مجتمع حقيقي مناسب، ومن
-                  دون تحصيل أي مبلغ مسبقاً.
-                </p>
-                <Button
-                  type="button"
-                  size="lg"
-                  className="primary-action"
-                  onClick={restart}
-                >
-                  العودة إلى البداية
-                  <ArrowLeft />
-                </Button>
-              </section>
-            ) : null}
+            <div className={styles.heroFacts}>
+              <span>
+                <UserRoundCheck />
+                للبالغين 18+
+              </span>
+              <span>
+                <HeartHandshake />
+                تواصل بعد القبول
+              </span>
+              <span>
+                <Check />
+                دفع مرة واحدة
+              </span>
+            </div>
           </div>
-        </section>
-      </div>
 
-      <footer className="app-footer">
-        <div>
-          <Brand compact />
-          <span>للزواج الإسلامي الجاد</span>
+          <div className={styles.heroVisual} aria-label="نموذج يوضح آلية القبول المتبادل">
+            <div className={styles.visualRing} aria-hidden="true" />
+            <article className={`${styles.profileCard} ${styles.profileCardTop}`}>
+              <div className={styles.avatarWrap}>
+                <CircleUserRound />
+                <span className={styles.verifiedBadge}>
+                  <BadgeCheck />
+                </span>
+              </div>
+              <div>
+                <span className={styles.profileLabel}>ملف تمت مراجعته</span>
+                <strong>نية زواج واضحة</strong>
+                <small>المعلومات الخاصة محفوظة</small>
+              </div>
+            </article>
+
+            <div className={styles.matchCore}>
+              <span>
+                <HeartHandshake />
+              </span>
+              <strong>قبول متبادل</strong>
+              <small>تُفتح المحادثة الآن</small>
+            </div>
+
+            <article className={`${styles.profileCard} ${styles.profileCardBottom}`}>
+              <div className={styles.avatarWrap}>
+                <CircleUserRound />
+                <span className={styles.verifiedBadge}>
+                  <BadgeCheck />
+                </span>
+              </div>
+              <div>
+                <span className={styles.profileLabel}>طلب اهتمام مقبول</span>
+                <strong>توافق في المواصفات</strong>
+                <small>لا مشاركة لبيانات التواصل</small>
+              </div>
+            </article>
+
+            <span className={styles.visualNote}>نموذج توضيحي لرحلة القبول</span>
+          </div>
         </div>
-        <p>الخصوصية · شروط الاستخدام · حذف الحساب</p>
+      </section>
+
+      <section className={styles.trustBar} aria-label="مبادئ عهد الأساسية">
+        <div>
+          <ShieldCheck />
+          <span>
+            <strong>خصوصية أولاً</strong>
+            <small>بيانات التواصل غير ظاهرة</small>
+          </span>
+        </div>
+        <div>
+          <BadgeCheck />
+          <span>
+            <strong>ملفات تحت المراجعة</strong>
+            <small>قبل تفعيل الظهور داخل المنصة</small>
+          </span>
+        </div>
+        <div>
+          <MessageCircleHeart />
+          <span>
+            <strong>لا محادثة عشوائية</strong>
+            <small>التواصل بعد موافقة الطرفين</small>
+          </span>
+        </div>
+      </section>
+
+      <section id="why" className={styles.section}>
+        <div className={styles.sectionHeading}>
+          <span className={styles.eyebrow}>فكرة مختلفة من الأساس</span>
+          <h2>كل تفصيل في عَهْد يخدم قرار الزواج.</h2>
+          <p>
+            لا نعتمد على التصفح المفتوح أو الرسائل العشوائية. التجربة مبنية على
+            الجدية والاحترام وحماية المعلومات منذ أول خطوة.
+          </p>
+        </div>
+
+        <div className={styles.principlesGrid}>
+          {principles.map((principle) => {
+            const Icon = principle.icon;
+            return (
+              <article key={principle.title} className={styles.principleCard}>
+                <span className={styles.iconBox}>
+                  <Icon />
+                </span>
+                <h3>{principle.title}</h3>
+                <p>{principle.description}</p>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="how" className={`${styles.section} ${styles.processSection}`}>
+        <div className={styles.processIntro}>
+          <span className={styles.eyebrow}>كيف يعمل عَهْد؟</span>
+          <h2>رحلة واضحة من إنشاء الملف إلى بدء الحوار.</h2>
+          <p>
+            أربع مراحل بسيطة تمنع الفوضى وتحافظ على جدية كل خطوة، من دون طلب
+            الدفع أثناء إنشاء الحساب.
+          </p>
+          <Link className={styles.textLink} href="/register">
+            ابدأ الآن
+            <ArrowLeft />
+          </Link>
+        </div>
+
+        <div className={styles.stepsList}>
+          {steps.map((step) => (
+            <article key={step.number} className={styles.stepCard}>
+              <span>{step.number}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="safety" className={styles.safetySection}>
+        <div className={styles.safetyVisual} aria-hidden="true">
+          <span className={styles.safetyHalo} />
+          <span className={styles.safetyLock}>
+            <LockKeyhole />
+          </span>
+          <span className={`${styles.safetyOrbit} ${styles.safetyOrbitOne}`}>
+            <EyeOff />
+          </span>
+          <span className={`${styles.safetyOrbit} ${styles.safetyOrbitTwo}`}>
+            <ShieldCheck />
+          </span>
+          <span className={`${styles.safetyOrbit} ${styles.safetyOrbitThree}`}>
+            <UserRoundCheck />
+          </span>
+        </div>
+
+        <div className={styles.safetyCopy}>
+          <span className={styles.eyebrow}>الأمان والخصوصية</span>
+          <h2>معلوماتك ليست جزءاً من التصفح.</h2>
+          <p>
+            صُممت المنصة حتى تبقى بياناتك الحساسة خارج الملفات العامة. البريد
+            الإلكتروني ووسائل التواصل لا تظهر للمستخدمين، وتتم المحادثات داخل
+            عَهْد بعد موافقة الطرفين فقط.
+          </p>
+          <ul>
+            <li>
+              <Check />
+              لا يظهر البريد الإلكتروني في الملف العام
+            </li>
+            <li>
+              <Check />
+              لا تبدأ المحادثة قبل القبول المتبادل
+            </li>
+            <li>
+              <Check />
+              إمكانية التحكم بالظهور ضمن مستويات الخصوصية
+            </li>
+            <li>
+              <Check />
+              مراجعة البلاغات والملفات المخالفة
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="plans" className={`${styles.section} ${styles.plansSection}`}>
+        <div className={styles.sectionHeading}>
+          <span className={styles.eyebrow}>باقات واضحة بلا تجديد تلقائي</span>
+          <h2>اختر مستوى الخدمة المناسب.</h2>
+          <p>
+            جميع الأسعار دفعة واحدة. إنشاء الحساب لا يسحب أي مبلغ، ويُفتح الدفع
+            بعد قبول الملف. تسجيل الرجال حالياً عبر قائمة الانتظار.
+          </p>
+        </div>
+
+        <div className={styles.plansGrid}>
+          {plans.map((plan) => (
+            <article
+              key={plan.name}
+              className={`${styles.planCard} ${plan.featured ? styles.planFeatured : ""}`}
+            >
+              {plan.featured ? (
+                <span className={styles.planBadge}>الأكثر توازناً</span>
+              ) : null}
+              <div className={styles.planHead}>
+                <h3>{plan.name}</h3>
+                <p>{plan.description}</p>
+              </div>
+              <div className={styles.priceRows}>
+                <div>
+                  <span>للنساء</span>
+                  <strong>{plan.womenPrice}</strong>
+                  <small>درهماً</small>
+                </div>
+                <div>
+                  <span>للرجال</span>
+                  <strong>{plan.menPrice}</strong>
+                  <small>درهماً</small>
+                </div>
+              </div>
+              <span className={styles.onceLabel}>دفعة واحدة</span>
+              <ul>
+                {plan.features.map((feature) => (
+                  <li key={feature}>
+                    <Check />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link className={styles.planButton} href="/register">
+                اختيار الباقة
+                <ArrowLeft />
+              </Link>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.planNotice}>
+          <UsersRound />
+          <p>
+            <strong>الرجال: لا دفع في مرحلة قائمة الانتظار.</strong>
+            يصل إشعار فتح التسجيل أولاً، ثم تتم مراجعة الملف قبل إتاحة الدفع.
+          </p>
+        </div>
+      </section>
+
+      <section id="faq" className={`${styles.section} ${styles.faqSection}`}>
+        <div className={styles.faqIntro}>
+          <span className={styles.eyebrow}>أسئلة شائعة</span>
+          <h2>إجابات واضحة قبل أن تبدأ.</h2>
+          <p>
+            ما زال لديك سؤال؟ تواصل مع فريق عَهْد عبر البريد الرسمي وسنجيبك.
+          </p>
+          <a className={styles.emailLink} href="mailto:info@ahedmarriage.com">
+            <Mail />
+            info@ahedmarriage.com
+          </a>
+        </div>
+
+        <div className={styles.faqList}>
+          {faqs.map((faq) => (
+            <details key={faq.question} className={styles.faqItem}>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.finalCta}>
+        <div>
+          <span className={styles.eyebrow}>ابدأ بنية واضحة</span>
+          <h2>قرار الزواج يستحق مساحة أكثر جدية.</h2>
+          <p>
+            أنشئ حسابك الآن. لن يُطلب منك الدفع أثناء التسجيل، ولن يظهر ملفك قبل
+            استكمال المراجعة.
+          </p>
+        </div>
+        <div className={styles.finalActions}>
+          <Link className={styles.ctaLight} href="/register">
+            إنشاء حساب جديد
+            <ArrowLeft />
+          </Link>
+          <Link className={styles.ctaOutline} href="/login">
+            لدي حساب بالفعل
+          </Link>
+        </div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div className={styles.footerTop}>
+          <Brand light />
+          <p>
+            عَهْد منصة للزواج الجاد، تقوم على وضوح النية والخصوصية والقبول
+            المتبادل.
+          </p>
+          <a href="mailto:info@ahedmarriage.com">info@ahedmarriage.com</a>
+        </div>
+        <div className={styles.footerBottom}>
+          <span>© 2026 AHED. جميع الحقوق محفوظة.</span>
+          <nav aria-label="روابط التذييل">
+            <a href="#safety">الخصوصية</a>
+            <a href="#faq">الأسئلة الشائعة</a>
+            <Link href="/login">تسجيل الدخول</Link>
+          </nav>
+        </div>
       </footer>
     </main>
   );
-}
-
-export default function Home() {
-  return <AhedRegistration />;
 }
