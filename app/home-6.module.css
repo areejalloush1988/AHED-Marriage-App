@@ -238,7 +238,160 @@
   font-size: 0.72rem;
 }
 
+.heroTrust {
+  width: min(680px, 100%);
+  margin-top: 30px;
+  padding: 17px;
+  border: 1px solid rgba(143, 92, 28, 0.2);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(250, 242, 229, 0.62)),
+    var(--ivory);
+  box-shadow:
+    0 20px 46px rgba(77, 16, 38, 0.07),
+    inset 0 1px rgba(255, 255, 255, 0.86);
+}
+
+.heroTrustHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+  color: var(--wine-950);
+}
+
+.heroTrustHeading::after {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(183, 123, 34, 0.4), transparent);
+  content: "";
+}
+
+.site[dir="ltr"] .heroTrustHeading::after {
+  background: linear-gradient(270deg, rgba(183, 123, 34, 0.4), transparent);
+}
+
+.heroTrustHeading > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(183, 123, 34, 0.25);
+  border-radius: 12px;
+  color: #a66f20;
+  background: linear-gradient(145deg, #fff9ea, #f2dfb6);
+  box-shadow: 0 8px 18px rgba(143, 92, 28, 0.1);
+}
+
+.heroTrustHeading svg {
+  width: 17px;
+}
+
+.heroTrustHeading strong {
+  font-size: 0.77rem;
+  font-weight: 950;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.heroTrustGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.heroTrustItem {
+  display: grid;
+  grid-template-columns: 39px minmax(0, 1fr);
+  min-height: 66px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 11px;
+  border: 1px solid rgba(98, 23, 47, 0.1);
+  border-radius: 17px;
+  background: rgba(255, 253, 249, 0.72);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+  animation: trustRise 520ms ease both;
+}
+
+.heroTrustItem:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.heroTrustItem:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.heroTrustItem:nth-child(4) {
+  animation-delay: 210ms;
+}
+
+.heroTrustItem:hover {
+  border-color: rgba(183, 123, 34, 0.28);
+  box-shadow: 0 12px 24px rgba(77, 16, 38, 0.08);
+  transform: translateY(-2px);
+}
+
+.heroTrustItem > span {
+  display: grid;
+  width: 37px;
+  height: 37px;
+  place-items: center;
+  border-radius: 13px;
+  color: #a66f20;
+  background: rgba(234, 205, 150, 0.3);
+}
+
+.heroTrustItem svg {
+  width: 17px;
+}
+
+.heroTrustItem p {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  margin: 0;
+}
+
+.heroTrustItem strong {
+  overflow: hidden;
+  color: var(--wine-950);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heroTrustItem small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.59rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes trustRise {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 860px) {
+  .heroTrust {
+    margin-inline: auto;
+    text-align: start;
+  }
+
   .heroVisual {
     min-height: 610px;
   }
@@ -299,5 +452,14 @@
   .heroVisual .visualNote {
     bottom: 14px;
     font-size: 0.55rem;
+  }
+
+  .heroTrustGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTrustItem strong,
+  .heroTrustItem small {
+    white-space: normal;
   }
 }

@@ -12,7 +12,6 @@ import {
   Languages,
   LockKeyhole,
   Mail,
-  MessageCircleHeart,
   ShieldCheck,
   Sparkles,
   UserRoundCheck,
@@ -24,9 +23,8 @@ import { homeContent, type HomeLocale } from "./home-content";
 import styles from "./home.module.css";
 
 const principleIcons = [ShieldCheck, BadgeCheck, EyeOff, HeartHandshake] as const;
-const factIcons = [UserRoundCheck, HeartHandshake, ShieldCheck, Check] as const;
+const heroTrustIcons = [BadgeCheck, EyeOff, HeartHandshake, ShieldCheck] as const;
 const visualPointIcons = [BadgeCheck, EyeOff, HeartHandshake] as const;
-const trustIcons = [ShieldCheck, BadgeCheck, MessageCircleHeart] as const;
 
 function Brand({
   light = false,
@@ -135,21 +133,30 @@ export default function Home() {
                 {copy.hero.primary}
                 <DirectionalArrow />
               </Link>
-              <Link className={styles.secondaryButton} href="/inside">
+              <a className={styles.secondaryButton} href="#how">
                 {copy.hero.secondary}
-              </Link>
+              </a>
             </div>
 
-            <div className={styles.heroFacts}>
-              {copy.hero.facts.map((fact, index) => {
-                const Icon = factIcons[index];
-                return (
-                  <span key={fact}>
-                    <Icon />
-                    {fact}
-                  </span>
-                );
-              })}
+            <div className={styles.heroTrust} aria-label={copy.hero.trustTitle}>
+              <div className={styles.heroTrustHeading}>
+                <span><ShieldCheck aria-hidden="true" /></span>
+                <strong>{copy.hero.trustTitle}</strong>
+              </div>
+              <div className={styles.heroTrustGrid}>
+                {copy.hero.trustItems.map((item, index) => {
+                  const Icon = heroTrustIcons[index];
+                  return (
+                    <div className={styles.heroTrustItem} key={item.title}>
+                      <span><Icon aria-hidden="true" /></span>
+                      <p>
+                        <strong>{item.title}</strong>
+                        <small>{item.description}</small>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -187,21 +194,6 @@ export default function Home() {
             <span className={styles.visualNote}>{copy.visual.note}</span>
           </div>
         </div>
-      </section>
-
-      <section className={styles.trustBar} aria-label={copy.trust.aria}>
-        {copy.trust.items.map((item, index) => {
-          const Icon = trustIcons[index];
-          return (
-            <div key={item.title}>
-              <Icon />
-              <span>
-                <strong>{item.title}</strong>
-                <small>{item.description}</small>
-              </span>
-            </div>
-          );
-        })}
       </section>
 
       <section id="why" className={styles.section}>

@@ -26,12 +26,13 @@ export const homeContent = {
       description:
         "منصة مخصّصة للزواج فقط؛ تجمع أصحاب النية الواضحة ضمن تجربة تبدأ بالمراجعة وتحفظ الخصوصية، ولا تفتح التواصل إلا بعد القبول المتبادل.",
       primary: "ابدأ رحلة الزواج",
-      secondary: "معاينة المنصة",
-      facts: [
-        "للبالغين 18+",
-        "تواصل بعد القبول",
-        "خصوصية من البداية",
-        "دفع مرة واحدة",
+      secondary: "كيف تعمل المنصة؟",
+      trustTitle: "ميثاق الثقة",
+      trustItems: [
+        { title: "ملفات تحت المراجعة", description: "قبل تفعيل الظهور" },
+        { title: "خصوصية كاملة", description: "بيانات التواصل غير ظاهرة" },
+        { title: "قبول متبادل", description: "قبل بدء أي محادثة" },
+        { title: "للزواج فقط", description: "لا تعارف أو دردشة عشوائية" },
       ],
     },
     visual: {
@@ -274,12 +275,13 @@ export const homeContent = {
       description:
         "A marriage-only platform for people with clear intentions. Every profile begins with review, privacy comes first, and conversations open only after mutual acceptance.",
       primary: "Start your journey",
-      secondary: "Preview the platform",
-      facts: [
-        "Adults 18+",
-        "Chat after acceptance",
-        "Privacy from the start",
-        "One-time payment",
+      secondary: "How does it work?",
+      trustTitle: "The trust covenant",
+      trustItems: [
+        { title: "Reviewed profiles", description: "Before visibility is enabled" },
+        { title: "Complete privacy", description: "Contact details stay hidden" },
+        { title: "Mutual acceptance", description: "Before any conversation begins" },
+        { title: "Marriage only", description: "No casual or random chat" },
       ],
     },
     visual: {
