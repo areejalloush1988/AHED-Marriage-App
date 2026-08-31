@@ -1,0 +1,290 @@
+
+@media (max-width: 860px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCopy {
+    text-align: center;
+  }
+
+  .heroCopy h1,
+  .heroCopy > p {
+    margin-inline: auto;
+  }
+
+  .heroActions,
+  .heroFacts {
+    justify-content: center;
+  }
+
+  .heroVisual {
+    width: min(620px, 100%);
+    margin-inline: auto;
+  }
+
+  .trustBar {
+    grid-template-columns: 1fr;
+  }
+
+  .trustBar > div + div {
+    border-top: 1px solid var(--line);
+    border-right: 0;
+  }
+
+  .processSection,
+  .faqSection {
+    grid-template-columns: 1fr;
+  }
+
+  .processIntro,
+  .faqIntro {
+    position: static;
+  }
+
+  .safetySection {
+    grid-template-columns: 1fr;
+  }
+
+  .safetyVisual {
+    order: 2;
+  }
+
+  .finalCta {
+    grid-template-columns: 1fr;
+  }
+
+  .finalActions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
+  }
+
+  .footerTop {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .announcement {
+    gap: 7px;
+    padding-inline: 14px;
+    font-size: 0.64rem;
+  }
+
+  .headerInner,
+  .heroInner,
+  .section,
+  .safetySection,
+  .finalCta {
+    width: min(100% - 28px, 1280px);
+  }
+
+  .headerInner {
+    min-height: 70px;
+    gap: 12px;
+  }
+
+  .brandMark {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+  }
+
+  .brandMark svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brandWords strong {
+    font-size: 1.32rem;
+  }
+
+  .loginButton {
+    display: none;
+  }
+
+  .headerPrimary {
+    min-height: 40px;
+    padding-inline: 13px;
+    font-size: 0.69rem;
+  }
+
+  .hero {
+    padding-top: 62px;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(2.75rem, 13vw, 4.2rem);
+  }
+
+  .heroCopy > p {
+    font-size: 0.9rem;
+  }
+
+  .heroActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .heroFacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: start;
+    gap: 13px;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  .heroVisual {
+    min-height: 470px;
+    border-radius: 34px;
+  }
+
+  .profileCard {
+    width: calc(100% - 38px);
+  }
+
+  .profileCardTop {
+    top: 45px;
+    right: 19px;
+  }
+
+  .profileCardBottom {
+    bottom: 49px;
+    left: 19px;
+  }
+
+  .matchCore {
+    width: 145px;
+    min-height: 145px;
+  }
+
+  .trustBar {
+    width: calc(100% - 28px);
+  }
+
+  .section {
+    padding-block: 86px;
+  }
+
+  .sectionHeading h2,
+  .processIntro h2,
+  .safetyCopy h2,
+  .faqIntro h2,
+  .finalCta h2 {
+    font-size: clamp(2.15rem, 10vw, 3.4rem);
+  }
+
+  .principlesGrid,
+  .plansGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .principleCard {
+    min-height: 0;
+  }
+
+  .stepCard {
+    grid-template-columns: 48px 1fr;
+    gap: 13px;
+    padding: 22px;
+  }
+
+  .stepCard > span {
+    font-size: 1.6rem;
+  }
+
+  .safetySection {
+    min-height: 0;
+    padding: 40px 25px;
+    border-radius: 30px;
+  }
+
+  .safetyVisual {
+    min-height: 320px;
+  }
+
+  .safetyHalo {
+    width: 235px;
+    height: 235px;
+  }
+
+  .safetyLock {
+    width: 112px;
+    height: 112px;
+  }
+
+  .safetyOrbitOne {
+    right: 20px;
+  }
+
+  .safetyOrbitTwo {
+    right: 35px;
+  }
+
+  .safetyOrbitThree {
+    left: 2px;
+  }
+
+  .plansGrid {
+    gap: 27px;
+  }
+
+  .planFeatured {
+    transform: none;
+  }
+
+  .planCard,
+  .planCard:last-child {
+    grid-column: auto;
+    width: 100%;
+    min-height: 0;
+  }
+
+  .planButton {
+    margin-top: 28px;
+  }
+
+  .faqItem summary {
+    padding-left: 18px;
+  }
+
+  .finalCta {
+    padding: 40px 25px;
+    border-radius: 30px;
+  }
+
+  .finalActions {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    padding: 50px 20px 36px;
+  }
+
+  .footerBottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footerBottom nav {
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,341 @@
+
+.iconBox {
+  display: grid;
+  width: 53px;
+  height: 53px;
+  place-items: center;
+  border-radius: 17px;
+  color: var(--wine-700);
+  background: var(--champagne-100);
+}
+
+.iconBox svg {
+  width: 24px;
+}
+
+.principleCard h3 {
+  margin: 24px 0 0;
+  color: var(--wine-950);
+  font-size: 1.02rem;
+}
+
+.principleCard p {
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 590;
+  line-height: 1.95;
+}
+
+.processSection {
+  display: grid;
+  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+  align-items: start;
+  gap: clamp(55px, 8vw, 115px);
+}
+
+.processIntro {
+  position: sticky;
+  top: 140px;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  color: var(--wine-700) !important;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.textLink svg {
+  width: 17px;
+  transition: transform 160ms ease;
+}
+
+.textLink:hover svg {
+  transform: translateX(-4px);
+}
+
+.stepsList {
+  display: grid;
+  gap: 14px;
+}
+
+.stepCard {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  align-items: start;
+  gap: 22px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.stepCard:hover {
+  border-color: rgba(98, 23, 47, 0.3);
+  transform: translateX(-5px);
+}
+
+.stepCard > span {
+  color: var(--champagne-300);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.05rem;
+  font-weight: 700;
+}
+
+.stepCard h3 {
+  margin: 2px 0 0;
+  color: var(--wine-950);
+  font-size: 1.02rem;
+}
+
+.stepCard p {
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 590;
+  line-height: 1.9;
+}
+
+.safetySection {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.92fr) minmax(0, 1.08fr);
+  width: min(1280px, calc(100% - 48px));
+  min-height: 630px;
+  align-items: center;
+  gap: clamp(56px, 8vw, 110px);
+  margin: 10px auto;
+  padding: clamp(48px, 7vw, 92px);
+  overflow: hidden;
+  border-radius: 42px;
+  color: var(--ivory);
+  background:
+    radial-gradient(circle at 6% 8%, rgba(244, 231, 213, 0.14), transparent 22rem),
+    linear-gradient(145deg, #761f3d, #4d1026 58%, #370919);
+  box-shadow: 0 34px 80px rgba(61, 12, 30, 0.16);
+  scroll-margin-top: 110px;
+}
+
+.safetyVisual {
+  position: relative;
+  min-height: 390px;
+}
+
+.safetyHalo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border: 1px dashed rgba(244, 231, 213, 0.21);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.safetyHalo::before,
+.safetyHalo::after {
+  position: absolute;
+  border: 1px solid rgba(244, 231, 213, 0.09);
+  border-radius: 50%;
+  content: "";
+}
+
+.safetyHalo::before {
+  inset: 42px;
+}
+
+.safetyHalo::after {
+  inset: -52px;
+}
+
+.safetyLock {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 134px;
+  height: 134px;
+  place-items: center;
+  border-radius: 39px;
+  color: var(--wine-950);
+  background: linear-gradient(145deg, #f8eddc, #d7b78e);
+  box-shadow:
+    0 25px 65px rgba(20, 1, 8, 0.3),
+    0 0 0 14px rgba(244, 231, 213, 0.06);
+  transform: translate(-50%, -50%) rotate(5deg);
+}
+
+.safetyLock svg {
+  width: 48px;
+}
+
+.safetyOrbit {
+  position: absolute;
+  display: grid;
+  width: 57px;
+  height: 57px;
+  place-items: center;
+  border: 1px solid rgba(244, 231, 213, 0.16);
+  border-radius: 19px;
+  color: var(--champagne-100);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+}
+
+.safetyOrbit svg {
+  width: 23px;
+}
+
+.safetyOrbitOne {
+  top: 44px;
+  right: 55px;
+}
+
+.safetyOrbitTwo {
+  bottom: 35px;
+  right: 85px;
+}
+
+.safetyOrbitThree {
+  top: 48%;
+  left: 25px;
+}
+
+.safetyCopy .eyebrow {
+  color: var(--champagne-200);
+}
+
+.safetyCopy h2 {
+  color: var(--ivory);
+}
+
+.safetyCopy > p {
+  color: rgba(255, 250, 244, 0.68);
+}
+
+.safetyCopy ul {
+  display: grid;
+  gap: 13px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.safetyCopy li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: rgba(255, 250, 244, 0.86);
+  font-size: 0.78rem;
+  font-weight: 680;
+}
+
+.safetyCopy li svg {
+  width: 18px;
+  color: var(--champagne-200);
+}
+
+.plansSection {
+  padding-bottom: clamp(100px, 12vw, 160px);
+}
+
+.plansGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 17px;
+  margin-top: 58px;
+}
+
+.planCard {
+  position: relative;
+  display: flex;
+  min-height: 610px;
+  flex-direction: column;
+  padding: 31px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 16px 55px rgba(77, 16, 38, 0.055);
+}
+
+.planFeatured {
+  border-color: rgba(98, 23, 47, 0.4);
+  background:
+    radial-gradient(circle at 90% 0%, rgba(234, 216, 190, 0.68), transparent 15rem),
+    #fffdf9;
+  box-shadow: 0 26px 65px rgba(77, 16, 38, 0.13);
+  transform: translateY(-12px);
+}
+
+.planBadge {
+  position: absolute;
+  top: -14px;
+  right: 28px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: var(--ivory);
+  background: var(--wine-800);
+  font-size: 0.64rem;
+  font-weight: 900;
+  box-shadow: 0 10px 25px rgba(77, 16, 38, 0.2);
+}
+
+.planHead h3 {
+  margin: 0;
+  color: var(--wine-950);
+  font-size: 1.14rem;
+}
+
+.planHead p {
+  min-height: 51px;
+  margin: 11px 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 590;
+  line-height: 1.8;
+}
+
+.priceRows {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.priceRows > div {
+  display: grid;
+  min-width: 0;
+  padding: 17px 15px;
+  border-radius: 18px;
+  background: var(--champagne-100);
+  text-align: center;
+}
+
+.priceRows span {
+  color: var(--wine-700);
+  font-size: 0.63rem;
+  font-weight: 850;
+}
+
+.priceRows strong {
+  margin-top: 6px;
+  color: var(--wine-950);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.35rem;
+  line-height: 1;
+}
+
+.priceRows small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.59rem;
+  font-weight: 700;
+}

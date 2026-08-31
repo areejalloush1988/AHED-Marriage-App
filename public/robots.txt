@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /inside
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://ahedmarriage.com/sitemap.xml

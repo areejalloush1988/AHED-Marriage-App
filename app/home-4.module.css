@@ -1,0 +1,363 @@
+
+.onceLabel {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: 1px solid rgba(98, 23, 47, 0.12);
+  border-radius: 999px;
+  color: var(--wine-700);
+  font-size: 0.61rem;
+  font-weight: 850;
+}
+
+.planCard ul {
+  display: grid;
+  gap: 13px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.planCard li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: #5f4b53;
+  font-size: 0.74rem;
+  font-weight: 620;
+  line-height: 1.65;
+}
+
+.planCard li svg {
+  width: 16px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--wine-700);
+}
+
+.planButton {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  border: 1px solid rgba(98, 23, 47, 0.2);
+  border-radius: 15px;
+  color: var(--wine-800) !important;
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 900;
+  transition:
+    color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.planFeatured .planButton,
+.planButton:hover {
+  color: var(--ivory) !important;
+  background: var(--wine-800);
+}
+
+.planButton:hover {
+  transform: translateY(-1px);
+}
+
+.planButton svg {
+  width: 16px;
+}
+
+.planNotice {
+  display: flex;
+  width: min(740px, 100%);
+  align-items: flex-start;
+  gap: 13px;
+  margin: 30px auto 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 19px;
+  color: var(--wine-950);
+  background: rgba(244, 231, 213, 0.62);
+}
+
+.planNotice svg {
+  width: 21px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--wine-700);
+}
+
+.planNotice p {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 610;
+  line-height: 1.75;
+}
+
+.planNotice strong {
+  color: var(--wine-950);
+  font-size: 0.76rem;
+}
+
+.faqSection {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
+  align-items: start;
+  gap: clamp(55px, 8vw, 115px);
+  padding-top: 0;
+}
+
+.faqIntro {
+  position: sticky;
+  top: 140px;
+}
+
+.emailLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 25px;
+  color: var(--wine-700) !important;
+  direction: ltr;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.emailLink svg {
+  width: 17px;
+}
+
+.faqList {
+  display: grid;
+  gap: 11px;
+}
+
+.faqItem {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.76);
+  transition: border-color 160ms ease;
+}
+
+.faqItem[open] {
+  border-color: rgba(98, 23, 47, 0.3);
+}
+
+.faqItem summary {
+  position: relative;
+  padding: 22px 53px 22px 23px;
+  cursor: pointer;
+  color: var(--wine-950);
+  font-size: 0.82rem;
+  font-weight: 850;
+  list-style: none;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqItem summary::before,
+.faqItem summary::after {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  width: 13px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--wine-700);
+  content: "";
+  transition: transform 180ms ease;
+}
+
+.faqItem summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faqItem summary::before {
+  transform: translateY(-50%);
+}
+
+.faqItem[open] summary::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.faqItem p {
+  margin: 0;
+  padding: 0 23px 23px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 590;
+  line-height: 1.95;
+}
+
+.finalCta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  width: min(1280px, calc(100% - 48px));
+  align-items: center;
+  gap: 42px;
+  margin: 0 auto clamp(80px, 9vw, 120px);
+  padding: clamp(44px, 6vw, 74px);
+  overflow: hidden;
+  border-radius: 37px;
+  color: var(--ivory);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(244, 231, 213, 0.16), transparent 22rem),
+    linear-gradient(135deg, #78223f, #4d1026 60%, #390a1b);
+  box-shadow: 0 30px 75px rgba(61, 12, 30, 0.17);
+}
+
+.finalCta .eyebrow {
+  color: var(--champagne-200);
+}
+
+.finalCta h2 {
+  max-width: 760px;
+  color: var(--ivory);
+}
+
+.finalCta p {
+  max-width: 700px;
+  margin: 18px 0 0;
+  color: rgba(255, 250, 244, 0.68);
+  font-size: 0.84rem;
+  font-weight: 590;
+  line-height: 1.95;
+}
+
+.finalActions {
+  display: grid;
+  gap: 10px;
+  min-width: 220px;
+}
+
+.ctaLight,
+.ctaOutline {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.ctaLight {
+  color: var(--wine-950) !important;
+  background: var(--champagne-100);
+}
+
+.ctaLight svg {
+  width: 16px;
+}
+
+.ctaOutline {
+  border: 1px solid rgba(255, 250, 244, 0.24);
+  color: var(--ivory) !important;
+}
+
+.footer {
+  padding: 62px max(24px, calc((100% - 1280px) / 2));
+  color: rgba(255, 250, 244, 0.72);
+  background: #2f0716;
+}
+
+.footerTop {
+  display: grid;
+  grid-template-columns: auto minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: 55px;
+  padding-bottom: 38px;
+  border-bottom: 1px solid rgba(255, 250, 244, 0.1);
+}
+
+.footerTop p {
+  max-width: 600px;
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 580;
+  line-height: 1.85;
+}
+
+.footerTop > a {
+  color: var(--champagne-200) !important;
+  direction: ltr;
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+
+.footerBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding-top: 25px;
+  font-size: 0.64rem;
+  font-weight: 620;
+}
+
+.footerBottom nav {
+  display: flex;
+  gap: 22px;
+}
+
+.footerBottom a:hover {
+  color: var(--champagne-200);
+}
+
+@keyframes slowSpin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (max-width: 1120px) {
+  .headerInner {
+    grid-template-columns: auto 1fr;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .headerActions {
+    justify-self: end;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr 0.85fr;
+    gap: 55px;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(3.2rem, 6vw, 5rem);
+  }
+
+  .heroVisual {
+    min-height: 520px;
+  }
+
+  .principlesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .principleCard {
+    min-height: 235px;
+  }
+
+  .plansGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .planCard:last-child {
+    grid-column: 1 / -1;
+    width: min(560px, 100%);
+    justify-self: center;
+  }
+}

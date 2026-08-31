@@ -1,0 +1,36 @@
+name: Validate AHED web app
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate landing-page styles
+        run: npm run generate:home-css
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build static export
+        run: npm run build
