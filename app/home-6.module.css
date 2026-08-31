@@ -3,11 +3,25 @@
 .heroVisual {
   min-height: 620px;
   overflow: hidden;
-  border-radius: 52px;
+  border-radius: 0;
   background:
     radial-gradient(circle at 18% 14%, rgba(244, 231, 213, 0.2), transparent 17rem),
     radial-gradient(circle at 88% 82%, rgba(217, 187, 148, 0.13), transparent 18rem),
     linear-gradient(155deg, #7b2946 0%, #5a132c 46%, #350817 100%);
+  clip-path: polygon(
+    50% 0,
+    94% 14%,
+    100% 22%,
+    100% 91%,
+    94% 100%,
+    6% 100%,
+    0 91%,
+    0 22%,
+    6% 14%
+  );
+  filter:
+    drop-shadow(0 28px 42px rgba(61, 12, 30, 0.22))
+    drop-shadow(0 0 1px rgba(234, 216, 190, 0.72));
 }
 
 .heroVisual::before {
@@ -89,8 +103,8 @@
 .marriageSeal {
   position: absolute;
   z-index: 4;
-  top: 42px;
-  right: 44px;
+  top: 38px;
+  left: 50%;
   display: grid;
   width: 112px;
   height: 112px;
@@ -104,7 +118,7 @@
     0 18px 44px rgba(27, 2, 11, 0.28),
     0 0 0 8px rgba(244, 231, 213, 0.055);
   text-align: center;
-  transform: rotate(5deg);
+  transform: translateX(-50%);
 }
 
 .marriageSeal::before {
@@ -277,6 +291,18 @@
   text-align: center;
 }
 
+.site[dir="ltr"] .covenantCard h2 {
+  font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+}
+
+.site[dir="ltr"] .covenantCard > p {
+  line-height: 1.65;
+}
+
+.site[dir="ltr"] .covenantPoints strong {
+  font-size: 0.72rem;
+}
+
 @media (max-width: 860px) {
   .heroVisual {
     min-height: 610px;
@@ -284,13 +310,9 @@
 }
 
 @media (max-width: 640px) {
-  .announcementDivider:last-of-type {
-    display: none;
-  }
-
   .heroVisual {
     min-height: 580px;
-    border-radius: 36px;
+    border-radius: 0;
   }
 
   .ornamentOne {
@@ -311,10 +333,12 @@
   }
 
   .marriageSeal {
-    top: 25px;
-    right: 23px;
+    top: 42px;
+    right: auto;
+    left: 50%;
     width: 90px;
     height: 90px;
+    transform: translateX(-50%);
   }
 
   .marriageSeal span {
