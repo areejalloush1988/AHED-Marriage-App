@@ -266,7 +266,7 @@ export default function ModelTwo() {
             alt={labels.ringsAlt}
             className={styles.ringsImage}
             height={735}
-            sizes="(max-width: 700px) calc(100vw - 48px), (max-width: 920px) calc(100vw - 96px), 58vw"
+            sizes="(max-width: 620px) calc(100vw - 20px), (max-width: 920px) 58vw, 58vw"
             src="/ahed-rings-hands-v1.webp"
             width={1456}
           />
