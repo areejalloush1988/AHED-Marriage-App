@@ -6,14 +6,17 @@ import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  CalendarDays,
   ClipboardCheck,
   FileCheck2,
   Globe2,
+  GraduationCap,
   Handshake,
   Heart,
   Headphones,
   Languages,
   Mail,
+  MapPin,
   MessageCircleMore,
   Music2,
   Phone,
@@ -66,6 +69,21 @@ export default function ModelTwo() {
         faqOpenLabel: "فتح الباب وقراءة الإجابة",
         faqCloseLabel: "إغلاق باب الإجابة",
         faqHint: "اختر سؤالاً ليفتح بابه وتظهر الإجابة",
+        decisionProfileTitle: "ملفك أول خطوة نحو التوافق",
+        decisionProfileDescription:
+          "أنشئ ملفك وحدّد مواصفات الشريك الذي تبحث عنه.",
+        decisionProfileAction: "أنشئ ملفك",
+        decisionMatchmakerTitle: "نرافقك في الاختيار",
+        decisionMatchmakerDescription:
+          "موفّق شخصي يساعدك للوصول إلى ترشيحات جادة.",
+        decisionMatchmakerAction: "تعرّف إلى الموفّق",
+        decisionChoiceTitle: "اختر الطريق الأنسب لك",
+        decisionChooseProfile: "ابدأ بإنشاء ملفك",
+        decisionChooseMatchmaker: "دع الموفّق يساعدك",
+        profileAge: "العمر",
+        profileLocation: "الموقع",
+        profileEducation: "المستوى التعليمي",
+        profilePreferences: "المواصفات",
         email: "البريد الرسمي",
         website: "الموقع الرسمي",
         call: "طلب اتصال",
@@ -96,6 +114,21 @@ export default function ModelTwo() {
         faqOpenLabel: "Open the door and read the answer",
         faqCloseLabel: "Close the answer door",
         faqHint: "Choose a question to open its door and reveal the answer",
+        decisionProfileTitle: "Your profile is the first step toward compatibility",
+        decisionProfileDescription:
+          "Create your profile and define the qualities you seek in a partner.",
+        decisionProfileAction: "Create your profile",
+        decisionMatchmakerTitle: "We accompany you in the choice",
+        decisionMatchmakerDescription:
+          "A personal matchmaker helps you reach serious recommendations.",
+        decisionMatchmakerAction: "Meet the matchmaker",
+        decisionChoiceTitle: "Choose the path that suits you",
+        decisionChooseProfile: "Start with your profile",
+        decisionChooseMatchmaker: "Let a matchmaker help",
+        profileAge: "Age",
+        profileLocation: "Location",
+        profileEducation: "Education",
+        profilePreferences: "Preferences",
         email: "Official email",
         website: "Official website",
         call: "Request a call",
@@ -514,21 +547,87 @@ export default function ModelTwo() {
         </a>
       </section>
 
-      <section className={styles.finalCta}>
-        <span className={styles.finalHeart} aria-hidden="true">
-          <Heart />
-        </span>
-        <span className={styles.eyebrowLight}>{copy.final.eyebrow}</span>
-        <h2>{copy.final.title}</h2>
-        <p>{copy.final.description}</p>
-        <div className={styles.finalActions}>
-          <Link className={styles.finalPrimary} href="/register">
-            {copy.final.create}
-            <DirectionalArrow aria-hidden="true" />
-          </Link>
-          <Link className={styles.finalSecondary} href="/login">
-            {copy.final.login}
-          </Link>
+      <section className={styles.decisionSection} aria-labelledby="decision-title">
+        <div className={styles.decisionCards}>
+          <article className={`${styles.decisionCard} ${styles.decisionMatchmakerCard}`}>
+            <div className={styles.decisionMatchmakerVisual} aria-hidden="true">
+              <span className={styles.decisionVisualHalo}>
+                <UserSearch />
+              </span>
+              <span className={styles.decisionVisualOrnament} />
+            </div>
+
+            <div className={styles.decisionCardCopy}>
+              <span className={styles.decisionCardEyebrow}>{labels.matchmakerEyebrow}</span>
+              <h2>{labels.decisionMatchmakerTitle}</h2>
+              <span className={styles.decisionCardDivider} aria-hidden="true" />
+              <p>{labels.decisionMatchmakerDescription}</p>
+              <a
+                className={styles.decisionCardAction}
+                href="mailto:info@ahedmarriage.com?subject=AHED%20Personal%20Matchmaker"
+              >
+                {labels.decisionMatchmakerAction}
+                <DirectionalArrow aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+
+          <article className={`${styles.decisionCard} ${styles.decisionProfileCard}`}>
+            <div className={styles.decisionCardCopy}>
+              <span className={styles.decisionCardEyebrow}>{copy.final.eyebrow}</span>
+              <h2>{labels.decisionProfileTitle}</h2>
+              <span className={styles.decisionCardDivider} aria-hidden="true" />
+              <p>{labels.decisionProfileDescription}</p>
+              <Link className={styles.decisionCardAction} href="/register">
+                {labels.decisionProfileAction}
+                <DirectionalArrow aria-hidden="true" />
+              </Link>
+            </div>
+
+            <div className={styles.decisionProfileVisual} aria-hidden="true">
+              <span className={styles.decisionProfileAvatar}>
+                <UserRoundPlus />
+              </span>
+              <span className={styles.decisionProfileRule} />
+              <span>
+                <CalendarDays />
+                {labels.profileAge}
+              </span>
+              <span>
+                <MapPin />
+                {labels.profileLocation}
+              </span>
+              <span>
+                <GraduationCap />
+                {labels.profileEducation}
+              </span>
+              <span>
+                <Heart />
+                {labels.profilePreferences}
+              </span>
+            </div>
+          </article>
+        </div>
+
+        <div className={styles.decisionChoice}>
+          <span className={styles.decisionChoiceOrnament} aria-hidden="true">
+            <Sparkles />
+          </span>
+          <h2 id="decision-title">{labels.decisionChoiceTitle}</h2>
+          <span className={styles.decisionChoiceDivider} aria-hidden="true" />
+          <div className={styles.decisionChoiceActions}>
+            <Link className={styles.decisionChoiceButton} href="/register">
+              <UserRoundPlus aria-hidden="true" />
+              {labels.decisionChooseProfile}
+            </Link>
+            <a
+              className={styles.decisionChoiceButton}
+              href="mailto:info@ahedmarriage.com?subject=AHED%20Personal%20Matchmaker"
+            >
+              <UserSearch aria-hidden="true" />
+              {labels.decisionChooseMatchmaker}
+            </a>
+          </div>
         </div>
       </section>
 

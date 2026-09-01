@@ -599,8 +599,7 @@
 
 .editorialHeading h2,
 .ringsContent h2,
-.faqHeading h2,
-.finalCta h2 {
+.faqHeading h2 {
   margin: 9px 0 12px;
   color: var(--wine-950);
   font-size: clamp(2rem, 3.35vw, 3.15rem);
@@ -1941,117 +1940,379 @@
   height: 16px;
 }
 
-.finalCta {
-  width: min(1260px, calc(100% - 48px));
-  min-height: 440px;
-  margin: 20px auto 90px;
-  padding: 76px 7vw;
+.decisionSection {
+  width: min(1280px, calc(100% - 48px));
+  margin: 26px auto 112px;
   position: relative;
+}
+
+.decisionCards {
+  display: grid;
+  grid-template-areas: "matchmaker profile";
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(68px, 6vw, 94px);
+  direction: ltr;
+}
+
+.decisionCard {
+  min-width: 0;
+  min-height: 390px;
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  color: var(--wine-900);
+  background:
+    linear-gradient(rgba(255, 250, 241, 0.98), rgba(255, 253, 248, 0.98)) padding-box,
+    linear-gradient(112deg, #ad7620 0%, #f5dfa0 28%, #c8953d 55%, #fff0bd 78%, #ad7620 100%) border-box;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  box-shadow:
+    0 20px 50px rgba(60, 0, 23, 0.09),
+    0 6px 16px rgba(173, 118, 32, 0.09);
+  direction: ltr;
+  isolation: isolate;
+}
+
+.decisionCard::after {
+  content: "";
+  width: 150px;
+  height: 3px;
+  position: absolute;
+  z-index: 5;
+  top: -1px;
+  left: -170px;
+  background: linear-gradient(90deg, transparent, #fff4c4, transparent);
+  filter: drop-shadow(0 0 6px rgba(241, 219, 153, 0.9));
+  animation: decisionFrameShine 5.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.decisionMatchmakerCard {
+  grid-area: matchmaker;
+  grid-template-areas: "visual copy";
+  grid-template-columns: 168px minmax(0, 1fr);
+}
+
+.decisionProfileCard {
+  grid-area: profile;
+  grid-template-areas: "copy profile";
+  grid-template-columns: minmax(0, 1fr) 180px;
+}
+
+.decisionCardCopy {
+  grid-area: copy;
+  padding: 48px 34px 42px;
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  color: #fff9ed;
-  background:
-    radial-gradient(circle at 50% 120%, rgba(241, 219, 153, 0.2), transparent 42%),
-    linear-gradient(145deg, var(--wine-700), var(--wine-950));
-  border-radius: 34px 130px 34px 34px;
+  direction: rtl;
   text-align: center;
-  box-shadow: 0 28px 70px rgba(60, 0, 23, 0.17);
 }
 
-[dir="ltr"] .finalCta {
-  border-radius: 130px 34px 34px 34px;
+[dir="ltr"] .decisionCardCopy,
+[dir="ltr"] .decisionProfileVisual {
+  direction: ltr;
 }
 
-.finalCta::before,
-.finalCta::after {
-  content: "";
-  position: absolute;
-  border: 1px solid rgba(241, 219, 153, 0.16);
-  border-radius: 50%;
+.decisionCardEyebrow {
+  margin-bottom: 9px;
+  color: var(--gold-600);
+  font-size: 0.7rem;
+  font-weight: 800;
 }
 
-.finalCta::before {
-  width: 420px;
-  height: 420px;
-  top: -300px;
-  inset-inline-start: -120px;
-}
-
-.finalCta::after {
-  width: 260px;
-  height: 260px;
-  bottom: -190px;
-  inset-inline-end: -40px;
-}
-
-.finalHeart {
-  width: 52px;
-  height: 52px;
-  margin-bottom: 17px;
-  display: grid;
-  place-items: center;
-  color: var(--gold-300);
-  filter: drop-shadow(0 0 17px rgba(241, 219, 153, 0.6));
-  animation: heartBeat 2.3s ease-in-out infinite;
-}
-
-.finalHeart svg {
-  width: 34px;
-  height: 34px;
-  fill: rgba(241, 219, 153, 0.18);
-}
-
-.finalCta h2 {
-  max-width: 760px;
-  color: var(--gold-300);
-}
-
-.finalCta > p {
-  max-width: 650px;
+.decisionCard h2 {
   margin: 0;
-  color: rgba(255, 249, 237, 0.69);
-  font-size: 0.92rem;
-  line-height: 1.9;
+  color: var(--wine-800);
+  font-size: clamp(1.65rem, 2.25vw, 2.35rem);
+  line-height: 1.35;
 }
 
-.finalActions {
+.decisionCardDivider {
+  width: min(210px, 72%);
+  height: 1px;
+  margin: 20px auto 18px;
+  position: relative;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+}
+
+.decisionCardDivider::after {
+  content: "◇";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0 7px;
+  color: var(--gold-600);
+  background: var(--ivory);
+  font-size: 0.72rem;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+}
+
+.decisionCardCopy p {
+  max-width: 340px;
+  margin: 0;
+  color: #6f3d4e;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.85;
+}
+
+.decisionCardAction {
+  min-width: 210px;
+  min-height: 50px;
   margin-top: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.finalPrimary,
-.finalSecondary {
-  min-height: 49px;
-  padding: 12px 24px;
+  padding: 11px 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 9px;
+  color: var(--wine-800);
+  background: rgba(255, 250, 241, 0.75);
+  border: 1px solid var(--gold-500);
   border-radius: 999px;
-  font-size: 0.84rem;
-  font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(93, 10, 42, 0.08);
+  font-size: 0.86rem;
+  font-weight: 800;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
-.finalPrimary {
-  min-width: 180px;
-  color: var(--wine-950);
-  background: var(--gold-300);
+.decisionCardAction:hover,
+.decisionCardAction:focus-visible {
+  background: #fffdf8;
+  box-shadow: 0 9px 22px rgba(93, 10, 42, 0.13);
+  transform: translateY(-2px);
 }
 
-.finalPrimary svg {
+.decisionCardAction:focus-visible,
+.decisionChoiceButton:focus-visible {
+  outline: 3px solid rgba(222, 185, 104, 0.48);
+  outline-offset: 4px;
+}
+
+.decisionCardAction svg {
   width: 17px;
   height: 17px;
 }
 
-.finalSecondary {
+.decisionMatchmakerVisual,
+.decisionProfileVisual,
+.decisionChoiceButton {
   color: var(--gold-300);
-  border: 1px solid rgba(241, 219, 153, 0.44);
+  background:
+    radial-gradient(circle at 50% 8%, rgba(241, 219, 153, 0.12), transparent 27%),
+    linear-gradient(145deg, #78173a, #4b001d 58%, #2c000f);
+}
+
+.decisionMatchmakerVisual {
+  grid-area: visual;
+  min-height: 100%;
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-right: 2px solid #c9912f;
+  border-bottom-right-radius: 112px;
+  box-shadow: inset -24px 0 44px rgba(16, 0, 6, 0.22);
+}
+
+.decisionVisualHalo {
+  width: 92px;
+  height: 92px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold-400);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 14px rgba(241, 219, 153, 0.2));
+}
+
+.decisionVisualHalo svg {
+  width: 44px;
+  height: 44px;
+  stroke-width: 1.35;
+}
+
+.decisionVisualOrnament {
+  width: 152px;
+  height: 152px;
+  position: absolute;
+  bottom: -54px;
+  left: -45px;
+  border: 1px solid rgba(222, 185, 104, 0.34);
+  border-radius: 48% 52% 44% 56%;
+  transform: rotate(28deg);
+}
+
+.decisionVisualOrnament::before,
+.decisionVisualOrnament::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border: 1px solid rgba(222, 185, 104, 0.22);
+  border-radius: inherit;
+  transform: rotate(34deg);
+}
+
+.decisionVisualOrnament::after {
+  inset: 45px;
+  transform: rotate(70deg);
+}
+
+.decisionProfileVisual {
+  width: 152px;
+  min-height: 278px;
+  margin: 42px auto;
+  padding: 24px 17px;
+  grid-area: profile;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  border: 2px solid #c9912f;
+  border-radius: 22px;
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 231, 161, 0.05),
+    0 16px 34px rgba(60, 0, 23, 0.2);
+  direction: rtl;
+}
+
+.decisionProfileAvatar {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 2px;
+  display: grid !important;
+  place-items: center;
+  border: 1px solid var(--gold-400);
+  border-radius: 50%;
+  background: rgba(241, 219, 153, 0.06);
+}
+
+.decisionProfileAvatar svg {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.decisionProfileRule {
+  height: 1px;
+  margin: 0 6px 4px;
+  display: block !important;
+  background: linear-gradient(90deg, transparent, rgba(241, 219, 153, 0.65), transparent);
+}
+
+.decisionProfileVisual > span:not(.decisionProfileAvatar, .decisionProfileRule) {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffe7a1;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.decisionProfileVisual > span > svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  color: var(--gold-300);
+}
+
+.decisionChoice {
+  margin-top: 94px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.decisionChoiceOrnament {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--gold-600);
+}
+
+.decisionChoiceOrnament svg {
+  width: 24px;
+  height: 24px;
+}
+
+.decisionChoice h2 {
+  margin: 0;
+  color: var(--wine-800);
+  font-size: clamp(2.15rem, 4vw, 3.6rem);
+  line-height: 1.35;
+}
+
+.decisionChoiceDivider {
+  width: min(560px, 74vw);
+  height: 1px;
+  margin: 20px auto 32px;
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+}
+
+.decisionChoiceActions {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(38px, 5vw, 68px);
+}
+
+.decisionChoiceButton {
+  width: clamp(260px, 24vw, 330px);
+  min-height: 82px;
+  padding: 17px 24px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  overflow: hidden;
+  border: 2px solid #c9912f;
+  border-radius: 19px;
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 231, 161, 0.04),
+    0 14px 28px rgba(60, 0, 23, 0.16);
+  font-size: 1rem;
+  font-weight: 800;
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+
+.decisionChoiceButton::after {
+  content: "";
+  width: 44px;
+  position: absolute;
+  top: -24px;
+  bottom: -24px;
+  left: -70px;
+  background: linear-gradient(90deg, transparent, rgba(255, 240, 189, 0.55), transparent);
+  transform: rotate(18deg);
+  animation: decisionButtonShine 5.2s ease-in-out infinite;
+}
+
+.decisionChoiceButton:hover,
+.decisionChoiceButton:focus-visible {
+  filter: brightness(1.09);
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 231, 161, 0.07),
+    0 18px 34px rgba(60, 0, 23, 0.22),
+    0 0 18px rgba(222, 185, 104, 0.2);
+  transform: translateY(-4px);
+}
+
+.decisionChoiceButton svg {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  stroke-width: 1.6;
 }
 
 .footer {
@@ -2364,27 +2625,35 @@
   }
 }
 
-.finalHeart {
-  transform: translateX(0);
-}
-
-.finalHeart:not(:root) {
-  animation-name: finalHeartBeat;
-}
-
-@keyframes finalHeartBeat {
+@keyframes decisionFrameShine {
   0%,
-  100% {
-    transform: scale(0.92);
-    opacity: 0.72;
+  24% {
+    left: -170px;
+    opacity: 0;
   }
-  48% {
-    transform: scale(1.14);
+  40% {
     opacity: 1;
   }
-  66% {
-    transform: scale(1.03);
-    opacity: 0.92;
+  62%,
+  100% {
+    left: calc(100% + 24px);
+    opacity: 0;
+  }
+}
+
+@keyframes decisionButtonShine {
+  0%,
+  28% {
+    left: -70px;
+    opacity: 0;
+  }
+  44% {
+    opacity: 0.85;
+  }
+  66%,
+  100% {
+    left: calc(100% + 50px);
+    opacity: 0;
   }
 }
 
@@ -2519,6 +2788,28 @@
   .faqDoor {
     max-width: 240px;
     flex: 0 1 calc(33.333% - 31px);
+  }
+
+  .decisionCards {
+    gap: 48px;
+  }
+
+  .decisionMatchmakerCard {
+    grid-template-columns: 142px minmax(0, 1fr);
+  }
+
+  .decisionProfileCard {
+    grid-template-columns: minmax(0, 1fr) 150px;
+  }
+
+  .decisionCardCopy {
+    padding-inline: 26px;
+  }
+
+  .decisionProfileVisual {
+    width: 128px;
+    min-height: 264px;
+    margin-inline: auto;
   }
 
 }
@@ -2864,8 +3155,7 @@
 
   .editorialHeading h2,
   .ringsContent h2,
-  .faqHeading h2,
-  .finalCta h2 {
+  .faqHeading h2 {
     font-size: 2.15rem;
   }
 
@@ -3068,15 +3358,52 @@
     border-bottom: 0;
   }
 
-  .finalCta {
-    width: calc(100% - 20px);
-    min-height: 470px;
-    padding: 64px 26px;
-    border-radius: 28px 82px 28px 28px;
+  .decisionSection {
+    width: calc(100% - 32px);
+    margin-bottom: 92px;
   }
 
-  [dir="ltr"] .finalCta {
-    border-radius: 82px 28px 28px 28px;
+  .decisionCards {
+    grid-template-areas:
+      "profile"
+      "matchmaker";
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .decisionCard {
+    width: min(720px, 100%);
+    min-height: 360px;
+    margin-inline: auto;
+  }
+
+  .decisionMatchmakerCard {
+    grid-template-columns: 168px minmax(0, 1fr);
+  }
+
+  .decisionProfileCard {
+    grid-template-columns: minmax(0, 1fr) 180px;
+  }
+
+  .decisionCardCopy {
+    padding-inline: 38px;
+  }
+
+  .decisionProfileVisual {
+    width: 152px;
+    margin-inline: auto;
+  }
+
+  .decisionChoice {
+    margin-top: 82px;
+  }
+
+  .decisionChoiceActions {
+    gap: 28px;
+  }
+
+  .decisionChoiceButton {
+    width: min(310px, 42vw);
   }
 }
 
@@ -3383,13 +3710,92 @@
     margin-top: 24px;
   }
 
-  .finalActions {
-    width: 100%;
-    flex-direction: column;
+  .decisionSection {
+    width: calc(100% - 20px);
+    margin-bottom: 76px;
   }
 
-  .finalPrimary,
-  .finalSecondary {
+  .decisionMatchmakerCard,
+  .decisionProfileCard {
+    grid-template-columns: 1fr;
+  }
+
+  .decisionMatchmakerCard {
+    grid-template-areas:
+      "visual"
+      "copy";
+  }
+
+  .decisionProfileCard {
+    grid-template-areas:
+      "profile"
+      "copy";
+  }
+
+  .decisionMatchmakerVisual {
+    width: 100%;
+    min-height: 170px;
+    border-right: 0;
+    border-bottom: 2px solid #c9912f;
+    border-end-end-radius: 74px;
+    border-end-start-radius: 74px;
+  }
+
+  .decisionVisualHalo {
+    width: 78px;
+    height: 78px;
+  }
+
+  .decisionVisualHalo svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .decisionProfileVisual,
+  [dir="ltr"] .decisionProfileVisual {
+    width: calc(100% - 48px);
+    min-height: 230px;
+    margin: 24px auto 0;
+    align-items: center;
+    justify-self: center;
+  }
+
+  .decisionProfileVisual > span:not(.decisionProfileAvatar, .decisionProfileRule) {
+    width: min(220px, 100%);
+  }
+
+  .decisionProfileRule {
+    width: min(220px, 82%);
+  }
+
+  .decisionCardCopy {
+    padding: 36px 24px 34px;
+  }
+
+  .decisionCard h2 {
+    font-size: 1.75rem;
+  }
+
+  .decisionCardAction {
+    width: min(260px, 100%);
+    min-width: 0;
+  }
+
+  .decisionChoice {
+    margin-top: 72px;
+  }
+
+  .decisionChoice h2 {
+    font-size: clamp(2rem, 11vw, 2.75rem);
+  }
+
+  .decisionChoiceActions {
+    width: min(360px, 100%);
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .decisionChoiceButton {
     width: 100%;
   }
 
