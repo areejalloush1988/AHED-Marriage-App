@@ -10,6 +10,11 @@ type AhedWordmarkProps = {
   className?: string;
 };
 
+type AhedOfficialMarkProps = {
+  className?: string;
+  idSuffix: string;
+};
+
 export function AhedBrand({
   alt = "شعار عَهْد",
   className,
@@ -24,6 +29,128 @@ export function AhedBrand({
       src="/ahed-logo.png"
       width={911}
     />
+  );
+}
+
+export function AhedOfficialMark({
+  className,
+  idSuffix,
+}: AhedOfficialMarkProps) {
+  const alphaFilterId = `ahed-official-alpha-${idSuffix}`;
+  const ribbonFilterId = `ahed-official-ribbon-${idSuffix}`;
+  const markMaskId = `ahed-official-mask-${idSuffix}`;
+  const ribbonMaskId = `ahed-official-ribbon-mask-${idSuffix}`;
+  const ribbonClipId = `ahed-official-ribbon-clip-${idSuffix}`;
+  const goldGradientId = `ahed-official-gold-${idSuffix}`;
+  const ribbonGradientId = `ahed-official-rose-${idSuffix}`;
+
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      focusable="false"
+      viewBox="0 0 1024 1536"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <filter
+          id={alphaFilterId}
+          x="-4%"
+          y="-4%"
+          width="108%"
+          height="108%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feColorMatrix type="luminanceToAlpha" />
+          <feComponentTransfer>
+            <feFuncA type="table" tableValues="1 0" />
+          </feComponentTransfer>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="3.5" intercept="-0.12" />
+          </feComponentTransfer>
+        </filter>
+        <filter
+          id={ribbonFilterId}
+          x="-4%"
+          y="-4%"
+          width="108%"
+          height="108%"
+          colorInterpolationFilters="sRGB"
+        >
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 0 0
+                    2 -3 0 0 0.05"
+          />
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="1.45" intercept="-0.04" />
+          </feComponentTransfer>
+        </filter>
+        <mask
+          id={markMaskId}
+          x="0"
+          y="0"
+          width="1024"
+          height="1536"
+          maskUnits="userSpaceOnUse"
+          style={{ maskType: "alpha" }}
+        >
+          <image
+            filter={`url(#${alphaFilterId})`}
+            height="1536"
+            href="/ahed-logo-official.png"
+            width="1024"
+          />
+        </mask>
+        <mask
+          id={ribbonMaskId}
+          x="0"
+          y="0"
+          width="1024"
+          height="1120"
+          maskUnits="userSpaceOnUse"
+          style={{ maskType: "alpha" }}
+        >
+          <image
+            filter={`url(#${ribbonFilterId})`}
+            height="1536"
+            href="/ahed-logo-official.png"
+            width="1024"
+          />
+        </mask>
+        <clipPath id={ribbonClipId}>
+          <rect width="1024" height="1120" />
+        </clipPath>
+        <linearGradient id={goldGradientId} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#b7791f" />
+          <stop offset="0.22" stopColor="#ffe7a1" />
+          <stop offset="0.48" stopColor="#d49a2f" />
+          <stop offset="0.72" stopColor="#fff0bd" />
+          <stop offset="1" stopColor="#a96913" />
+        </linearGradient>
+        <linearGradient id={ribbonGradientId} x1="0" y1="0" x2="1" y2="0.9">
+          <stop offset="0" stopColor="#f1c0aa" />
+          <stop offset="0.44" stopColor="#bf6170" />
+          <stop offset="0.72" stopColor="#f0ad9f" />
+          <stop offset="1" stopColor="#9d3d54" />
+        </linearGradient>
+      </defs>
+      <rect
+        width="1024"
+        height="1536"
+        fill={`url(#${goldGradientId})`}
+        mask={`url(#${markMaskId})`}
+      />
+      <rect
+        width="1024"
+        height="1120"
+        clipPath={`url(#${ribbonClipId})`}
+        fill={`url(#${ribbonGradientId})`}
+        mask={`url(#${ribbonMaskId})`}
+      />
+    </svg>
   );
 }
 

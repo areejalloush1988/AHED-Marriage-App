@@ -209,11 +209,17 @@
   align-items: center;
   column-gap: clamp(18px, 2.6vw, 44px);
   overflow: hidden;
-  color: var(--wine-950);
-  background: transparent;
-  border-top: 1px solid rgba(173, 118, 32, 0.22);
-  border-bottom: 1px solid rgba(173, 118, 32, 0.22);
-  box-shadow: none;
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(241, 219, 153, 0.13), transparent 30rem),
+    radial-gradient(circle at 8% 45%, rgba(222, 185, 104, 0.1), transparent 24rem),
+    radial-gradient(circle at 92% 42%, rgba(222, 185, 104, 0.1), transparent 24rem),
+    linear-gradient(138deg, #320011 0%, #5d0a2a 45%, #430018 72%, #26000e 100%);
+  border: 1px solid rgba(222, 185, 104, 0.44);
+  border-radius: 34px;
+  box-shadow:
+    0 30px 70px rgba(38, 0, 14, 0.2),
+    inset 0 1px 0 rgba(255, 238, 184, 0.12);
 }
 
 .hero::before {
@@ -223,9 +229,9 @@
   position: absolute;
   left: -270px;
   top: -280px;
-  border: 1px solid rgba(173, 118, 32, 0.18);
+  border: 1px solid rgba(241, 219, 153, 0.2);
   border-radius: 50%;
-  box-shadow: 0 0 0 42px rgba(222, 185, 104, 0.035);
+  box-shadow: 0 0 0 42px rgba(222, 185, 104, 0.05);
 }
 
 .heroCopy {
@@ -266,14 +272,28 @@
   justify-content: center;
 }
 
+.heroLogoPanel::before {
+  content: "";
+  width: min(290px, 112%);
+  aspect-ratio: 1;
+  position: absolute;
+  border: 1px solid rgba(241, 219, 153, 0.12);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(241, 219, 153, 0.1), transparent 68%);
+  box-shadow: 0 0 70px rgba(222, 185, 104, 0.08);
+}
+
 .heroOfficialLogo {
   width: min(255px, 100%);
   max-height: 440px;
   height: auto;
+  position: relative;
+  z-index: 1;
   display: block;
   object-fit: contain;
-  border-radius: 28px;
-  filter: drop-shadow(0 20px 34px rgba(93, 10, 42, 0.13));
+  filter:
+    drop-shadow(0 20px 30px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 18px rgba(241, 219, 153, 0.18));
 }
 
 .eyebrow,
@@ -288,7 +308,7 @@
 }
 
 .eyebrowLight {
-  color: var(--wine-700);
+  color: var(--gold-300);
 }
 
 .eyebrowLight svg {
@@ -299,7 +319,7 @@
 .hero h1 {
   max-width: 700px;
   margin: 16px auto 13px;
-  color: var(--wine-800);
+  color: var(--gold-300);
   font-size: clamp(2.35rem, 3.4vw, 3.65rem);
   font-weight: 600;
   line-height: 1.13;
@@ -309,7 +329,7 @@
 .hero h1 em {
   margin-top: 3px;
   display: block;
-  color: var(--wine-800);
+  color: #ffe7a1;
   font-style: normal;
   font-weight: 600;
 }
@@ -317,7 +337,7 @@
 .heroCopy > p {
   max-width: 650px;
   margin: 0 auto;
-  color: var(--wine-700);
+  color: #f8e9c8;
   font-size: 1rem;
   line-height: 1.95;
 }
@@ -327,7 +347,7 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  color: var(--wine-700);
+  color: var(--gold-300);
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -335,7 +355,7 @@
 .heroNote svg {
   width: 17px;
   height: 17px;
-  fill: rgba(173, 118, 32, 0.15);
+  fill: rgba(241, 219, 153, 0.18);
 }
 
 .heroArtwork {
@@ -347,6 +367,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  perspective: 1100px;
+  transform-style: preserve-3d;
 }
 
 .firework {
@@ -424,15 +446,56 @@
   animation-delay: -2.45s;
 }
 
+.coupleStage {
+  width: min(800px, 120%);
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  transform-origin: 50% 76%;
+  will-change: transform;
+  animation: coupleStage3d 8.5s cubic-bezier(0.45, 0.05, 0.25, 0.98) infinite;
+}
+
+.coupleStage::before {
+  content: "";
+  position: absolute;
+  inset: 5% 9% 8%;
+  border: 1px solid rgba(255, 231, 161, 0.18);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 231, 161, 0.13), transparent 67%);
+  filter: blur(2px);
+  transform: translateZ(-80px) scale(0.92);
+  animation: coupleHalo3d 4.25s ease-in-out infinite;
+}
+
+.coupleStage::after {
+  content: "";
+  width: 54%;
+  height: 36px;
+  position: absolute;
+  z-index: -1;
+  left: 23%;
+  bottom: 5%;
+  border-radius: 50%;
+  background: rgba(12, 0, 5, 0.46);
+  filter: blur(15px);
+  transform: translateZ(-100px) rotateX(70deg);
+  animation: coupleShadow3d 4.25s ease-in-out infinite;
+}
+
 .coupleImage {
-  width: min(780px, 116%);
+  width: 100%;
   height: auto;
   position: relative;
   z-index: 2;
   display: block;
-  filter: drop-shadow(0 24px 34px rgba(93, 10, 42, 0.18));
+  filter:
+    drop-shadow(0 26px 36px rgba(5, 0, 2, 0.38))
+    drop-shadow(0 0 24px rgba(255, 226, 151, 0.16));
+  transform: translateZ(72px);
   transform-origin: 50% 76%;
-  animation: coupleFloat 8s ease-in-out infinite;
+  will-change: transform, filter;
+  animation: coupleDepthFloat 4.25s ease-in-out infinite;
 }
 
 .heartPulse {
@@ -498,8 +561,10 @@
   grid-template-columns: auto auto minmax(300px, 1fr);
   align-items: center;
   gap: 18px;
-  border-top: 1px solid rgba(93, 10, 42, 0.1);
-  background: rgba(255, 255, 255, 0.58);
+  border-top: 1px solid rgba(255, 238, 184, 0.7);
+  background:
+    linear-gradient(90deg, rgba(180, 116, 29, 0.98), rgba(244, 218, 145, 0.98) 48%, rgba(181, 116, 29, 0.98));
+  box-shadow: 0 -12px 40px rgba(21, 0, 8, 0.2);
   backdrop-filter: blur(12px);
 }
 
@@ -507,8 +572,9 @@
   width: 52px;
   height: 52px;
   padding: 14px;
-  color: var(--wine-950);
-  background: var(--gold-300);
+  color: var(--gold-300);
+  background: var(--wine-900);
+  border: 1px solid rgba(93, 10, 42, 0.4);
   border-radius: 50%;
 }
 
@@ -522,12 +588,12 @@
 }
 
 .freeRibbon small {
-  color: #92717d;
+  color: rgba(60, 0, 23, 0.68);
   font-size: 0.68rem;
 }
 
 .freeRibbon strong {
-  color: var(--wine-800);
+  color: var(--wine-950);
   font-size: 1.22rem;
 }
 
@@ -535,8 +601,8 @@
   max-width: 680px;
   margin: 0;
   padding-inline-start: 28px;
-  border-inline-start: 1px solid rgba(93, 10, 42, 0.14);
-  color: #795363;
+  border-inline-start: 1px solid rgba(60, 0, 23, 0.3);
+  color: var(--wine-900);
   font-size: 0.88rem;
   line-height: 1.85;
 }
@@ -1966,15 +2032,61 @@
   gap: 22px;
 }
 
-@keyframes coupleFloat {
+@keyframes coupleStage3d {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    filter: drop-shadow(0 22px 34px rgba(93, 10, 42, 0.17)) brightness(1);
+    transform: translate3d(0, 0, 0) rotateX(1deg) rotateY(-4deg);
+  }
+  25% {
+    transform: translate3d(0, -5px, 16px) rotateX(-0.8deg) rotateY(2.8deg);
   }
   50% {
-    transform: translate3d(0, -5px, 0) scale(1.008);
-    filter: drop-shadow(0 27px 40px rgba(93, 10, 42, 0.21)) brightness(1.035);
+    transform: translate3d(0, -10px, 24px) rotateX(1.4deg) rotateY(4deg);
+  }
+  75% {
+    transform: translate3d(0, -4px, 12px) rotateX(-0.6deg) rotateY(-2.6deg);
+  }
+}
+
+@keyframes coupleDepthFloat {
+  0%,
+  100% {
+    transform: translateZ(72px) scale(1);
+    filter:
+      drop-shadow(0 25px 36px rgba(5, 0, 2, 0.38))
+      drop-shadow(0 0 22px rgba(255, 226, 151, 0.14))
+      brightness(1);
+  }
+  50% {
+    transform: translateZ(104px) scale(1.018);
+    filter:
+      drop-shadow(0 34px 46px rgba(5, 0, 2, 0.44))
+      drop-shadow(0 0 34px rgba(255, 226, 151, 0.24))
+      brightness(1.07);
+  }
+}
+
+@keyframes coupleHalo3d {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: translateZ(-80px) scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: translateZ(-54px) scale(1.035);
+  }
+}
+
+@keyframes coupleShadow3d {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translateZ(-100px) rotateX(70deg) scaleX(1);
+  }
+  50% {
+    opacity: 0.44;
+    transform: translateZ(-100px) rotateX(70deg) scaleX(0.84);
   }
 }
 
@@ -2235,7 +2347,7 @@
     min-height: 450px;
   }
 
-  .coupleImage {
+  .coupleStage {
     width: min(720px, 108%);
   }
 

@@ -20,7 +20,11 @@ import {
   UserRoundPlus,
 } from "lucide-react";
 
-import { AhedBrand, AhedWordmark } from "@/components/ahed-brand";
+import {
+  AhedBrand,
+  AhedOfficialMark,
+  AhedWordmark,
+} from "@/components/ahed-brand";
 
 import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
@@ -141,15 +145,9 @@ export default function ModelTwo() {
 
       <section className={styles.hero}>
         <div className={`${styles.heroLogoPanel} ${styles.heroLogoLeft}`}>
-          <Image
-            alt=""
-            aria-hidden="true"
+          <AhedOfficialMark
             className={styles.heroOfficialLogo}
-            height={1536}
-            priority
-            sizes="(max-width: 640px) 34vw, (max-width: 920px) 38vw, 20vw"
-            src="/ahed-logo-official.png"
-            width={1024}
+            idSuffix="hero-left"
           />
         </div>
 
@@ -191,15 +189,17 @@ export default function ModelTwo() {
             <span className={styles.heartPulse} aria-hidden="true">
               <Heart />
             </span>
-            <Image
-              alt={labels.coupleAlt}
-              className={styles.coupleImage}
-              height={1024}
-              priority
-              sizes="(max-width: 920px) 100vw, 58vw"
-              src="/ahed-couple-v2.webp"
-              width={1536}
-            />
+            <div className={styles.coupleStage}>
+              <Image
+                alt={labels.coupleAlt}
+                className={styles.coupleImage}
+                height={1024}
+                priority
+                sizes="(max-width: 920px) 100vw, 58vw"
+                src="/ahed-couple-v2.webp"
+                width={1536}
+              />
+            </div>
           </div>
 
           <div className={styles.heroCopy}>
@@ -220,14 +220,9 @@ export default function ModelTwo() {
         </div>
 
         <div className={`${styles.heroLogoPanel} ${styles.heroLogoRight}`}>
-          <Image
-            alt={isArabic ? "شعار عَهْد الرسمي" : "Official AHED logo"}
+          <AhedOfficialMark
             className={styles.heroOfficialLogo}
-            height={1536}
-            priority
-            sizes="(max-width: 640px) 34vw, (max-width: 920px) 38vw, 20vw"
-            src="/ahed-logo-official.png"
-            width={1024}
+            idSuffix="hero-right"
           />
         </div>
 
