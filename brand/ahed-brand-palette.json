@@ -1,18 +1,18 @@
 {
   "brand": "AHED | عَهْد",
   "approvedGold": {
-    "name": "AHED Page-Matched Champagne Gold",
-    "deep": "#AD7620",
-    "base": "#C8953D",
-    "highlight": "#F1DB99",
-    "secondaryHighlight": "#DEB968",
-    "shadow": "#8F5E1A",
-    "gradient": "linear-gradient(135deg, #AD7620 0%, #C8953D 30%, #F1DB99 50%, #DEB968 72%, #AD7620 100%)"
+    "name": "Approved Warm Satin Gold — Locked",
+    "deep": "#9B5F18",
+    "base": "#C88D34",
+    "highlight": "#FAF0CF",
+    "secondaryHighlight": "#DCAE64",
+    "shadow": "#754A2D",
+    "gradient": "linear-gradient(135deg, #9B5F18 0%, #C88D34 30%, #DCAE64 50%, #F1CF90 72%, #FAF0CF 100%)"
   },
   "approvedBurgundy": {
     "deep": "#4F001D",
     "base": "#6F1D38",
     "bright": "#9A002D"
   },
-  "usage": "Use this restrained champagne-gold family for the AHED logo and accents so they match the model-2 page borders and typography. Avoid lemon yellow, neon gold, orange gold, black contamination, bronze, copper, silver, or stainless-steel finishes."
+  "usage": "Locked to the approved AHED logo artwork. Use this exact warm satin-gold family without recoloring the logo. Avoid olive or green gold, lemon yellow, neon gold, black contamination, bronze, copper, silver, or stainless-steel finishes."
 }

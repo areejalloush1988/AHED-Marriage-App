@@ -15,16 +15,16 @@
 }
 
 :root {
-  --ahed-gold-deep: #ad7620;
-  --ahed-gold: #c8953d;
-  --ahed-gold-light: #f1db99;
+  --ahed-gold-deep: #9b5f18;
+  --ahed-gold: #c88d34;
+  --ahed-gold-light: #faf0cf;
   --ahed-gold-shine: linear-gradient(
     135deg,
     var(--ahed-gold-deep) 0%,
     var(--ahed-gold) 30%,
-    var(--ahed-gold-light) 50%,
-    #deb968 72%,
-    #ad7620 100%
+    #dcae64 50%,
+    #f1cf90 72%,
+    var(--ahed-gold-light) 100%
   );
   --background: #fff9f3;
   --foreground: #2d1820;

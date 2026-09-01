@@ -19,10 +19,10 @@ export function AhedBrand({
     <Image
       alt={alt}
       className={className}
-      height={925}
+      height={841}
       priority={priority}
       src="/ahed-logo.webp"
-      width={2048}
+      width={1870}
     />
   );
 }
