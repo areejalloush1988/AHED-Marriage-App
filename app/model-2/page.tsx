@@ -6,7 +6,6 @@ import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  Check,
   FileCheck2,
   Globe2,
   Handshake,
@@ -45,7 +44,13 @@ export default function ModelTwo() {
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
         privacyPromise: "وعد الخصوصية",
-        membership: "مسارات العضوية",
+        storyEyebrow: "قصة عَهْد في ١٥ ثانية",
+        storyNav: "قصة عَهْد",
+        storyTitle: "مو تعارف عابر… عَهْد للزواج الجاد.",
+        storyDescription: "نية واضحة، خصوصية، وقبول متبادل — من أول خطوة حتى بداية حوار جاد.",
+        storyStages: ["النية", "الخصوصية", "العَهْد"],
+        storyVideoLabel: "فيديو تعريفي عن تجربة عَهْد للزواج الجاد",
+        storyVideoFallback: "متصفحك لا يدعم تشغيل الفيديو.",
         email: "البريد الرسمي",
         website: "الموقع الرسمي",
         call: "طلب اتصال",
@@ -62,7 +67,13 @@ export default function ModelTwo() {
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
         privacyPromise: "The privacy promise",
-        membership: "Membership paths",
+        storyEyebrow: "AHED in 15 seconds",
+        storyNav: "Our story",
+        storyTitle: "Not casual dating… AHED is for serious marriage.",
+        storyDescription: "Clear intention, privacy, and mutual acceptance — from the first step to a serious conversation.",
+        storyStages: ["Intention", "Privacy", "Commitment"],
+        storyVideoLabel: "An introduction to the AHED serious-marriage experience",
+        storyVideoFallback: "Your browser does not support video playback.",
         email: "Official email",
         website: "Official website",
         call: "Request a call",
@@ -103,7 +114,7 @@ export default function ModelTwo() {
             <a href="#how">{copy.nav.how}</a>
             <a href="#why">{copy.nav.why}</a>
             <a href="#safety">{copy.nav.safety}</a>
-            <a href="#plans">{copy.nav.plans}</a>
+            <a href="#story">{labels.storyNav}</a>
             <a href="#faq">{copy.nav.faq}</a>
           </nav>
 
@@ -356,59 +367,46 @@ export default function ModelTwo() {
         </ol>
       </section>
 
-      <section id="plans" className={styles.membershipSection}>
-        <div className={styles.editorialHeading}>
-          <span>04</span>
-          <div>
-            <small>{labels.membership}</small>
-            <h2>{copy.plans.title}</h2>
-            <p>{copy.plans.description}</p>
-          </div>
+      <section id="story" className={styles.storySection}>
+        <header className={styles.storyIntro}>
+          <AhedBrand alt="" className={styles.storyBrand} />
+          <small>{labels.storyEyebrow}</small>
+          <h2>{labels.storyTitle}</h2>
+          <p>{labels.storyDescription}</p>
+        </header>
+
+        <div className={styles.storyPlayerShell}>
+          <span className={styles.storyCornerTop} aria-hidden="true" />
+          <video
+            aria-label={labels.storyVideoLabel}
+            autoPlay
+            className={styles.storyVideo}
+            controls
+            loop
+            muted
+            playsInline
+            poster="/images/model-2/ahed-story-v1-poster.webp"
+            preload="metadata"
+          >
+            <source src="/images/model-2/ahed-story-v1.mp4" type="video/mp4" />
+            {labels.storyVideoFallback}
+          </video>
+          <span className={styles.storyCornerBottom} aria-hidden="true" />
         </div>
 
-        <div className={styles.membershipLadder}>
-          {copy.plans.items.map((plan, index) => (
-            <article
-              key={plan.name}
-              className={`${styles.membershipRow} ${plan.featured ? styles.membershipFeatured : ""}`}
-            >
-              <div className={styles.planIdentity}>
-                <span>0{index + 1}</span>
-                <div>
-                  <small>{plan.featured ? copy.plans.featuredBadge : copy.plans.once}</small>
-                  <h3>{plan.name}</h3>
-                  <p>{plan.description}</p>
-                </div>
-              </div>
-
-              <div className={styles.planPrices}>
-                <div>
-                  <span>{copy.plans.women}</span>
-                  <strong>{plan.womenPrice}</strong>
-                  <small>{copy.plans.currency}</small>
-                </div>
-                <div>
-                  <span>{copy.plans.men}</span>
-                  <strong>{plan.menPrice}</strong>
-                  <small>{copy.plans.currency}</small>
-                </div>
-              </div>
-
-              <ul>
-                {plan.features.map((feature) => (
-                  <li key={feature}>
-                    <Check aria-hidden="true" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <Link className={styles.planAction} href="/register">
-                {copy.plans.select}
-                <DirectionalArrow aria-hidden="true" />
-              </Link>
-            </article>
-          ))}
+        <div className={styles.storyTimeline} aria-label={labels.storyEyebrow}>
+          <ol>
+            {labels.storyStages.map((stage, index) => (
+              <li key={stage}>
+                <span aria-hidden="true">0{index + 1}</span>
+                <strong>{stage}</strong>
+              </li>
+            ))}
+          </ol>
+          <div className={styles.storyTimes} aria-hidden="true">
+            <span>00:00</span>
+            <span>00:15</span>
+          </div>
         </div>
       </section>
 
