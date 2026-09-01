@@ -61,7 +61,7 @@ export default function ModelTwo() {
         model: "نموذج التصميم رقم ٢",
         first: "فتح النموذج الأول",
         coupleAlt: "رسم فني لعروسين داخل قلب مضيء",
-        ringsAlt: "خاتما زواج على قماش مخملي خمري",
+        ringsAlt: "يدا زوجين بخاتمين ذهبي وفضي بجوار ورد أبيض",
         journeyAlt: "أربع بوابات خمرية تمثل مراحل رحلة عَهْد",
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
@@ -78,7 +78,7 @@ export default function ModelTwo() {
         model: "Design model 2",
         first: "Open model 1",
         coupleAlt: "Gold line-art bride and groom inside a glowing heart",
-        ringsAlt: "Wedding rings on burgundy velvet",
+        ringsAlt: "A couple wearing gold and silver wedding rings beside white roses",
         journeyAlt: "Four burgundy gates representing the AHED journey",
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
@@ -261,15 +261,18 @@ export default function ModelTwo() {
       </section>
 
       <section id="why" className={styles.ringsStory}>
-        <Image
-          alt={labels.ringsAlt}
-          className={styles.ringsImage}
-          fill
-          sizes="(max-width: 800px) 100vw, 1400px"
-          src="/ahed-rings-v6.webp"
-        />
-        <div className={styles.ringsShade} aria-hidden="true" />
-        <span className={styles.ringsGlint} aria-hidden="true" />
+        <div className={styles.ringsVisual}>
+          <Image
+            alt={labels.ringsAlt}
+            className={styles.ringsImage}
+            height={735}
+            sizes="(max-width: 700px) calc(100vw - 48px), (max-width: 920px) calc(100vw - 96px), 58vw"
+            src="/ahed-rings-hands-v1.webp"
+            width={1456}
+          />
+          <span className={styles.ringsGlint} aria-hidden="true" />
+        </div>
+
         <div className={styles.ringsContent}>
           <span className={styles.storyIndex}>02</span>
           <small>{labels.principles}</small>
