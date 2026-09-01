@@ -27,6 +27,29 @@ import styles from "./model-2.module.css";
 
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 
+const journeyGates = [
+  {
+    height: 560,
+    src: "/ahed-journey-door-01-v1.webp",
+    width: 310,
+  },
+  {
+    height: 640,
+    src: "/ahed-journey-door-02-v1.webp",
+    width: 350,
+  },
+  {
+    height: 720,
+    src: "/ahed-journey-door-03-v1.webp",
+    width: 360,
+  },
+  {
+    height: 815,
+    src: "/ahed-journey-door-04-v1.webp",
+    width: 430,
+  },
+] as const;
+
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
   const copy = homeContent[locale];
@@ -211,26 +234,28 @@ export default function ModelTwo() {
         </div>
 
         <div className={styles.journeyVisual}>
-          <div className={styles.journeyScene}>
-            <Image
-              alt={labels.journeyAlt}
-              className={styles.journeyImage}
-              fill
-              sizes="(max-width: 920px) calc(100vw - 32px), 1260px"
-              src="/ahed-journey-gates-v1.webp"
-            />
-            <span className={styles.journeyVeil} aria-hidden="true" />
-            <span className={styles.journeyShimmer} aria-hidden="true" />
-          </div>
+          <ol className={styles.gateGallery}>
+            {copy.process.steps.map((step, index) => {
+              const gate = journeyGates[index] ?? journeyGates[0];
 
-          <ol className={styles.gateSteps}>
-            {copy.process.steps.map((step) => (
-              <li key={step.number} className={styles.gateStep}>
-                <span className={styles.gateStepNumber}>{step.number}</span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </li>
-            ))}
+              return (
+                <li key={step.number} className={styles.journeyGate}>
+                  <Image
+                    alt={`${labels.journeyAlt} ${step.number}`}
+                    className={styles.journeyGateImage}
+                    height={gate.height}
+                    sizes="(max-width: 560px) 88vw, (max-width: 920px) 46vw, 24vw"
+                    src={gate.src}
+                    width={gate.width}
+                  />
+                  <div className={styles.journeyGateCopy}>
+                    <h3>{step.title}</h3>
+                    <span aria-hidden="true" />
+                    <p>{step.description}</p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </section>
