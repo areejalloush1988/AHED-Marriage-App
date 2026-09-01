@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   Sparkles,
   UserRoundCheck,
+  UserRoundPlus,
 } from "lucide-react";
 
 import { AhedBrand, AhedWordmark } from "@/components/ahed-brand";
@@ -85,8 +86,8 @@ export default function Home() {
           </a>
 
           <nav className={styles.nav} aria-label={copy.navLabel}>
-            <a href="#why">{copy.nav.why}</a>
             <a href="#how">{copy.nav.how}</a>
+            <a href="#why">{copy.nav.why}</a>
             <a href="#safety">{copy.nav.safety}</a>
             <a href="#plans">{copy.nav.plans}</a>
             <a href="#faq">{copy.nav.faq}</a>
@@ -146,26 +147,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="why" className={styles.section}>
-        <div className={styles.sectionHeading}>
-          <span className={styles.eyebrow}>{copy.why.eyebrow}</span>
-          <h2>{copy.why.title}</h2>
-          <p>{copy.why.description}</p>
-        </div>
-
-        <div className={styles.principlesGrid}>
-          {copy.why.principles.map((principle, index) => {
-            const Icon = principleIcons[index];
-            return (
-              <article key={principle.title} className={styles.principleCard}>
-                <span className={styles.iconBox}>
-                  <Icon />
-                </span>
-                <h3>{principle.title}</h3>
-                <p>{principle.description}</p>
-              </article>
-            );
-          })}
+      <section className={styles.freeJoin} aria-label={copy.freeJoin.title}>
+        <span className={styles.freeJoinIcon} aria-hidden="true">
+          <UserRoundPlus />
+        </span>
+        <div>
+          <small>{copy.freeJoin.eyebrow}</small>
+          <strong>{copy.freeJoin.title}</strong>
+          <p>{copy.freeJoin.description}</p>
         </div>
       </section>
 
@@ -190,6 +179,29 @@ export default function Home() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section id="why" className={`${styles.section} ${styles.whySection}`}>
+        <div className={styles.sectionHeading}>
+          <span className={styles.eyebrow}>{copy.why.eyebrow}</span>
+          <h2>{copy.why.title}</h2>
+          <p>{copy.why.description}</p>
+        </div>
+
+        <div className={styles.principlesGrid}>
+          {copy.why.principles.map((principle, index) => {
+            const Icon = principleIcons[index];
+            return (
+              <article key={principle.title} className={styles.principleCard}>
+                <span className={styles.iconBox}>
+                  <Icon />
+                </span>
+                <h3>{principle.title}</h3>
+                <p>{principle.description}</p>
+              </article>
+            );
+          })}
         </div>
       </section>
 

@@ -35,6 +35,12 @@ export const homeContent = {
         "اختيار مسؤول، بخطوات هادئة، نحو بيتٍ يبدأ بالنية.",
       signature: "قرار اليوم · وبيت الغد",
     },
+    freeJoin: {
+      eyebrow: "الانضمام إلى عَهْد",
+      title: "التسجيل مجاني للطرفين",
+      description:
+        "أنشئ ملفك وابدأ رحلتك من دون أي دفع أثناء التسجيل؛ اختيار مستوى العضوية يأتي لاحقاً.",
+    },
     trust: {
       aria: "مبادئ عهد الأساسية",
       items: [
@@ -258,6 +264,12 @@ export const homeContent = {
       description:
         "A responsible choice, taken calmly, toward a home that begins with intention.",
       signature: "Today’s decision · Tomorrow’s home",
+    },
+    freeJoin: {
+      eyebrow: "Join AHED",
+      title: "Registration is free for both sides",
+      description:
+        "Create your profile and begin without any payment during registration; membership selection comes later.",
     },
     trust: {
       aria: "AHED core principles",
