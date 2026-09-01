@@ -325,11 +325,11 @@ export default function ModelTwo() {
             >
               <defs>
                 <linearGradient id="journey-rope-gold" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stopColor="#a76e1d" />
-                  <stop offset="0.23" stopColor="#f2d48a" />
-                  <stop offset="0.5" stopColor="#bd8330" />
-                  <stop offset="0.76" stopColor="#f7dda0" />
-                  <stop offset="1" stopColor="#a56b1d" />
+                  <stop offset="0" stopColor="#9b5f18" />
+                  <stop offset="0.23" stopColor="#f1cf90" />
+                  <stop offset="0.5" stopColor="#c88d34" />
+                  <stop offset="0.76" stopColor="#faf0cf" />
+                  <stop offset="1" stopColor="#9b5f18" />
                 </linearGradient>
               </defs>
 
