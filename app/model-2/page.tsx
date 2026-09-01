@@ -227,7 +227,7 @@ export default function ModelTwo() {
           className={styles.ringsImage}
           fill
           sizes="(max-width: 800px) 100vw, 1400px"
-          src="/ahed-rings-v5.webp"
+          src="/ahed-rings-v6.webp"
         />
         <div className={styles.ringsShade} aria-hidden="true" />
         <span className={styles.ringsGlint} aria-hidden="true" />
