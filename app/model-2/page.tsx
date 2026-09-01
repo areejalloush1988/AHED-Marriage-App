@@ -27,29 +27,6 @@ import styles from "./model-2.module.css";
 
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 
-const journeyGates = [
-  {
-    height: 560,
-    src: "/ahed-journey-door-01-v1.webp",
-    width: 310,
-  },
-  {
-    height: 640,
-    src: "/ahed-journey-door-02-v1.webp",
-    width: 350,
-  },
-  {
-    height: 720,
-    src: "/ahed-journey-door-03-v1.webp",
-    width: 360,
-  },
-  {
-    height: 815,
-    src: "/ahed-journey-door-04-v1.webp",
-    width: 430,
-  },
-] as const;
-
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
   const copy = homeContent[locale];
@@ -62,7 +39,7 @@ export default function ModelTwo() {
         first: "فتح النموذج الأول",
         coupleAlt: "رسم فني لعروسين داخل قلب مضيء",
         ringsAlt: "يدا زوجين بخاتمين ذهبي وفضي بجوار ورد أبيض",
-        journeyAlt: "أربع بوابات خمرية تمثل مراحل رحلة عَهْد",
+        journeyAlt: "كتاب مفتوح يعرض مراحل رحلة عَهْد الأربع",
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
         privacyPromise: "وعد الخصوصية",
@@ -79,7 +56,7 @@ export default function ModelTwo() {
         first: "Open model 1",
         coupleAlt: "Gold line-art bride and groom inside a glowing heart",
         ringsAlt: "A couple wearing gold and silver wedding rings beside white roses",
-        journeyAlt: "Four burgundy gates representing the AHED journey",
+        journeyAlt: "An open book presenting the four stages of the AHED journey",
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
         privacyPromise: "The privacy promise",
@@ -234,29 +211,65 @@ export default function ModelTwo() {
         </div>
 
         <div className={styles.journeyVisual}>
-          <ol className={styles.gateGallery}>
-            {copy.process.steps.map((step, index) => {
-              const gate = journeyGates[index] ?? journeyGates[0];
+          <div
+            aria-label={labels.journeyAlt}
+            className={styles.journeyBook}
+            role="group"
+          >
+            <span className={styles.bookCoverEdge} aria-hidden="true" />
+            <div className={styles.bookPages}>
+              <ol className={`${styles.bookPage} ${styles.bookPageLeft}`}>
+                {copy.process.steps
+                  .filter((_, index) => index % 2 === 1)
+                  .map((step) => (
+                    <li
+                      key={step.number}
+                      className={styles.bookChapter}
+                      value={Number(step.number)}
+                    >
+                      <span className={styles.bookChapterNumber}>
+                        {step.number}
+                      </span>
+                      <div className={styles.bookChapterCopy}>
+                        <span
+                          className={styles.bookOrnament}
+                          aria-hidden="true"
+                        />
+                        <h3>{step.title}</h3>
+                        <p>{step.description}</p>
+                      </div>
+                    </li>
+                  ))}
+              </ol>
 
-              return (
-                <li key={step.number} className={styles.journeyGate}>
-                  <Image
-                    alt={`${labels.journeyAlt} ${step.number}`}
-                    className={styles.journeyGateImage}
-                    height={gate.height}
-                    sizes="(max-width: 560px) 88vw, (max-width: 920px) 46vw, 24vw"
-                    src={gate.src}
-                    width={gate.width}
-                  />
-                  <div className={styles.journeyGateCopy}>
-                    <h3>{step.title}</h3>
-                    <span aria-hidden="true" />
-                    <p>{step.description}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+              <span className={styles.bookSpine} aria-hidden="true" />
+
+              <ol className={`${styles.bookPage} ${styles.bookPageRight}`}>
+                {copy.process.steps
+                  .filter((_, index) => index % 2 === 0)
+                  .map((step) => (
+                    <li
+                      key={step.number}
+                      className={styles.bookChapter}
+                      value={Number(step.number)}
+                    >
+                      <span className={styles.bookChapterNumber}>
+                        {step.number}
+                      </span>
+                      <div className={styles.bookChapterCopy}>
+                        <span
+                          className={styles.bookOrnament}
+                          aria-hidden="true"
+                        />
+                        <h3>{step.title}</h3>
+                        <p>{step.description}</p>
+                      </div>
+                    </li>
+                  ))}
+              </ol>
+            </div>
+            <span className={styles.bookBookmark} aria-hidden="true" />
+          </div>
         </div>
       </section>
 

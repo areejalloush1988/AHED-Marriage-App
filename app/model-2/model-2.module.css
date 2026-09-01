@@ -515,9 +515,22 @@
 }
 
 .journeySection .editorialHeading {
-  width: min(690px, 62%);
-  margin-inline-start: 0;
-  margin-inline-end: auto;
+  width: min(920px, 100%);
+  margin-inline: auto;
+  display: block;
+  text-align: center;
+}
+
+.journeySection .editorialHeading > span {
+  display: inline-block;
+}
+
+.journeySection .editorialHeading > span::after {
+  margin-inline: auto;
+}
+
+.journeySection .editorialHeading p {
+  margin-inline: auto;
 }
 
 .editorialHeading {
@@ -580,230 +593,197 @@
 
 .journeyVisual {
   position: relative;
+  padding: 12px 0 20px;
 }
 
-.gateGallery {
-  min-height: 720px;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 0.88fr 0.94fr 1fr 1.12fr;
-  align-items: end;
-  gap: clamp(6px, 1vw, 18px);
-  direction: ltr;
-  list-style: none;
-}
-
-.journeyGate {
-  width: 100%;
+.journeyBook {
+  width: min(1300px, 100%);
+  margin: 0 auto;
+  padding: 15px 17px 25px;
   position: relative;
-  justify-self: center;
-  overflow: hidden;
-  direction: rtl;
-  isolation: isolate;
-  animation: gateFloat 6.8s ease-in-out infinite;
-}
-
-[dir="ltr"] .journeyGate {
-  direction: ltr;
-}
-
-.journeyGate:nth-child(1) {
-  width: 88%;
-  animation-delay: -0.6s;
-}
-
-.journeyGate:nth-child(2) {
-  width: 94%;
-  animation-delay: -2.2s;
-}
-
-.journeyGate:nth-child(3) {
-  width: 97%;
-  animation-delay: -3.8s;
-}
-
-.journeyGate:nth-child(4) {
-  animation-delay: -5.4s;
-}
-
-.journeyGateImage {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
-
-.journeyGateCopy {
-  width: 51%;
-  min-height: 22%;
-  position: absolute;
-  z-index: 2;
-  inset-inline-start: 24.5%;
-  bottom: 13.5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold-300);
-  text-align: center;
-  text-shadow: 0 2px 9px rgba(20, 0, 8, 0.86), 0 0 18px rgba(222, 185, 104, 0.2);
-}
-
-.journeyGateCopy h3 {
-  margin: 0;
-  color: #f4d78e;
-  font-size: clamp(0.78rem, 1.08vw, 1.08rem);
-  font-weight: 800;
-  line-height: 1.38;
-}
-
-.journeyGateCopy > span {
-  width: 30px;
-  height: 1px;
-  margin: 7px auto 6px;
-  display: block;
-  background: linear-gradient(90deg, transparent, #efcf7b, transparent);
-  box-shadow: 0 0 8px rgba(241, 219, 153, 0.5);
-}
-
-.journeyGateCopy p {
-  margin: 0;
-  color: #e7c36f;
-  font-size: clamp(0.58rem, 0.72vw, 0.73rem);
-  font-weight: 600;
-  line-height: 1.62;
-}
-
-.journeyScene {
-  aspect-ratio: 3 / 2;
-  position: relative;
-  overflow: hidden;
-  background: #ead9c5;
-  border: 1px solid rgba(173, 118, 32, 0.28);
-  border-radius: 36px 36px 128px 36px;
-  box-shadow: 0 30px 80px rgba(60, 0, 23, 0.16);
+  background: #4b0924;
+  border: 1px solid #a9782f;
+  border-radius: 36px 36px 26px 26px;
+  box-shadow: 0 26px 58px rgba(51, 4, 22, 0.2);
   isolation: isolate;
 }
 
-[dir="ltr"] .journeyScene {
-  border-radius: 36px 36px 36px 128px;
-}
-
-.journeyImage {
-  z-index: -3;
-  object-fit: cover;
-  object-position: center;
-}
-
-.journeyVeil {
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(38, 0, 14, 0.7) 0%,
-    rgba(38, 0, 14, 0.32) 15%,
-    transparent 36%
-  );
-  pointer-events: none;
-}
-
-.journeyShimmer {
-  width: 22%;
-  height: 140%;
-  position: absolute;
-  z-index: -1;
-  top: -20%;
-  left: -30%;
-  background: linear-gradient(90deg, transparent, rgba(255, 240, 187, 0.25), transparent);
-  filter: blur(8px);
-  transform: rotate(13deg);
-  animation: journeyShimmer 9s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.gateSteps {
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  z-index: 3;
-  inset-inline: 2.4%;
-  bottom: 2.8%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: end;
-  gap: 12px;
-  direction: ltr;
-  list-style: none;
-}
-
-.gateStep {
-  min-height: 134px;
-  padding: 16px 17px 15px;
-  position: relative;
-  overflow: hidden;
-  color: #fff9ed;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(241, 219, 153, 0.14), transparent 8rem),
-    linear-gradient(145deg, rgba(120, 23, 58, 0.93), rgba(38, 0, 14, 0.95));
-  border: 1px solid rgba(241, 219, 153, 0.42);
-  border-radius: 22px 22px 9px 9px;
-  box-shadow: 0 18px 38px rgba(38, 0, 14, 0.25), inset 0 1px rgba(255, 248, 226, 0.12);
-  backdrop-filter: blur(12px);
-  direction: rtl;
-  text-align: start;
-  animation: gateCardGlow 5.5s ease-in-out infinite;
-}
-
-[dir="ltr"] .gateStep {
-  direction: ltr;
-}
-
-.gateStep:nth-child(2) { animation-delay: -1.35s; }
-.gateStep:nth-child(3) { animation-delay: -2.7s; }
-.gateStep:nth-child(4) { animation-delay: -4.05s; }
-
-.gateStep::after {
+.journeyBook::before {
   content: "";
-  width: 36%;
-  height: 180%;
   position: absolute;
-  top: -40%;
-  left: -70%;
-  background: linear-gradient(90deg, transparent, rgba(255, 233, 164, 0.2), transparent);
-  transform: rotate(13deg);
-  animation: gateCardSweep 7.5s ease-in-out infinite;
+  z-index: 0;
+  inset: 7px;
+  border: 1px solid rgba(222, 185, 104, 0.45);
+  border-radius: 29px 29px 20px 20px;
   pointer-events: none;
 }
 
-.gateStep:nth-child(2)::after { animation-delay: -1.8s; }
-.gateStep:nth-child(3)::after { animation-delay: -3.6s; }
-.gateStep:nth-child(4)::after { animation-delay: -5.4s; }
-
-.gateStepNumber {
-  margin-bottom: 5px;
-  display: block;
-  color: var(--gold-300);
-  font-family: sans-serif;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.13em;
+.bookCoverEdge {
+  height: 11px;
+  position: absolute;
+  z-index: 0;
+  right: 4.5%;
+  bottom: 7px;
+  left: 4.5%;
+  background: #310518;
+  border: 1px solid rgba(200, 149, 61, 0.48);
+  border-radius: 0 0 14px 14px;
 }
 
-.gateStep h3 {
-  margin: 0 0 4px;
-  color: var(--gold-300);
-  font-size: 1.06rem;
-  font-weight: 700;
+.bookPages {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr);
+  grid-template-areas: "leftPage spine rightPage";
+  align-items: stretch;
+  direction: ltr;
+}
+
+.bookPage {
+  min-width: 0;
+  margin: 0;
+  padding: 34px 42px 42px;
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(175px, 1fr));
+  color: var(--wine-950);
+  background: #fbf3e6;
+  border: 1px solid rgba(173, 118, 32, 0.46);
+  direction: rtl;
+  list-style: none;
+}
+
+[dir="ltr"] .bookPage {
+  direction: ltr;
+}
+
+.bookPage::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(200, 149, 61, 0.28);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.bookPageLeft {
+  grid-area: leftPage;
+  border-radius: 26px 7px 14px 30px;
+  box-shadow: inset -18px 0 28px rgba(79, 35, 18, 0.08);
+}
+
+.bookPageRight {
+  grid-area: rightPage;
+  border-radius: 7px 26px 30px 14px;
+  box-shadow: inset 18px 0 28px rgba(79, 35, 18, 0.08);
+}
+
+.bookSpine {
+  grid-area: spine;
+  position: relative;
+  z-index: 3;
+  background: #e6d7c1;
+  border-block: 1px solid rgba(173, 118, 32, 0.38);
+  box-shadow: inset 9px 0 12px rgba(70, 25, 12, 0.09), inset -9px 0 12px rgba(70, 25, 12, 0.09);
+}
+
+.bookSpine::after {
+  content: "";
+  width: 1px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  background: rgba(113, 71, 34, 0.2);
+}
+
+.bookChapter {
+  min-width: 0;
+  min-height: 175px;
+  padding: 57px clamp(16px, 3vw, 46px) 30px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.bookChapter:first-child {
+  border-bottom: 1px solid rgba(173, 118, 32, 0.34);
+}
+
+.bookChapterNumber {
+  min-width: 82px;
+  padding: 13px 15px 21px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  color: #d7ad58;
+  background: var(--wine-800);
+  border-inline: 1px solid #a9782f;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  text-align: center;
+  transform: translateX(-50%);
+  clip-path: polygon(0 0, 100% 0, 100% 74%, 50% 100%, 0 74%);
+}
+
+.bookChapterCopy {
+  width: min(390px, 100%);
+}
+
+.bookOrnament {
+  width: 58px;
+  height: 15px;
+  margin: 0 auto 13px;
+  position: relative;
+  display: block;
+  border-top: 1px solid var(--gold-500);
+}
+
+.bookOrnament::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  background: #fbf3e6;
+  border: 1px solid var(--gold-500);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.bookChapter h3 {
+  margin: 0 0 9px;
+  color: var(--wine-800);
+  font-size: clamp(1.18rem, 1.75vw, 1.6rem);
+  font-weight: 800;
   line-height: 1.35;
 }
 
-.gateStep p {
+.bookChapter p {
   margin: 0;
-  color: rgba(255, 249, 237, 0.78);
-  font-size: 0.76rem;
-  line-height: 1.7;
+  color: #795363;
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  font-weight: 600;
+  line-height: 1.82;
+}
+
+.bookBookmark {
+  width: 54px;
+  height: 62px;
+  position: absolute;
+  z-index: 4;
+  bottom: -34px;
+  left: 50%;
+  background: var(--wine-800);
+  border-inline: 1px solid var(--gold-500);
+  transform: translateX(-50%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
 }
 
 .ringsStory {
@@ -1909,58 +1889,6 @@
   }
 }
 
-@keyframes journeyShimmer {
-  0%,
-  18% {
-    left: -30%;
-    opacity: 0;
-  }
-  36% {
-    opacity: 1;
-  }
-  68%,
-  100% {
-    left: 112%;
-    opacity: 0;
-  }
-}
-
-@keyframes gateFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-@keyframes gateCardGlow {
-  0%,
-  100% {
-    box-shadow: 0 18px 38px rgba(38, 0, 14, 0.25), inset 0 1px rgba(255, 248, 226, 0.12);
-  }
-  50% {
-    box-shadow: 0 22px 46px rgba(38, 0, 14, 0.34), 0 0 24px rgba(222, 185, 104, 0.12), inset 0 1px rgba(255, 248, 226, 0.18);
-  }
-}
-
-@keyframes gateCardSweep {
-  0%,
-  30% {
-    left: -70%;
-    opacity: 0;
-  }
-  44% {
-    opacity: 1;
-  }
-  70%,
-  100% {
-    left: 145%;
-    opacity: 0;
-  }
-}
-
 @keyframes ringsDrift {
   0% {
     filter: brightness(1.06) contrast(1.08) saturate(1.08);
@@ -2051,23 +1979,12 @@
     grid-template-columns: minmax(330px, 0.8fr) minmax(460px, 1.2fr);
   }
 
-  .gateSteps {
-    inset-inline: 1.8%;
-    bottom: 2%;
-    gap: 8px;
+  .bookPage {
+    padding-inline: 28px;
   }
 
-  .gateStep {
-    min-height: 146px;
-    padding: 14px 12px;
-  }
-
-  .gateStep h3 {
-    font-size: 0.98rem;
-  }
-
-  .gateStep p {
-    font-size: 0.7rem;
+  .bookChapter {
+    padding-inline: 18px;
   }
 
   .membershipRow {
@@ -2119,64 +2036,40 @@
     grid-column: auto;
   }
 
-  .gateGallery {
-    min-height: 0;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 12px;
+  .journeyBook {
+    padding: 12px 13px 22px;
+    border-radius: 28px 28px 22px 22px;
   }
 
-  .gateGallery .journeyGate {
-    width: min(100%, 390px);
+  .bookPages {
+    grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
   }
 
-  .journeyGateCopy h3 {
-    font-size: clamp(0.94rem, 2.3vw, 1.12rem);
+  .bookPage {
+    padding: 28px 20px 34px;
+    grid-template-rows: repeat(2, minmax(168px, 1fr));
   }
 
-  .journeyGateCopy p {
-    font-size: clamp(0.67rem, 1.65vw, 0.78rem);
+  .bookPage::before {
+    inset: 11px;
   }
 
-  .journeyVisual {
-    display: grid;
-    gap: 18px;
+  .bookChapter {
+    min-height: 168px;
+    padding: 54px 12px 24px;
   }
 
-  .journeyScene {
-    border-radius: 30px 30px 94px 30px;
+  .bookChapterNumber {
+    min-width: 70px;
+    padding: 12px 12px 19px;
   }
 
-  [dir="ltr"] .journeyScene {
-    border-radius: 30px 30px 30px 94px;
+  .bookChapter h3 {
+    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
   }
 
-  .journeyVeil {
-    background: linear-gradient(0deg, rgba(38, 0, 14, 0.18), transparent 30%);
-  }
-
-  .gateSteps {
-    position: static;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    direction: rtl;
-  }
-
-  [dir="ltr"] .gateSteps {
-    direction: ltr;
-  }
-
-  .gateStep {
-    min-height: 150px;
-    padding: 18px;
-    border-radius: 20px;
-  }
-
-  .gateStep h3 {
-    font-size: 1.08rem;
-  }
-
-  .gateStep p {
-    font-size: 0.78rem;
+  .bookChapter p {
+    font-size: clamp(0.72rem, 1.7vw, 0.84rem);
     line-height: 1.72;
   }
 
@@ -2404,6 +2297,10 @@
     margin-inline: 0;
   }
 
+  .journeySection .editorialHeading {
+    margin-inline: auto;
+  }
+
   .editorialHeading {
     grid-template-columns: 48px 1fr;
     gap: 16px;
@@ -2418,14 +2315,29 @@
     font-size: 2.15rem;
   }
 
-  .journeyScene,
-  [dir="ltr"] .journeyScene {
-    border-radius: 24px 24px 68px 24px;
-    box-shadow: 0 22px 54px rgba(60, 0, 23, 0.14);
+  .journeyBook {
+    padding: 10px 11px 20px;
+    border-radius: 24px 24px 19px 19px;
   }
 
-  [dir="ltr"] .journeyScene {
-    border-radius: 24px 24px 24px 68px;
+  .bookPages {
+    grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
+  }
+
+  .bookPage {
+    padding: 24px 13px 30px;
+  }
+
+  .bookPage::before {
+    inset: 8px;
+  }
+
+  .bookChapter {
+    padding-inline: 8px;
+  }
+
+  .bookOrnament {
+    width: 44px;
   }
 
   .ringsStory {
@@ -2580,6 +2492,77 @@
 }
 
 @media (max-width: 620px) {
+  .journeySection .editorialHeading {
+    margin-bottom: 38px;
+  }
+
+  .journeyBook {
+    width: min(520px, 100%);
+    padding: 10px 10px 22px;
+    border-radius: 24px 24px 18px 18px;
+  }
+
+  .bookPages {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .bookSpine {
+    display: none;
+  }
+
+  .bookPage {
+    display: contents;
+  }
+
+  .bookPage::before {
+    content: none;
+  }
+
+  .bookChapter {
+    width: 100%;
+    min-height: 178px;
+    padding: 56px 40px 27px;
+    color: var(--wine-950);
+    background: #fbf3e6;
+    border: 1px solid rgba(173, 118, 32, 0.46);
+    border-radius: 18px;
+    box-shadow: inset 0 0 28px rgba(79, 35, 18, 0.06);
+    direction: rtl;
+  }
+
+  [dir="ltr"] .bookChapter {
+    direction: ltr;
+  }
+
+  .bookChapter:first-child {
+    border-bottom: 1px solid rgba(173, 118, 32, 0.46);
+  }
+
+  .bookPageRight .bookChapter:nth-child(1) {
+    order: 1;
+  }
+
+  .bookPageLeft .bookChapter:nth-child(1) {
+    order: 2;
+  }
+
+  .bookPageRight .bookChapter:nth-child(2) {
+    order: 3;
+  }
+
+  .bookPageLeft .bookChapter:nth-child(2) {
+    order: 4;
+  }
+
+  .bookChapter h3 {
+    font-size: 1.3rem;
+  }
+
+  .bookChapter p {
+    font-size: 0.85rem;
+  }
+
   .ringsStory {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -2650,38 +2633,21 @@
     display: inline-block;
   }
 
-  .gateGallery {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  .bookPage {
+    padding-inline: 14px;
   }
 
-  .gateGallery .journeyGate {
-    width: min(100%, 410px);
+  .bookChapter {
+    min-height: 170px;
+    padding-inline: 18px;
   }
 
-  .journeyGateCopy h3 {
-    font-size: clamp(1rem, 4.4vw, 1.2rem);
+  .bookChapter h3 {
+    font-size: 1.18rem;
   }
 
-  .journeyGateCopy p {
-    font-size: clamp(0.72rem, 3.1vw, 0.82rem);
-  }
-
-  .journeyScene,
-  [dir="ltr"] .journeyScene {
-    border-radius: 20px 20px 52px 20px;
-  }
-
-  [dir="ltr"] .journeyScene {
-    border-radius: 20px 20px 20px 52px;
-  }
-
-  .gateSteps {
-    grid-template-columns: 1fr;
-  }
-
-  .gateStep {
-    min-height: 0;
+  .bookChapter p {
+    font-size: 0.8rem;
   }
 
   .faqItem summary {
