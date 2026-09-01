@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
-  BadgeCheck,
   Check,
-  EyeOff,
-  HeartHandshake,
+  Heart,
   Languages,
   LockKeyhole,
   Mail,
@@ -22,17 +21,33 @@ import { AhedBrand, AhedWordmark } from "@/components/ahed-brand";
 import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
 
-const principleIcons = [ShieldCheck, BadgeCheck, EyeOff, HeartHandshake] as const;
-
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
   const copy = homeContent[locale];
   const isArabic = locale === "ar";
   const DirectionalArrow = isArabic ? ArrowLeft : ArrowRight;
 
-  const comparisonLabel = isArabic ? "نموذج التصميم رقم ٢" : "Design model 2";
-  const comparisonLink = isArabic ? "فتح النموذج الأول" : "Open model 1";
-  const sectionNumbers = ["٠١", "٠٢", "٠٣", "٠٤"];
+  const labels = isArabic
+    ? {
+        model: "نموذج التصميم رقم ٢",
+        first: "فتح النموذج الأول",
+        coupleAlt: "رسم فني لعروسين داخل قلب مضيء",
+        ringsAlt: "خاتما زواج على قماش خمري",
+        journey: "من النية إلى أول حوار",
+        principles: "أربع قيم تصنع تجربة مختلفة",
+        privacyPromise: "وعد الخصوصية",
+        membership: "مسارات العضوية",
+      }
+    : {
+        model: "Design model 2",
+        first: "Open model 1",
+        coupleAlt: "Gold line-art bride and groom inside a glowing heart",
+        ringsAlt: "Wedding rings on burgundy silk",
+        journey: "From intention to the first conversation",
+        principles: "Four values shaping a different experience",
+        privacyPromise: "The privacy promise",
+        membership: "Membership paths",
+      };
 
   return (
     <main
@@ -42,9 +57,9 @@ export default function ModelTwo() {
       lang={locale}
     >
       <div className={styles.comparisonBar}>
-        <span>{comparisonLabel}</span>
+        <span>{labels.model}</span>
         <Link href="/">
-          {comparisonLink}
+          {labels.first}
           <DirectionalArrow aria-hidden="true" />
         </Link>
       </div>
@@ -92,9 +107,7 @@ export default function ModelTwo() {
       </header>
 
       <section className={styles.hero}>
-        <span className={styles.heroOrbOne} aria-hidden="true" />
-        <span className={styles.heroOrbTwo} aria-hidden="true" />
-        <div className={styles.heroContent}>
+        <div className={styles.heroCopy}>
           <span className={styles.eyebrowLight}>
             <Sparkles aria-hidden="true" />
             {copy.hero.eyebrow}
@@ -104,12 +117,37 @@ export default function ModelTwo() {
             <em>{copy.hero.titleAccent}</em>
           </h1>
           <p>{copy.hero.description}</p>
+          <span className={styles.heroNote}>
+            <Heart aria-hidden="true" />
+            {copy.hero.note}
+          </span>
         </div>
 
-        <div className={styles.freeJoin} aria-label={copy.freeJoin.title}>
-          <span className={styles.freeJoinIcon} aria-hidden="true">
-            <UserRoundPlus />
+        <div className={styles.heroArtwork}>
+          <span className={`${styles.spark} ${styles.sparkOne}`} aria-hidden="true">
+            <Sparkles />
           </span>
+          <span className={`${styles.spark} ${styles.sparkTwo}`} aria-hidden="true">
+            <Sparkles />
+          </span>
+          <span className={`${styles.spark} ${styles.sparkThree}`} aria-hidden="true">
+            <Sparkles />
+          </span>
+          <span className={styles.heartPulse} aria-hidden="true">
+            <Heart />
+          </span>
+          <Image
+            alt={labels.coupleAlt}
+            className={styles.coupleImage}
+            height={1024}
+            priority
+            src="/ahed-couple-v2.webp"
+            width={1536}
+          />
+        </div>
+
+        <div className={styles.freeRibbon} aria-label={copy.freeJoin.title}>
+          <UserRoundPlus aria-hidden="true" />
           <div>
             <small>{copy.freeJoin.eyebrow}</small>
             <strong>{copy.freeJoin.title}</strong>
@@ -118,21 +156,22 @@ export default function ModelTwo() {
         </div>
       </section>
 
-      <section id="how" className={styles.timelineSection}>
-        <div className={styles.sectionHeading}>
-          <span className={styles.sectionNumber}>{sectionNumbers[0]}</span>
+      <section id="how" className={styles.journeySection}>
+        <div className={styles.editorialHeading}>
+          <span>01</span>
           <div>
-            <span className={styles.eyebrow}>{copy.process.eyebrow}</span>
+            <small>{labels.journey}</small>
             <h2>{copy.process.title}</h2>
             <p>{copy.process.description}</p>
           </div>
         </div>
 
-        <div className={styles.timeline}>
+        <div className={styles.journeyPath}>
+          <span className={styles.pathLine} aria-hidden="true" />
           {copy.process.steps.map((step) => (
-            <article key={step.number} className={styles.timelineStep}>
-              <span className={styles.timelineDot} aria-hidden="true" />
-              <span className={styles.stepNumber}>{step.number}</span>
+            <article key={step.number} className={styles.journeyStop}>
+              <span className={styles.stopNumber}>{step.number}</span>
+              <span className={styles.stopDot} aria-hidden="true" />
               <h3>{step.title}</h3>
               <p>{step.description}</p>
             </article>
@@ -140,83 +179,86 @@ export default function ModelTwo() {
         </div>
       </section>
 
-      <section id="why" className={styles.bentoSection}>
-        <div className={styles.sectionHeading}>
-          <span className={styles.sectionNumber}>{sectionNumbers[1]}</span>
-          <div>
-            <span className={styles.eyebrow}>{copy.why.eyebrow}</span>
-            <h2>{copy.why.title}</h2>
-            <p>{copy.why.description}</p>
-          </div>
-        </div>
+      <section id="why" className={styles.ringsStory}>
+        <Image
+          alt={labels.ringsAlt}
+          className={styles.ringsImage}
+          fill
+          sizes="(max-width: 800px) 100vw, 1400px"
+          src="/ahed-rings-v2.webp"
+        />
+        <div className={styles.ringsShade} aria-hidden="true" />
+        <span className={styles.ringsGlint} aria-hidden="true" />
+        <div className={styles.ringsContent}>
+          <span className={styles.storyIndex}>02</span>
+          <small>{labels.principles}</small>
+          <h2>{copy.why.title}</h2>
+          <p>{copy.why.description}</p>
 
-        <div className={styles.bentoGrid}>
-          {copy.why.principles.map((principle, index) => {
-            const Icon = principleIcons[index];
-
-            return (
-              <article
-                key={principle.title}
-                className={`${styles.bentoCard} ${index === 0 ? styles.bentoFeatured : ""}`}
-              >
-                <span className={styles.bentoIcon} aria-hidden="true">
-                  <Icon />
-                </span>
-                <span className={styles.bentoIndex}>0{index + 1}</span>
-                <h3>{principle.title}</h3>
-                <p>{principle.description}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section id="safety" className={styles.safetyBand}>
-        <div className={styles.safetyMark} aria-hidden="true">
-          <span>
-            <LockKeyhole />
-          </span>
-        </div>
-
-        <div className={styles.safetyContent}>
-          <span className={styles.sectionNumber}>{sectionNumbers[2]}</span>
-          <span className={styles.eyebrowLight}>{copy.safety.eyebrow}</span>
-          <h2>{copy.safety.title}</h2>
-          <p>{copy.safety.description}</p>
-          <ul>
-            {copy.safety.items.map((item) => (
-              <li key={item}>
-                <Check aria-hidden="true" />
-                <span>{item}</span>
+          <ol className={styles.principleLines}>
+            {copy.why.principles.map((principle, index) => (
+              <li key={principle.title}>
+                <span>0{index + 1}</span>
+                <div>
+                  <h3>{principle.title}</h3>
+                  <p>{principle.description}</p>
+                </div>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 
-      <section id="plans" className={styles.plansSection}>
-        <div className={styles.sectionHeading}>
-          <span className={styles.sectionNumber}>{sectionNumbers[3]}</span>
+      <section id="safety" className={styles.safetyPromise}>
+        <div className={styles.safetySymbol} aria-hidden="true">
+          <span className={styles.safetyOrbit} />
+          <span className={styles.safetyOrbitInner} />
+          <LockKeyhole />
+        </div>
+
+        <div className={styles.safetyCopy}>
+          <span className={styles.storyIndex}>03</span>
+          <small>{labels.privacyPromise}</small>
+          <h2>{copy.safety.title}</h2>
+          <p>{copy.safety.description}</p>
+        </div>
+
+        <ul className={styles.safetyList}>
+          {copy.safety.items.map((item) => (
+            <li key={item}>
+              <ShieldCheck aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section id="plans" className={styles.membershipSection}>
+        <div className={styles.editorialHeading}>
+          <span>04</span>
           <div>
-            <span className={styles.eyebrow}>{copy.plans.eyebrow}</span>
+            <small>{labels.membership}</small>
             <h2>{copy.plans.title}</h2>
             <p>{copy.plans.description}</p>
           </div>
         </div>
 
-        <div className={styles.plansGrid}>
-          {copy.plans.items.map((plan) => (
+        <div className={styles.membershipLadder}>
+          {copy.plans.items.map((plan, index) => (
             <article
               key={plan.name}
-              className={`${styles.planCard} ${plan.featured ? styles.planFeatured : ""}`}
+              className={`${styles.membershipRow} ${plan.featured ? styles.membershipFeatured : ""}`}
             >
-              <div className={styles.planTopline}>
-                <span>{plan.featured ? copy.plans.featuredBadge : copy.plans.once}</span>
-                <Sparkles aria-hidden="true" />
+              <div className={styles.planIdentity}>
+                <span>0{index + 1}</span>
+                <div>
+                  <small>{plan.featured ? copy.plans.featuredBadge : copy.plans.once}</small>
+                  <h3>{plan.name}</h3>
+                  <p>{plan.description}</p>
+                </div>
               </div>
-              <h3>{plan.name}</h3>
-              <p>{plan.description}</p>
-              <div className={styles.pricePair}>
+
+              <div className={styles.planPrices}>
                 <div>
                   <span>{copy.plans.women}</span>
                   <strong>{plan.womenPrice}</strong>
@@ -228,6 +270,7 @@ export default function ModelTwo() {
                   <small>{copy.plans.currency}</small>
                 </div>
               </div>
+
               <ul>
                 {plan.features.map((feature) => (
                   <li key={feature}>
@@ -236,7 +279,8 @@ export default function ModelTwo() {
                   </li>
                 ))}
               </ul>
-              <Link className={styles.planButton} href="/register">
+
+              <Link className={styles.planAction} href="/register">
                 {copy.plans.select}
                 <DirectionalArrow aria-hidden="true" />
               </Link>
@@ -270,6 +314,9 @@ export default function ModelTwo() {
       </section>
 
       <section className={styles.finalCta}>
+        <span className={styles.finalHeart} aria-hidden="true">
+          <Heart />
+        </span>
         <span className={styles.eyebrowLight}>{copy.final.eyebrow}</span>
         <h2>{copy.final.title}</h2>
         <p>{copy.final.description}</p>
