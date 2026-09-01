@@ -1,18 +1,18 @@
 {
   "brand": "AHED | عَهْد",
   "approvedGold": {
-    "name": "Warm Polished Gold",
-    "deep": "#AE6605",
-    "base": "#F2B11F",
-    "highlight": "#FCEFA2",
-    "secondaryHighlight": "#F8C23A",
-    "shadow": "#A45A00",
-    "gradient": "linear-gradient(135deg, #AE6605 0%, #F2B11F 30%, #FCEFA2 50%, #F8C23A 72%, #A45A00 100%)"
+    "name": "AHED Page-Matched Champagne Gold",
+    "deep": "#AD7620",
+    "base": "#C8953D",
+    "highlight": "#F1DB99",
+    "secondaryHighlight": "#DEB968",
+    "shadow": "#8F5E1A",
+    "gradient": "linear-gradient(135deg, #AD7620 0%, #C8953D 30%, #F1DB99 50%, #DEB968 72%, #AD7620 100%)"
   },
   "approvedBurgundy": {
     "deep": "#4F001D",
     "base": "#6F1D38",
     "bright": "#9A002D"
   },
-  "usage": "Use this warm, clean polished gold for AHED logo accents and future brand highlights. Avoid black contamination, dusty antique gold, bronze, copper, silver, white gold, or stainless-steel finishes."
+  "usage": "Use this restrained champagne-gold family for the AHED logo and accents so they match the model-2 page borders and typography. Avoid lemon yellow, neon gold, orange gold, black contamination, bronze, copper, silver, or stainless-steel finishes."
 }
