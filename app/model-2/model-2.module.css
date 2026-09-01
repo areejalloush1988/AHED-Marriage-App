@@ -1963,13 +1963,14 @@
   overflow: hidden;
   color: var(--wine-900);
   background:
-    linear-gradient(rgba(255, 250, 241, 0.98), rgba(255, 253, 248, 0.98)) padding-box,
-    linear-gradient(112deg, #ad7620 0%, #f5dfa0 28%, #c8953d 55%, #fff0bd 78%, #ad7620 100%) border-box;
-  border: 2px solid transparent;
+    linear-gradient(var(--ivory), var(--ivory)) padding-box,
+    linear-gradient(112deg, #a66d18 0%, #f7df99 24%, #c9912f 52%, #fff0bd 76%, #a66d18 100%) border-box;
+  border: 3px solid transparent;
   border-radius: 30px;
   box-shadow:
     0 20px 50px rgba(60, 0, 23, 0.09),
-    0 6px 16px rgba(173, 118, 32, 0.09);
+    0 6px 18px rgba(173, 118, 32, 0.16),
+    0 0 18px rgba(222, 185, 104, 0.12);
   direction: ltr;
   isolation: isolate;
 }
@@ -2071,21 +2072,41 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  color: var(--wine-800);
-  background: rgba(255, 250, 241, 0.75);
-  border: 1px solid var(--gold-500);
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(241, 219, 153, 0.11), transparent 58%),
+    linear-gradient(145deg, #78173a, #4b001d 58%, #2c000f);
+  border: 2px solid #c9912f;
   border-radius: 999px;
-  box-shadow: inset 0 0 0 1px rgba(93, 10, 42, 0.08);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 231, 161, 0.04),
+    0 9px 20px rgba(60, 0, 23, 0.16),
+    0 0 12px rgba(222, 185, 104, 0.11);
   font-size: 0.86rem;
   font-weight: 800;
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
+.site a.decisionCardAction {
+  color: var(--gold-300);
+}
+
 .decisionCardAction:hover,
 .decisionCardAction:focus-visible {
-  background: #fffdf8;
-  box-shadow: 0 9px 22px rgba(93, 10, 42, 0.13);
+  color: #fff0bd;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(241, 219, 153, 0.18), transparent 60%),
+    linear-gradient(145deg, #8a1c43, #5d0a2a 58%, #350014);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 231, 161, 0.06),
+    0 12px 24px rgba(60, 0, 23, 0.22),
+    0 0 16px rgba(222, 185, 104, 0.2);
   transform: translateY(-2px);
+}
+
+.site a.decisionCardAction:hover,
+.site a.decisionCardAction:focus-visible {
+  color: #fff0bd;
 }
 
 .decisionCardAction:focus-visible,
@@ -2097,6 +2118,7 @@
 .decisionCardAction svg {
   width: 17px;
   height: 17px;
+  color: var(--gold-300);
 }
 
 .decisionMatchmakerVisual,
@@ -2115,9 +2137,13 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-right: 2px solid #c9912f;
+  border: 2px solid #c9912f;
+  border-left: 0;
   border-bottom-right-radius: 112px;
-  box-shadow: inset -24px 0 44px rgba(16, 0, 6, 0.22);
+  box-shadow:
+    inset -24px 0 44px rgba(16, 0, 6, 0.22),
+    inset 0 0 0 3px rgba(255, 231, 161, 0.04),
+    0 0 14px rgba(222, 185, 104, 0.12);
 }
 
 .decisionVisualHalo {
@@ -2276,14 +2302,20 @@
   justify-content: center;
   gap: 13px;
   overflow: hidden;
+  color: var(--gold-300);
   border: 2px solid #c9912f;
   border-radius: 19px;
   box-shadow:
-    inset 0 0 0 4px rgba(255, 231, 161, 0.04),
-    0 14px 28px rgba(60, 0, 23, 0.16);
+    inset 0 0 0 4px rgba(255, 231, 161, 0.05),
+    0 14px 28px rgba(60, 0, 23, 0.16),
+    0 0 14px rgba(222, 185, 104, 0.14);
   font-size: 1rem;
   font-weight: 800;
   transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+
+.site a.decisionChoiceButton {
+  color: var(--gold-300);
 }
 
 .decisionChoiceButton::after {
@@ -2300,6 +2332,7 @@
 
 .decisionChoiceButton:hover,
 .decisionChoiceButton:focus-visible {
+  color: #fff0bd;
   filter: brightness(1.09);
   box-shadow:
     inset 0 0 0 4px rgba(255, 231, 161, 0.07),
@@ -2308,10 +2341,16 @@
   transform: translateY(-4px);
 }
 
+.site a.decisionChoiceButton:hover,
+.site a.decisionChoiceButton:focus-visible {
+  color: #fff0bd;
+}
+
 .decisionChoiceButton svg {
   width: 25px;
   height: 25px;
   flex: 0 0 auto;
+  color: var(--gold-300);
   stroke-width: 1.6;
 }
 
