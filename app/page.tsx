@@ -127,16 +127,6 @@ export default function Home() {
             </h1>
             <p>{copy.hero.description}</p>
 
-            <div className={styles.heroActions}>
-              <Link className={styles.primaryButton} href="/register">
-                {copy.hero.primary}
-                <DirectionalArrow />
-              </Link>
-              <Link className={styles.secondaryButton} href="/login">
-                {copy.hero.secondary}
-              </Link>
-            </div>
-
             <div className={styles.heroNote}>
               <HouseHeart aria-hidden="true" />
               <span>{copy.hero.note}</span>

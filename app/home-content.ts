@@ -20,14 +20,12 @@ export const homeContent = {
       create: "إنشاء حساب",
     },
     hero: {
-      eyebrow: "حين تكون النية واضحة",
-      title: "الزواج لا يبدأ برسالة.",
-      titleAccent: "يبدأ بنيّة واضحة.",
+      eyebrow: "عَهْد للزواج الجاد",
+      title: "الزواج لا يبدأ",
+      titleAccent: "برسالة، بل بنيّة واضحة.",
       description:
-        "في عَهْد، كل خطوة لها معنى: اختيار مسؤول، تواصل يحترم الطرفين، وطريق يليق بقرار العمر.",
-      primary: "ابدأ بعَهْد",
-      secondary: "تسجيل الدخول",
-      note: "مساحة مخصّصة لقرار الزواج",
+        "مساحة هادئة لمن يدخل بقرار جاد؛ اختيار مسؤول وطريق يليق ببداية العمر.",
+      note: "النية أولاً · ثم تبدأ الخطوة",
     },
     visual: {
       aria: "رسالة عهد لبداية زواج جادة",
@@ -246,14 +244,12 @@ export const homeContent = {
       create: "Create account",
     },
     hero: {
-      eyebrow: "When intention is clear",
-      title: "Marriage does not begin with a message.",
-      titleAccent: "It begins with clear intent.",
+      eyebrow: "AHED for serious marriage",
+      title: "Marriage does not begin",
+      titleAccent: "with a message, but with clear intent.",
       description:
-        "At AHED, every step has meaning: a responsible choice, respectful communication, and a path worthy of a lifelong decision.",
-      primary: "Begin with AHED",
-      secondary: "Log in",
-      note: "A space created for the marriage decision",
+        "A calm space for those entering with a serious decision, a responsible choice, and a path worthy of a lifelong beginning.",
+      note: "Intention first · then the journey begins",
     },
     visual: {
       aria: "AHED message for a serious marriage beginning",

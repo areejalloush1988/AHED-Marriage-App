@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import "@fontsource/noto-naskh-arabic/arabic-400.css";
+import "@fontsource/noto-naskh-arabic/arabic-600.css";
+import "@fontsource/noto-naskh-arabic/arabic-700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
