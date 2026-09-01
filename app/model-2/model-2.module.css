@@ -2497,8 +2497,8 @@
   height: auto;
   position: absolute;
   z-index: 1;
-  top: -18.1px;
-  right: -8px;
+  top: -8px;
+  left: -13px;
   display: block;
 }
 

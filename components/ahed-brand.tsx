@@ -24,10 +24,10 @@ export function AhedBrand({
     <Image
       alt={alt}
       className={className}
-      height={364}
+      height={518}
       priority={priority}
       src="/ahed-logo.png"
-      width={911}
+      width={1517}
     />
   );
 }
@@ -159,43 +159,25 @@ export function AhedWordmark({ className }: AhedWordmarkProps) {
     <svg
       aria-hidden="true"
       className={className}
-      viewBox="0 0 620 364"
+      viewBox="0 0 907 280"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <filter
-          id="ahed-wordmark-alpha"
-          x="-5%"
-          y="-5%"
-          width="110%"
-          height="110%"
-          colorInterpolationFilters="sRGB"
-        >
-          <feColorMatrix type="luminanceToAlpha" />
-          <feComponentTransfer>
-            <feFuncA type="table" tableValues="1 0" />
-          </feComponentTransfer>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="1.45" intercept="-0.12" />
-          </feComponentTransfer>
-        </filter>
         <mask
           id="ahed-wordmark-mask"
           x="0"
           y="0"
-          width="620"
-          height="364"
+          width="907"
+          height="280"
           maskUnits="userSpaceOnUse"
           style={{ maskType: "alpha" }}
         >
           <image
-            filter="url(#ahed-wordmark-alpha)"
-            height="364"
+            height="518"
             href="/ahed-logo.png"
-            preserveAspectRatio="none"
-            width="911"
-            x="0"
-            y="0"
+            width="1517"
+            x="-610"
+            y="-170"
           />
         </mask>
         <linearGradient id="ahed-wordmark-gold" x1="0" y1="0" x2="1" y2="1">
@@ -219,8 +201,8 @@ export function AhedWordmark({ className }: AhedWordmarkProps) {
         </linearGradient>
       </defs>
       <rect
-        width="620"
-        height="364"
+        width="907"
+        height="280"
         fill="url(#ahed-wordmark-gold)"
         mask="url(#ahed-wordmark-mask)"
       />
