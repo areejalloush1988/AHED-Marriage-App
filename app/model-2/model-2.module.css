@@ -640,6 +640,7 @@
   grid-template-columns: repeat(4, 1fr);
   align-items: end;
   gap: 12px;
+  direction: ltr;
   list-style: none;
 }
 
@@ -656,7 +657,13 @@
   border-radius: 22px 22px 9px 9px;
   box-shadow: 0 18px 38px rgba(38, 0, 14, 0.25), inset 0 1px rgba(255, 248, 226, 0.12);
   backdrop-filter: blur(12px);
+  direction: rtl;
+  text-align: start;
   animation: gateCardGlow 5.5s ease-in-out infinite;
+}
+
+[dir="ltr"] .gateStep {
+  direction: ltr;
 }
 
 .gateStep:nth-child(2) { animation-delay: -1.35s; }
@@ -1860,6 +1867,11 @@
     position: static;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+    direction: rtl;
+  }
+
+  [dir="ltr"] .gateSteps {
+    direction: ltr;
   }
 
   .gateStep {
