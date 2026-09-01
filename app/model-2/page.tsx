@@ -278,19 +278,19 @@ export default function ModelTwo() {
           <small>{labels.principles}</small>
           <h2>{copy.why.title}</h2>
           <p>{copy.why.description}</p>
-
-          <ol className={styles.principleLines}>
-            {copy.why.principles.map((principle, index) => (
-              <li key={principle.title}>
-                <span>0{index + 1}</span>
-                <div>
-                  <h3>{principle.title}</h3>
-                  <p>{principle.description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </div>
+
+        <ol className={styles.principleLines}>
+          {copy.why.principles.map((principle, index) => (
+            <li key={principle.title}>
+              <span>0{index + 1}</span>
+              <div>
+                <h3>{principle.title}</h3>
+                <p>{principle.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section id="safety" className={styles.safetyPromise}>
