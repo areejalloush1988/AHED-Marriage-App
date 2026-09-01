@@ -34,6 +34,7 @@ const privacyIcons = [Mail, Handshake, SlidersHorizontal, FileCheck2];
 
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const copy = homeContent[locale];
   const isArabic = locale === "ar";
   const DirectionalArrow = isArabic ? ArrowLeft : ArrowRight;
@@ -55,6 +56,11 @@ export default function ModelTwo() {
         storyStages: ["النية", "الخصوصية", "العَهْد"],
         storyVideoLabel: "فيديو تعريفي عن تجربة عَهْد للزواج الجاد",
         storyVideoFallback: "متصفحك لا يدعم تشغيل الفيديو.",
+        faqAnswer: "الإجابة",
+        faqOpen: "اضغط لفتح الباب",
+        faqOpenLabel: "فتح الباب وقراءة الإجابة",
+        faqCloseLabel: "إغلاق باب الإجابة",
+        faqHint: "اختر سؤالاً ليفتح بابه وتظهر الإجابة",
         email: "البريد الرسمي",
         website: "الموقع الرسمي",
         call: "طلب اتصال",
@@ -78,6 +84,11 @@ export default function ModelTwo() {
         storyStages: ["Intention", "Privacy", "Commitment"],
         storyVideoLabel: "An introduction to the AHED serious-marriage experience",
         storyVideoFallback: "Your browser does not support video playback.",
+        faqAnswer: "Answer",
+        faqOpen: "Open the door",
+        faqOpenLabel: "Open the door and read the answer",
+        faqCloseLabel: "Close the answer door",
+        faqHint: "Choose a question to open its door and reveal the answer",
         email: "Official email",
         website: "Official website",
         call: "Request a call",
@@ -438,23 +449,59 @@ export default function ModelTwo() {
           <span className={styles.eyebrow}>{copy.faq.eyebrow}</span>
           <h2>{copy.faq.title}</h2>
           <p>{copy.faq.description}</p>
-          <a href="mailto:info@ahedmarriage.com">
-            <Mail aria-hidden="true" />
-            info@ahedmarriage.com
-          </a>
+          <span className={styles.faqDoorHint}>
+            <Sparkles aria-hidden="true" />
+            {labels.faqHint}
+          </span>
         </div>
 
-        <div className={styles.faqList}>
-          {copy.faq.items.map((faq, index) => (
-            <details key={faq.question} className={styles.faqItem}>
-              <summary>
-                <span>0{index + 1}</span>
-                {faq.question}
-              </summary>
-              <p>{faq.answer}</p>
-            </details>
-          ))}
-        </div>
+        <ol className={styles.faqDoors} aria-label={copy.faq.eyebrow}>
+          {copy.faq.items.map((faq, index) => {
+            const isOpen = openFaqIndex === index;
+            const answerId = `faq-door-answer-${index}`;
+
+            return (
+              <li
+                key={faq.question}
+                className={`${styles.faqDoor} ${isOpen ? styles.faqDoorOpen : ""}`}
+              >
+                <button
+                  type="button"
+                  className={styles.faqDoorStage}
+                  aria-controls={answerId}
+                  aria-expanded={isOpen}
+                  aria-label={`${isOpen ? labels.faqCloseLabel : labels.faqOpenLabel}: ${faq.question}`}
+                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                >
+                  <span
+                    id={answerId}
+                    className={styles.faqDoorAnswer}
+                    aria-hidden={!isOpen}
+                  >
+                    <span className={styles.faqDoorAnswerLabel}>{labels.faqAnswer}</span>
+                    <span className={styles.faqDoorAnswerQuestion}>{faq.question}</span>
+                    <span className={styles.faqDoorAnswerText}>{faq.answer}</span>
+                  </span>
+
+                  <span className={styles.faqDoorLeaf} aria-hidden="true">
+                    <span className={styles.faqDoorNumber}>0{index + 1}</span>
+                    <span className={styles.faqDoorDivider} />
+                    <span className={styles.faqDoorQuestion}>{faq.question}</span>
+                    <span className={styles.faqDoorKnocker}>
+                      <span />
+                    </span>
+                    <span className={styles.faqDoorPrompt}>{labels.faqOpen}</span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+
+        <a className={styles.faqContact} href="mailto:info@ahedmarriage.com">
+          <Mail aria-hidden="true" />
+          info@ahedmarriage.com
+        </a>
       </section>
 
       <section className={styles.finalCta}>
