@@ -9,6 +9,7 @@ import {
   Check,
   EyeOff,
   HeartHandshake,
+  HouseHeart,
   Languages,
   LockKeyhole,
   Mail,
@@ -23,8 +24,6 @@ import { homeContent, type HomeLocale } from "./home-content";
 import styles from "./home.module.css";
 
 const principleIcons = [ShieldCheck, BadgeCheck, EyeOff, HeartHandshake] as const;
-const heroTrustIcons = [BadgeCheck, EyeOff, HeartHandshake, ShieldCheck] as const;
-const visualPointIcons = [BadgeCheck, EyeOff, HeartHandshake] as const;
 
 function Brand({
   light = false,
@@ -133,65 +132,26 @@ export default function Home() {
                 {copy.hero.primary}
                 <DirectionalArrow />
               </Link>
-              <a className={styles.secondaryButton} href="#how">
+              <Link className={styles.secondaryButton} href="/login">
                 {copy.hero.secondary}
-              </a>
+              </Link>
             </div>
 
-            <div className={styles.heroTrust} aria-label={copy.hero.trustTitle}>
-              <div className={styles.heroTrustHeading}>
-                <span><ShieldCheck aria-hidden="true" /></span>
-                <strong>{copy.hero.trustTitle}</strong>
-              </div>
-              <div className={styles.heroTrustGrid}>
-                {copy.hero.trustItems.map((item, index) => {
-                  const Icon = heroTrustIcons[index];
-                  return (
-                    <div className={styles.heroTrustItem} key={item.title}>
-                      <span><Icon aria-hidden="true" /></span>
-                      <p>
-                        <strong>{item.title}</strong>
-                        <small>{item.description}</small>
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+            <div className={styles.heroNote}>
+              <HouseHeart aria-hidden="true" />
+              <span>{copy.hero.note}</span>
             </div>
           </div>
 
           <div className={styles.heroVisual} aria-label={copy.visual.aria}>
-            <span className={`${styles.ornament} ${styles.ornamentOne}`} aria-hidden="true" />
-            <span className={`${styles.ornament} ${styles.ornamentTwo}`} aria-hidden="true" />
-            <div className={styles.covenantHalo} aria-hidden="true" />
-
             <article className={styles.covenantCard}>
+              <HouseHeart className={styles.visualIcon} aria-hidden="true" />
               <span className={styles.covenantKicker}>{copy.visual.kicker}</span>
               <h2>{copy.visual.title}</h2>
+              <span className={styles.visualRule} aria-hidden="true" />
               <p>{copy.visual.description}</p>
-
-              <div className={styles.covenantPoints}>
-                {copy.visual.points.map((point, index) => {
-                  const Icon = visualPointIcons[index];
-                  return (
-                    <div key={point.title}>
-                      <span><Icon /></span>
-                      <p>
-                        <strong>{point.title}</strong>
-                        <small>{point.description}</small>
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
+              <strong className={styles.cardSignature}>{copy.visual.signature}</strong>
             </article>
-
-            <div className={styles.promiseLine}>
-              <span />
-              <strong>{copy.visual.promise}</strong>
-              <span />
-            </div>
-            <span className={styles.visualNote}>{copy.visual.note}</span>
           </div>
         </div>
       </section>

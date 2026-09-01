@@ -463,3 +463,308 @@
     white-space: normal;
   }
 }
+
+/* Editorial hero: one message on each side, without repeated feature lists. */
+.heroInner {
+  grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
+  gap: clamp(64px, 8vw, 124px);
+}
+
+.heroCopy {
+  padding-inline: clamp(0px, 2vw, 28px);
+}
+
+.heroCopy .eyebrow {
+  gap: 10px;
+  color: #9a681f;
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.heroCopy .eyebrow::after {
+  width: 54px;
+  height: 1px;
+  margin-inline-start: 4px;
+  background: linear-gradient(90deg, #b77b22, transparent);
+  content: "";
+}
+
+.site[dir="ltr"] .heroCopy .eyebrow::after {
+  background: linear-gradient(270deg, #b77b22, transparent);
+}
+
+.heroCopy h1 {
+  max-width: 760px;
+  margin-top: 22px;
+  color: var(--wine-950);
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: clamp(3.05rem, 5.6vw, 5.8rem);
+  font-weight: 760;
+  line-height: 1.28;
+  letter-spacing: -0.055em;
+}
+
+.heroCopy h1 span {
+  display: block;
+  margin-top: 0.06em;
+  color: var(--wine-700);
+  font-weight: 850;
+}
+
+.site[dir="ltr"] .heroCopy h1 {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: clamp(2.85rem, 5vw, 5.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.06em;
+}
+
+.site[dir="ltr"] .heroCopy h1 span {
+  margin-top: 0.16em;
+}
+
+.heroCopy > p {
+  position: relative;
+  max-width: 610px;
+  margin-top: 30px;
+  padding-inline-start: 24px;
+  border-inline-start: 2px solid rgba(183, 123, 34, 0.5);
+  color: #6d5860;
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: clamp(0.94rem, 1.2vw, 1.08rem);
+  font-weight: 560;
+  line-height: 2;
+}
+
+.site[dir="ltr"] .heroCopy > p {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.75;
+}
+
+.heroActions {
+  margin-top: 32px;
+}
+
+.primaryButton {
+  min-height: 56px;
+  border-radius: 999px;
+  padding-inline: 29px;
+}
+
+.secondaryButton {
+  min-height: 56px;
+  padding-inline: 18px;
+  border: 0;
+  border-bottom: 1px solid rgba(98, 23, 47, 0.25);
+  border-radius: 0;
+  color: var(--wine-950) !important;
+  background: transparent;
+  box-shadow: none;
+}
+
+.heroNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 25px;
+  color: #8d727a;
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.heroNote svg {
+  width: 18px;
+  color: #ad7725;
+}
+
+.heroVisual {
+  isolation: isolate;
+  min-height: 650px;
+  border: 1px solid rgba(239, 211, 159, 0.38);
+  border-radius: 50% 50% 42px 42px / 23% 23% 42px 42px;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(232, 195, 126, 0.2), transparent 17rem),
+    radial-gradient(circle at 16% 86%, rgba(255, 239, 207, 0.08), transparent 15rem),
+    linear-gradient(160deg, #812b49 0%, #5b132d 47%, #310612 100%);
+  box-shadow:
+    0 38px 72px rgba(61, 12, 30, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.heroVisual::before {
+  inset: 15px;
+  width: auto;
+  height: auto;
+  border: 1px solid rgba(244, 219, 172, 0.18);
+  border-radius: 50% 50% 32px 32px / 22% 22% 32px 32px;
+}
+
+.heroVisual::after {
+  right: 50%;
+  bottom: -235px;
+  left: auto;
+  width: 520px;
+  height: 520px;
+  border: 1px solid rgba(244, 219, 172, 0.08);
+  border-radius: 50%;
+  transform: translateX(50%);
+}
+
+.ornament,
+.covenantHalo,
+.promiseLine,
+.visualNote,
+.heroTrust {
+  display: none !important;
+}
+
+.covenantCard {
+  top: 50%;
+  width: min(470px, calc(100% - 64px));
+  padding: 42px 34px;
+  color: #f1d294;
+  text-align: center;
+}
+
+.visualIcon {
+  display: block;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 25px;
+  color: #edcf91;
+  filter: drop-shadow(0 10px 20px rgba(18, 1, 7, 0.24));
+  stroke-width: 1.35;
+  animation: houseFloat 4.8s ease-in-out infinite;
+}
+
+.covenantKicker {
+  display: block;
+  color: #d9ad61;
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+}
+
+.covenantCard h2 {
+  max-width: 430px;
+  margin: 16px auto 0;
+  color: #f7dda6;
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: clamp(2.15rem, 3.5vw, 3.15rem);
+  font-weight: 720;
+  line-height: 1.48;
+  letter-spacing: -0.035em;
+}
+
+.site[dir="ltr"] .covenantCard h2 {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: clamp(1.95rem, 3.2vw, 2.8rem);
+  line-height: 1.18;
+}
+
+.visualRule {
+  display: block;
+  width: 74px;
+  height: 1px;
+  margin: 25px auto 20px;
+  background: linear-gradient(90deg, transparent, #dcb56e, transparent);
+}
+
+.covenantCard > p {
+  max-width: 350px;
+  margin: 0 auto;
+  color: rgba(247, 221, 166, 0.72);
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 560;
+  line-height: 2;
+  text-align: center;
+}
+
+.site[dir="ltr"] .covenantCard > p {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+.cardSignature {
+  display: block;
+  margin-top: 34px;
+  color: rgba(238, 202, 133, 0.66);
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 780;
+  letter-spacing: 0.08em;
+}
+
+@keyframes houseFloat {
+  0%,
+  100% {
+    opacity: 0.84;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-7px);
+  }
+}
+
+@media (max-width: 860px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCopy > p {
+    max-width: 620px;
+    margin-inline: auto;
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .heroNote {
+    justify-content: center;
+  }
+
+  .heroVisual {
+    min-height: 610px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroCopy h1 {
+    font-size: clamp(2.5rem, 12vw, 3.65rem);
+    line-height: 1.32;
+  }
+
+  .site[dir="ltr"] .heroCopy h1 {
+    font-size: clamp(2.35rem, 10.5vw, 3.3rem);
+  }
+
+  .heroVisual {
+    min-height: 555px;
+    border-radius: 50% 50% 34px 34px / 21% 21% 34px 34px;
+  }
+
+  .covenantCard {
+    width: calc(100% - 36px);
+    padding: 34px 20px;
+  }
+
+  .visualIcon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 20px;
+  }
+
+  .covenantCard h2 {
+    font-size: clamp(1.85rem, 8vw, 2.45rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visualIcon {
+    animation: none;
+  }
+}
