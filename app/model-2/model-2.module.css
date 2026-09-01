@@ -814,6 +814,7 @@
   position: relative;
   display: grid;
   grid-template-columns: minmax(390px, 0.72fr) minmax(0, 1.28fr);
+  grid-template-areas: "content visual";
   align-items: start;
   gap: clamp(34px, 5vw, 78px);
   overflow: visible;
@@ -841,7 +842,7 @@
 .ringsVisual {
   min-width: 0;
   position: relative;
-  grid-column: 2;
+  grid-area: visual;
   padding: 9px;
   overflow: hidden;
   background: linear-gradient(145deg, #f7e8bf, #a9691f 48%, #f3d999 100%);
@@ -895,7 +896,7 @@
   padding: clamp(38px, 4vw, 58px);
   position: relative;
   z-index: 2;
-  grid-column: 1;
+  grid-area: content;
   overflow: hidden;
   background:
     radial-gradient(circle at 4% 4%, rgba(222, 185, 104, 0.18), transparent 14rem),
@@ -2088,7 +2089,6 @@
   }
 
   .ringsVisual {
-    grid-column: 2;
     border-radius: 22px 88px 22px 88px;
   }
 
@@ -2098,7 +2098,6 @@
   }
 
   .ringsContent {
-    grid-column: 1;
     max-width: none;
     padding: clamp(28px, 3.4vw, 38px);
     border-radius: 92px 22px 92px 22px;
@@ -2488,12 +2487,10 @@
 @media (max-width: 620px) {
   .ringsStory {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "visual"
+      "content";
     gap: 26px;
-  }
-
-  .ringsVisual,
-  .ringsContent {
-    grid-column: auto;
   }
 
   .ringsVisual {
