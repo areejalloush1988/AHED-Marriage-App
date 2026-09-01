@@ -319,27 +319,58 @@ export default function ModelTwo() {
       </section>
 
       <section id="safety" className={styles.safetyPromise}>
-        <div className={styles.safetySymbol} aria-hidden="true">
-          <span className={styles.safetyOrbit} />
-          <span className={styles.safetyOrbitInner} />
-          <LockKeyhole />
-        </div>
-
-        <div className={styles.safetyCopy}>
+        <header className={styles.safetyHeader}>
           <span className={styles.storyIndex}>03</span>
           <small>{labels.privacyPromise}</small>
-          <h2>{copy.safety.title}</h2>
-          <p>{copy.safety.description}</p>
+        </header>
+
+        <h2 className={styles.safetyTitle}>{copy.safety.title}</h2>
+
+        <svg
+          aria-hidden="true"
+          className={styles.safetyArcTitle}
+          viewBox="0 0 900 190"
+        >
+          <defs>
+            <path
+              d="M 90 166 Q 450 -24 810 166"
+              id="safety-title-arc"
+            />
+          </defs>
+          <text
+            className={styles.safetyArcText}
+            lang={locale}
+            style={{ direction: isArabic ? "rtl" : "ltr" }}
+          >
+            <textPath
+              href="#safety-title-arc"
+              startOffset="50%"
+              textAnchor="middle"
+            >
+              {copy.safety.title}
+            </textPath>
+          </text>
+        </svg>
+
+        <div className={styles.safetySealStage}>
+          <ul className={styles.safetyList}>
+            {copy.safety.items.map((item) => (
+              <li key={item}>
+                <span className={styles.safetyPlaqueIcon}>
+                  <ShieldCheck aria-hidden="true" />
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.safetySeal} aria-hidden="true">
+            <span className={styles.safetySealInset} />
+            <LockKeyhole />
+          </div>
         </div>
 
-        <ul className={styles.safetyList}>
-          {copy.safety.items.map((item) => (
-            <li key={item}>
-              <ShieldCheck aria-hidden="true" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <p className={styles.safetyDescription}>{copy.safety.description}</p>
       </section>
 
       <section id="plans" className={styles.membershipSection}>
