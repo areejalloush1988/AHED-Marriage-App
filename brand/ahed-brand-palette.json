@@ -1,18 +1,18 @@
 {
   "brand": "AHED | عَهْد",
   "approvedGold": {
-    "name": "Approved Warm Satin Gold — Locked",
-    "deep": "#9B5F18",
-    "base": "#C88D34",
-    "highlight": "#FAF0CF",
-    "secondaryHighlight": "#DCAE64",
-    "shadow": "#754A2D",
-    "gradient": "linear-gradient(135deg, #9B5F18 0%, #C88D34 30%, #DCAE64 50%, #F1CF90 72%, #FAF0CF 100%)"
+    "name": "Approved Bright Satin Gold — Locked",
+    "deep": "#A36013",
+    "base": "#D6993A",
+    "highlight": "#FDF7D3",
+    "secondaryHighlight": "#E9B559",
+    "shadow": "#7E470F",
+    "gradient": "linear-gradient(135deg, #A36013 0%, #D6993A 30%, #E9B559 50%, #F3CE7E 72%, #FDF7D3 100%)"
   },
   "approvedBurgundy": {
     "deep": "#4F001D",
     "base": "#6F1D38",
     "bright": "#9A002D"
   },
-  "usage": "Locked to the approved AHED logo artwork. Use this exact warm satin-gold family without recoloring the logo. Avoid olive or green gold, lemon yellow, neon gold, black contamination, bronze, copper, silver, or stainless-steel finishes."
+  "usage": "Locked to the approved AHED logo artwork. Use this exact bright warm satin-gold family without recoloring the logo. Avoid olive or green gold, lemon yellow, neon gold, black contamination, bronze, copper, silver, or stainless-steel finishes."
 }

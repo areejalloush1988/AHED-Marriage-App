@@ -282,11 +282,11 @@ export default function ModelTwo() {
             <Image
               alt={labels.coupleAlt}
               className={styles.coupleImage}
-              height={1024}
+              height={2449}
               priority
               sizes="(max-width: 920px) calc(100vw - 40px), 52vw"
               src="/ahed-couple-v2.webp"
-              width={1536}
+              width={3072}
             />
           </div>
         </div>
@@ -325,11 +325,11 @@ export default function ModelTwo() {
             >
               <defs>
                 <linearGradient id="journey-rope-gold" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0" stopColor="#9b5f18" />
-                  <stop offset="0.23" stopColor="#f1cf90" />
-                  <stop offset="0.5" stopColor="#c88d34" />
-                  <stop offset="0.76" stopColor="#faf0cf" />
-                  <stop offset="1" stopColor="#9b5f18" />
+                  <stop offset="0" stopColor="#a36013" />
+                  <stop offset="0.23" stopColor="#f3ce7e" />
+                  <stop offset="0.5" stopColor="#d6993a" />
+                  <stop offset="0.76" stopColor="#fdf7d3" />
+                  <stop offset="1" stopColor="#a36013" />
                 </linearGradient>
               </defs>
 
@@ -409,10 +409,10 @@ export default function ModelTwo() {
           <Image
             alt={labels.ringsAlt}
             className={styles.ringsImage}
-            height={735}
+            height={1470}
             sizes="(max-width: 620px) calc(100vw - 20px), (max-width: 920px) 58vw, 58vw"
             src="/ahed-rings-hands-v1.webp"
-            width={1456}
+            width={2912}
           />
           <span className={styles.ringsGlint} aria-hidden="true" />
         </div>
