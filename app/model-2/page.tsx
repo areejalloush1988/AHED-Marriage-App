@@ -140,22 +140,6 @@ export default function ModelTwo() {
       </header>
 
       <section className={styles.hero}>
-        <div className={styles.heroCopy}>
-          <span className={styles.eyebrowLight}>
-            <Sparkles aria-hidden="true" />
-            {copy.hero.eyebrow}
-          </span>
-          <h1>
-            {copy.hero.title}
-            <em>{copy.hero.titleAccent}</em>
-          </h1>
-          <p>{copy.hero.description}</p>
-          <span className={styles.heroNote}>
-            <Heart aria-hidden="true" />
-            {copy.hero.note}
-          </span>
-        </div>
-
         <div className={styles.heroArtwork}>
           <span
             className={`${styles.firework} ${styles.fireworkLeft}`}
@@ -200,6 +184,34 @@ export default function ModelTwo() {
             priority
             src="/ahed-couple-v2.webp"
             width={1536}
+          />
+        </div>
+
+        <div className={styles.heroCopy}>
+          <span className={styles.eyebrowLight}>
+            <Sparkles aria-hidden="true" />
+            {copy.hero.eyebrow}
+          </span>
+          <h1>
+            {copy.hero.title}
+            <em>{copy.hero.titleAccent}</em>
+          </h1>
+          <p>{copy.hero.description}</p>
+          <span className={styles.heroNote}>
+            <Heart aria-hidden="true" />
+            {copy.hero.note}
+          </span>
+        </div>
+
+        <div className={styles.heroLogoPanel}>
+          <Image
+            alt={isArabic ? "شعار عَهْد الرسمي" : "Official AHED logo"}
+            className={styles.heroOfficialLogo}
+            height={1536}
+            priority
+            sizes="(max-width: 920px) 58vw, 23vw"
+            src="/ahed-logo-official.png"
+            width={1024}
           />
         </div>
 
