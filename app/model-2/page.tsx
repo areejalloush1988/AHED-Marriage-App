@@ -7,10 +7,14 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
+  Globe2,
   Heart,
+  Headphones,
   Languages,
   LockKeyhole,
   Mail,
+  Music2,
+  Phone,
   ShieldCheck,
   Sparkles,
   UserRoundPlus,
@@ -20,6 +24,8 @@ import { AhedBrand, AhedWordmark } from "@/components/ahed-brand";
 
 import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
+
+const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
@@ -37,6 +43,12 @@ export default function ModelTwo() {
         principles: "أربع قيم تصنع تجربة مختلفة",
         privacyPromise: "وعد الخصوصية",
         membership: "مسارات العضوية",
+        email: "البريد الرسمي",
+        website: "الموقع الرسمي",
+        call: "طلب اتصال",
+        callValue: "تواصل مع فريق عَهْد",
+        tiktok: "تيك توك",
+        support: "الدعم",
       }
     : {
         model: "Design model 2",
@@ -47,6 +59,12 @@ export default function ModelTwo() {
         principles: "Four values shaping a different experience",
         privacyPromise: "The privacy promise",
         membership: "Membership paths",
+        email: "Official email",
+        website: "Official website",
+        call: "Request a call",
+        callValue: "Contact the AHED team",
+        tiktok: "TikTok",
+        support: "Support",
       };
 
   return (
@@ -124,6 +142,30 @@ export default function ModelTwo() {
         </div>
 
         <div className={styles.heroArtwork}>
+          <span
+            className={`${styles.firework} ${styles.fireworkLeft}`}
+            aria-hidden="true"
+          >
+            {fireworkRays.map((ray) => (
+              <i key={ray} />
+            ))}
+          </span>
+          <span
+            className={`${styles.firework} ${styles.fireworkRight}`}
+            aria-hidden="true"
+          >
+            {fireworkRays.map((ray) => (
+              <i key={ray} />
+            ))}
+          </span>
+          <span
+            className={`${styles.firework} ${styles.fireworkTop}`}
+            aria-hidden="true"
+          >
+            {fireworkRays.map((ray) => (
+              <i key={ray} />
+            ))}
+          </span>
           <span className={`${styles.spark} ${styles.sparkOne}`} aria-hidden="true">
             <Sparkles />
           </span>
@@ -332,11 +374,57 @@ export default function ModelTwo() {
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.footerBrand} aria-label="شعار عَهْد" role="img">
+        <div className={styles.footerBrandLockup} aria-label="شعار عَهْد" role="img">
+          <span className={styles.footerLogoIcon} aria-hidden="true">
+            <AhedBrand alt="" className={styles.footerLogoSource} />
+          </span>
           <AhedWordmark className={styles.footerWordmark} />
         </div>
         <p>{copy.footer.description}</p>
-        <a href="mailto:info@ahedmarriage.com">info@ahedmarriage.com</a>
+
+        <div className={styles.footerContacts}>
+          <a href="mailto:info@ahedmarriage.com">
+            <Mail aria-hidden="true" />
+            <span>
+              <small>{labels.email}</small>
+              <strong>info@ahedmarriage.com</strong>
+            </span>
+          </a>
+          <a href="https://www.ahedmarriage.com">
+            <Globe2 aria-hidden="true" />
+            <span>
+              <small>{labels.website}</small>
+              <strong>www.ahedmarriage.com</strong>
+            </span>
+          </a>
+          <a href="mailto:info@ahedmarriage.com?subject=AHED%20Call%20Request">
+            <Phone aria-hidden="true" />
+            <span>
+              <small>{labels.call}</small>
+              <strong>{labels.callValue}</strong>
+            </span>
+          </a>
+        </div>
+
+        <div className={styles.footerSideActions}>
+          <a
+            href="https://www.tiktok.com"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={labels.tiktok}
+            title={labels.tiktok}
+          >
+            <Music2 aria-hidden="true" />
+          </a>
+          <a
+            href="mailto:info@ahedmarriage.com?subject=AHED%20Support"
+            aria-label={labels.support}
+          >
+            <Headphones aria-hidden="true" />
+            <span>{labels.support}</span>
+          </a>
+        </div>
+
         <div className={styles.footerBottom}>
           <span>{copy.footer.copyright}</span>
           <nav aria-label={copy.footer.navLabel}>
