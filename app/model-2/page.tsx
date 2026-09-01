@@ -25,14 +25,12 @@ import {
 
 import {
   AhedBrand,
-  AhedOfficialMark,
   AhedWordmark,
 } from "@/components/ahed-brand";
 
 import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
 
-const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 const privacyIcons = [Mail, Handshake, SlidersHorizontal, FileCheck2];
 const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
 
@@ -158,87 +156,35 @@ export default function ModelTwo() {
         </div>
       </header>
 
-      <section className={styles.hero}>
-        <div className={`${styles.heroLogoPanel} ${styles.heroLogoLeft}`}>
-          <AhedOfficialMark
-            className={styles.heroOfficialLogo}
-            idSuffix="hero-left"
-          />
+      <section className={styles.hero} data-hero-layout="static-couple">
+        <div className={styles.heroCopy}>
+          <span className={styles.eyebrowLight}>
+            <Sparkles aria-hidden="true" />
+            {copy.hero.eyebrow}
+          </span>
+          <h1>
+            {copy.hero.title}
+            <em>{copy.hero.titleAccent}</em>
+          </h1>
+          <p>{copy.hero.description}</p>
+          <span className={styles.heroNote}>
+            <Heart aria-hidden="true" />
+            {copy.hero.note}
+          </span>
         </div>
 
-        <div className={styles.heroCenter}>
-          <div className={styles.heroArtwork}>
-            <span
-              className={`${styles.firework} ${styles.fireworkLeft}`}
-              aria-hidden="true"
-            >
-              {fireworkRays.map((ray) => (
-                <i key={ray} />
-              ))}
-            </span>
-            <span
-              className={`${styles.firework} ${styles.fireworkRight}`}
-              aria-hidden="true"
-            >
-              {fireworkRays.map((ray) => (
-                <i key={ray} />
-              ))}
-            </span>
-            <span
-              className={`${styles.firework} ${styles.fireworkTop}`}
-              aria-hidden="true"
-            >
-              {fireworkRays.map((ray) => (
-                <i key={ray} />
-              ))}
-            </span>
-            <span className={`${styles.spark} ${styles.sparkOne}`} aria-hidden="true">
-              <Sparkles />
-            </span>
-            <span className={`${styles.spark} ${styles.sparkTwo}`} aria-hidden="true">
-              <Sparkles />
-            </span>
-            <span className={`${styles.spark} ${styles.sparkThree}`} aria-hidden="true">
-              <Sparkles />
-            </span>
-            <span className={styles.heartPulse} aria-hidden="true">
-              <Heart />
-            </span>
-            <div className={styles.coupleStage}>
-              <Image
-                alt={labels.coupleAlt}
-                className={styles.coupleImage}
-                height={1024}
-                priority
-                sizes="(max-width: 920px) 100vw, 58vw"
-                src="/ahed-couple-v2.webp"
-                width={1536}
-              />
-            </div>
+        <div className={styles.heroArtwork}>
+          <div className={styles.coupleStage}>
+            <Image
+              alt={labels.coupleAlt}
+              className={styles.coupleImage}
+              height={1024}
+              priority
+              sizes="(max-width: 920px) calc(100vw - 40px), 52vw"
+              src="/ahed-couple-v2.webp"
+              width={1536}
+            />
           </div>
-
-          <div className={styles.heroCopy}>
-            <span className={styles.eyebrowLight}>
-              <Sparkles aria-hidden="true" />
-              {copy.hero.eyebrow}
-            </span>
-            <h1>
-              {copy.hero.title}
-              <em>{copy.hero.titleAccent}</em>
-            </h1>
-            <p>{copy.hero.description}</p>
-            <span className={styles.heroNote}>
-              <Heart aria-hidden="true" />
-              {copy.hero.note}
-            </span>
-          </div>
-        </div>
-
-        <div className={`${styles.heroLogoPanel} ${styles.heroLogoRight}`}>
-          <AhedOfficialMark
-            className={styles.heroOfficialLogo}
-            idSuffix="hero-right"
-          />
         </div>
 
         <div className={styles.freeRibbon} aria-label={copy.freeJoin.title}>

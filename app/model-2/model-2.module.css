@@ -198,102 +198,50 @@
 
 .hero {
   width: min(1480px, calc(100% - 32px));
-  min-height: 790px;
+  min-height: 650px;
   margin: 18px auto 0;
-  padding: 38px clamp(24px, 4vw, 64px) 0;
+  padding: 52px clamp(24px, 4vw, 64px) 0;
   position: relative;
   direction: ltr;
   display: grid;
-  grid-template-columns: minmax(220px, 0.68fr) minmax(520px, 1.64fr) minmax(220px, 0.68fr);
-  grid-template-rows: minmax(650px, auto) auto;
+  grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
+  grid-template-areas:
+    "artwork copy"
+    "ribbon ribbon";
+  grid-template-rows: minmax(560px, auto) auto;
   align-items: center;
-  column-gap: clamp(18px, 2.6vw, 44px);
-  overflow: hidden;
-  color: var(--gold-300);
-  background:
-    radial-gradient(circle at 50% 20%, rgba(241, 219, 153, 0.13), transparent 30rem),
-    radial-gradient(circle at 8% 45%, rgba(222, 185, 104, 0.1), transparent 24rem),
-    radial-gradient(circle at 92% 42%, rgba(222, 185, 104, 0.1), transparent 24rem),
-    linear-gradient(138deg, #320011 0%, #5d0a2a 45%, #430018 72%, #26000e 100%);
-  border: 1px solid rgba(222, 185, 104, 0.44);
-  border-radius: 34px;
-  box-shadow:
-    0 30px 70px rgba(38, 0, 14, 0.2),
-    inset 0 1px 0 rgba(255, 238, 184, 0.12);
+  column-gap: clamp(36px, 5vw, 82px);
+  overflow: visible;
+  color: var(--wine-950);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .hero::before {
-  content: "";
-  width: 470px;
-  height: 470px;
-  position: absolute;
-  left: -270px;
-  top: -280px;
-  border: 1px solid rgba(241, 219, 153, 0.2);
-  border-radius: 50%;
-  box-shadow: 0 0 0 42px rgba(222, 185, 104, 0.05);
+  content: none;
 }
 
 .heroCopy {
-  width: min(720px, 100%);
+  width: min(620px, 100%);
+  grid-area: copy;
   position: relative;
   z-index: 3;
-  margin: -8px auto 0;
-  padding: 0 20px 32px;
-  text-align: center;
+  margin: 0;
+  padding: 24px 0 42px;
+  align-self: center;
+  direction: rtl;
+  text-align: right;
 }
 
-[dir="rtl"] .heroCopy,
-[dir="rtl"] .heroCenter,
-[dir="rtl"] .heroLogoPanel,
+[dir="ltr"] .heroCopy {
+  direction: ltr;
+  text-align: left;
+}
+
 [dir="rtl"] .freeRibbon {
   direction: rtl;
-}
-
-.heroCenter {
-  min-width: 0;
-  min-height: 650px;
-  position: relative;
-  z-index: 3;
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.heroLogoPanel {
-  min-width: 0;
-  min-height: 650px;
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.heroLogoPanel::before {
-  content: "";
-  width: min(290px, 112%);
-  aspect-ratio: 1;
-  position: absolute;
-  border: 1px solid rgba(241, 219, 153, 0.12);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(241, 219, 153, 0.1), transparent 68%);
-  box-shadow: 0 0 70px rgba(222, 185, 104, 0.08);
-}
-
-.heroOfficialLogo {
-  width: min(255px, 100%);
-  max-height: 440px;
-  height: auto;
-  position: relative;
-  z-index: 1;
-  display: block;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 20px 30px rgba(0, 0, 0, 0.28))
-    drop-shadow(0 0 18px rgba(241, 219, 153, 0.18));
 }
 
 .eyebrow,
@@ -308,7 +256,7 @@
 }
 
 .eyebrowLight {
-  color: var(--gold-300);
+  color: #a9782f;
 }
 
 .eyebrowLight svg {
@@ -318,8 +266,8 @@
 
 .hero h1 {
   max-width: 700px;
-  margin: 16px auto 13px;
-  color: var(--gold-300);
+  margin: 16px 0 14px;
+  color: var(--wine-950);
   font-size: clamp(2.35rem, 3.4vw, 3.65rem);
   font-weight: 600;
   line-height: 1.13;
@@ -329,15 +277,15 @@
 .hero h1 em {
   margin-top: 3px;
   display: block;
-  color: #ffe7a1;
+  color: var(--wine-700);
   font-style: normal;
   font-weight: 600;
 }
 
 .heroCopy > p {
   max-width: 650px;
-  margin: 0 auto;
-  color: #f8e9c8;
+  margin: 0;
+  color: #795363;
   font-size: 1rem;
   line-height: 1.95;
 }
@@ -347,7 +295,7 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  color: var(--gold-300);
+  color: var(--wine-700);
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -355,20 +303,21 @@
 .heroNote svg {
   width: 17px;
   height: 17px;
-  fill: rgba(241, 219, 153, 0.18);
+  fill: rgba(111, 20, 56, 0.12);
 }
 
 .heroArtwork {
   width: 100%;
-  min-height: 435px;
+  min-height: 560px;
   position: relative;
   z-index: 2;
+  grid-area: artwork;
   align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1100px;
-  transform-style: preserve-3d;
+  perspective: none;
+  transform-style: flat;
 }
 
 .firework {
@@ -447,40 +396,21 @@
 }
 
 .coupleStage {
-  width: min(800px, 120%);
+  width: min(800px, 112%);
   position: relative;
   z-index: 2;
-  transform-style: preserve-3d;
-  transform-origin: 50% 76%;
-  will-change: transform;
-  animation: coupleStage3d 8.5s cubic-bezier(0.45, 0.05, 0.25, 0.98) infinite;
+  transform: none;
+  transform-style: flat;
+  will-change: auto;
+  animation: none;
 }
 
 .coupleStage::before {
-  content: "";
-  position: absolute;
-  inset: 5% 9% 8%;
-  border: 1px solid rgba(255, 231, 161, 0.18);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 231, 161, 0.13), transparent 67%);
-  filter: blur(2px);
-  transform: translateZ(-80px) scale(0.92);
-  animation: coupleHalo3d 4.25s ease-in-out infinite;
+  content: none;
 }
 
 .coupleStage::after {
-  content: "";
-  width: 54%;
-  height: 36px;
-  position: absolute;
-  z-index: -1;
-  left: 23%;
-  bottom: 5%;
-  border-radius: 50%;
-  background: rgba(12, 0, 5, 0.46);
-  filter: blur(15px);
-  transform: translateZ(-100px) rotateX(70deg);
-  animation: coupleShadow3d 4.25s ease-in-out infinite;
+  content: none;
 }
 
 .coupleImage {
@@ -489,13 +419,10 @@
   position: relative;
   z-index: 2;
   display: block;
-  filter:
-    drop-shadow(0 26px 36px rgba(5, 0, 2, 0.38))
-    drop-shadow(0 0 24px rgba(255, 226, 151, 0.16));
-  transform: translateZ(72px);
-  transform-origin: 50% 76%;
-  will-change: transform, filter;
-  animation: coupleDepthFloat 4.25s ease-in-out infinite;
+  filter: drop-shadow(0 22px 28px rgba(85, 47, 22, 0.14));
+  transform: none;
+  will-change: auto;
+  animation: none;
 }
 
 .heartPulse {
@@ -552,19 +479,20 @@
 
 .freeRibbon {
   min-height: 116px;
-  margin: 0 calc(-1 * clamp(24px, 4vw, 64px));
+  margin: 18px 0 0;
   padding: 22px clamp(24px, 4vw, 64px);
   position: relative;
   z-index: 6;
-  grid-column: 1 / -1;
+  grid-area: ribbon;
   display: grid;
   grid-template-columns: auto auto minmax(300px, 1fr);
   align-items: center;
   gap: 18px;
-  border-top: 1px solid rgba(255, 238, 184, 0.7);
+  border: 1px solid rgba(255, 238, 184, 0.7);
+  border-radius: 24px;
   background:
     linear-gradient(90deg, rgba(180, 116, 29, 0.98), rgba(244, 218, 145, 0.98) 48%, rgba(181, 116, 29, 0.98));
-  box-shadow: 0 -12px 40px rgba(21, 0, 8, 0.2);
+  box-shadow: 0 16px 34px rgba(78, 42, 20, 0.1);
   backdrop-filter: blur(12px);
 }
 
@@ -2555,17 +2483,8 @@
 
   .hero {
     padding-inline: 28px;
-    grid-template-columns: minmax(170px, 0.58fr) minmax(460px, 1.7fr) minmax(170px, 0.58fr);
-    column-gap: 16px;
-  }
-
-  .heroCenter,
-  .heroLogoPanel {
-    min-height: 620px;
-  }
-
-  .heroOfficialLogo {
-    width: min(210px, 100%);
+    grid-template-columns: minmax(0, 1.02fr) minmax(380px, 0.98fr);
+    column-gap: 32px;
   }
 
   .hero h1 {
@@ -2573,8 +2492,12 @@
   }
 
   .freeRibbon {
-    margin-inline: -28px;
+    margin-inline: 0;
     padding-inline: 28px;
+  }
+
+  .heroArtwork {
+    min-height: 520px;
   }
 
   .journeySteps {
@@ -2611,43 +2534,24 @@
 @media (max-width: 920px) {
   .hero {
     min-height: auto;
-    padding-top: 30px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: 44px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "artwork"
+      "ribbon";
     grid-template-rows: auto auto auto;
-    column-gap: 18px;
-    row-gap: 4px;
-  }
-
-  .heroLogoPanel {
-    min-height: 0;
-    padding-bottom: 8px;
-  }
-
-  .heroLogoLeft {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .heroLogoRight {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .heroOfficialLogo {
-    width: min(180px, 38vw);
-    max-height: 290px;
-  }
-
-  .heroCenter {
-    min-height: 0;
-    grid-column: 1 / -1;
-    grid-row: 2;
+    row-gap: 8px;
   }
 
   .heroCopy {
-    width: min(680px, 100%);
+    width: min(720px, 100%);
     margin: 0 auto;
-    padding-bottom: 30px;
+    padding: 20px 24px;
+    text-align: center;
+  }
+
+  [dir="ltr"] .heroCopy {
     text-align: center;
   }
 
@@ -2656,16 +2560,16 @@
   }
 
   .heroArtwork {
-    min-height: 450px;
+    min-height: 470px;
   }
 
   .coupleStage {
-    width: min(720px, 108%);
+    width: min(760px, 100%);
   }
 
   .freeRibbon {
-    grid-column: 1 / -1;
-    grid-row: 3;
+    grid-area: ribbon;
+    margin-top: 8px;
   }
 
   .journeyPath {
@@ -2902,8 +2806,8 @@
 
   .hero {
     width: calc(100% - 20px);
-    padding: 28px 16px 0;
-    column-gap: 12px;
+    padding: 34px 16px 0;
+    row-gap: 0;
   }
 
   .hero h1 {
@@ -2912,23 +2816,15 @@
 
   .heroArtwork {
     min-height: 400px;
-    margin-inline: -30px;
-  }
-
-  .heroOfficialLogo {
-    width: min(150px, 36vw);
+    margin-inline: 0;
   }
 
   .heroCopy {
-    padding-inline: 4px;
-  }
-
-  .heartPulse {
-    top: 23%;
+    padding: 10px 4px 24px;
   }
 
   .freeRibbon {
-    margin: 0 -16px;
+    margin: 0;
     padding: 23px 16px 27px;
     grid-template-columns: auto 1fr;
     gap: 14px;
@@ -3361,22 +3257,12 @@
 
   .heroArtwork {
     min-height: 330px;
-    margin-inline: -42px;
+    margin-inline: 0;
   }
 
-  .heroOfficialLogo {
-    width: min(118px, 34vw);
-    border-radius: 18px;
-  }
-
-  .spark svg {
-    width: 21px;
-    height: 21px;
-  }
-
-  .heartPulse {
-    width: 50px;
-    height: 50px;
+  .coupleStage {
+    width: 108%;
+    margin-inline: -4%;
   }
 
   .editorialHeading {
