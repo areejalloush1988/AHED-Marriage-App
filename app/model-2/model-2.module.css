@@ -709,7 +709,7 @@
   display: block;
   color: var(--gold-400);
   font-family: sans-serif;
-  font-size: 0.76rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.13em;
 }
@@ -719,15 +719,20 @@
   color: var(--gold-300);
 }
 
+.ringsContent > small {
+  font-size: 0.95rem;
+}
+
 .ringsContent h2 {
   color: var(--gold-300);
+  font-size: clamp(2.4rem, 3.8vw, 3.65rem);
 }
 
 .ringsContent > p {
   max-width: 610px;
   margin: 0;
   color: rgba(255, 249, 237, 0.71);
-  font-size: 0.91rem;
+  font-size: 1.08rem;
   line-height: 1.9;
 }
 
@@ -758,22 +763,22 @@
   padding-top: 5px;
   color: rgba(241, 219, 153, 0.48);
   font-family: sans-serif;
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   letter-spacing: 0.08em;
 }
 
 .principleLines h3 {
   margin: 0 0 4px;
   color: var(--gold-300);
-  font-size: 1.08rem;
+  font-size: 1.25rem;
   font-weight: 700;
 }
 
 .principleLines p {
   margin: 0;
   color: rgba(255, 249, 237, 0.62);
-  font-size: 0.78rem;
-  line-height: 1.75;
+  font-size: 0.92rem;
+  line-height: 1.8;
 }
 
 .safetyPromise {

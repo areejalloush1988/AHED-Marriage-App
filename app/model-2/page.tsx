@@ -38,7 +38,7 @@ export default function ModelTwo() {
         model: "نموذج التصميم رقم ٢",
         first: "فتح النموذج الأول",
         coupleAlt: "رسم فني لعروسين داخل قلب مضيء",
-        ringsAlt: "خاتما زواج على قماش خمري",
+        ringsAlt: "خاتما زواج على قماش مخملي خمري",
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
         privacyPromise: "وعد الخصوصية",
@@ -54,7 +54,7 @@ export default function ModelTwo() {
         model: "Design model 2",
         first: "Open model 1",
         coupleAlt: "Gold line-art bride and groom inside a glowing heart",
-        ringsAlt: "Wedding rings on burgundy silk",
+        ringsAlt: "Wedding rings on burgundy velvet",
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
         privacyPromise: "The privacy promise",
@@ -227,7 +227,7 @@ export default function ModelTwo() {
           className={styles.ringsImage}
           fill
           sizes="(max-width: 800px) 100vw, 1400px"
-          src="/ahed-rings-v2.webp"
+          src="/ahed-rings-v4.webp"
         />
         <div className={styles.ringsShade} aria-hidden="true" />
         <span className={styles.ringsGlint} aria-hidden="true" />
