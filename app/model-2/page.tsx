@@ -140,76 +140,92 @@ export default function ModelTwo() {
       </header>
 
       <section className={styles.hero}>
-        <div className={styles.heroArtwork}>
-          <span
-            className={`${styles.firework} ${styles.fireworkLeft}`}
-            aria-hidden="true"
-          >
-            {fireworkRays.map((ray) => (
-              <i key={ray} />
-            ))}
-          </span>
-          <span
-            className={`${styles.firework} ${styles.fireworkRight}`}
-            aria-hidden="true"
-          >
-            {fireworkRays.map((ray) => (
-              <i key={ray} />
-            ))}
-          </span>
-          <span
-            className={`${styles.firework} ${styles.fireworkTop}`}
-            aria-hidden="true"
-          >
-            {fireworkRays.map((ray) => (
-              <i key={ray} />
-            ))}
-          </span>
-          <span className={`${styles.spark} ${styles.sparkOne}`} aria-hidden="true">
-            <Sparkles />
-          </span>
-          <span className={`${styles.spark} ${styles.sparkTwo}`} aria-hidden="true">
-            <Sparkles />
-          </span>
-          <span className={`${styles.spark} ${styles.sparkThree}`} aria-hidden="true">
-            <Sparkles />
-          </span>
-          <span className={styles.heartPulse} aria-hidden="true">
-            <Heart />
-          </span>
+        <div className={`${styles.heroLogoPanel} ${styles.heroLogoLeft}`}>
           <Image
-            alt={labels.coupleAlt}
-            className={styles.coupleImage}
-            height={1024}
+            alt=""
+            aria-hidden="true"
+            className={styles.heroOfficialLogo}
+            height={1536}
             priority
-            src="/ahed-couple-v2.webp"
-            width={1536}
+            sizes="(max-width: 640px) 34vw, (max-width: 920px) 38vw, 20vw"
+            src="/ahed-logo-official.png"
+            width={1024}
           />
         </div>
 
-        <div className={styles.heroCopy}>
-          <span className={styles.eyebrowLight}>
-            <Sparkles aria-hidden="true" />
-            {copy.hero.eyebrow}
-          </span>
-          <h1>
-            {copy.hero.title}
-            <em>{copy.hero.titleAccent}</em>
-          </h1>
-          <p>{copy.hero.description}</p>
-          <span className={styles.heroNote}>
-            <Heart aria-hidden="true" />
-            {copy.hero.note}
-          </span>
+        <div className={styles.heroCenter}>
+          <div className={styles.heroArtwork}>
+            <span
+              className={`${styles.firework} ${styles.fireworkLeft}`}
+              aria-hidden="true"
+            >
+              {fireworkRays.map((ray) => (
+                <i key={ray} />
+              ))}
+            </span>
+            <span
+              className={`${styles.firework} ${styles.fireworkRight}`}
+              aria-hidden="true"
+            >
+              {fireworkRays.map((ray) => (
+                <i key={ray} />
+              ))}
+            </span>
+            <span
+              className={`${styles.firework} ${styles.fireworkTop}`}
+              aria-hidden="true"
+            >
+              {fireworkRays.map((ray) => (
+                <i key={ray} />
+              ))}
+            </span>
+            <span className={`${styles.spark} ${styles.sparkOne}`} aria-hidden="true">
+              <Sparkles />
+            </span>
+            <span className={`${styles.spark} ${styles.sparkTwo}`} aria-hidden="true">
+              <Sparkles />
+            </span>
+            <span className={`${styles.spark} ${styles.sparkThree}`} aria-hidden="true">
+              <Sparkles />
+            </span>
+            <span className={styles.heartPulse} aria-hidden="true">
+              <Heart />
+            </span>
+            <Image
+              alt={labels.coupleAlt}
+              className={styles.coupleImage}
+              height={1024}
+              priority
+              sizes="(max-width: 920px) 100vw, 58vw"
+              src="/ahed-couple-v2.webp"
+              width={1536}
+            />
+          </div>
+
+          <div className={styles.heroCopy}>
+            <span className={styles.eyebrowLight}>
+              <Sparkles aria-hidden="true" />
+              {copy.hero.eyebrow}
+            </span>
+            <h1>
+              {copy.hero.title}
+              <em>{copy.hero.titleAccent}</em>
+            </h1>
+            <p>{copy.hero.description}</p>
+            <span className={styles.heroNote}>
+              <Heart aria-hidden="true" />
+              {copy.hero.note}
+            </span>
+          </div>
         </div>
 
-        <div className={styles.heroLogoPanel}>
+        <div className={`${styles.heroLogoPanel} ${styles.heroLogoRight}`}>
           <Image
             alt={isArabic ? "شعار عَهْد الرسمي" : "Official AHED logo"}
             className={styles.heroOfficialLogo}
             height={1536}
             priority
-            sizes="(max-width: 920px) 58vw, 23vw"
+            sizes="(max-width: 640px) 34vw, (max-width: 920px) 38vw, 20vw"
             src="/ahed-logo-official.png"
             width={1024}
           />
