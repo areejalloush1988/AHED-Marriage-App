@@ -30,58 +30,50 @@
   text-decoration: none;
 }
 
-.comparisonBar {
-  min-height: 42px;
-  padding: 7px max(24px, calc((100vw - 1360px) / 2));
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  color: var(--gold-300);
-  background: var(--wine-950);
-  font-size: 0.84rem;
-  font-weight: 700;
-}
-
-.comparisonBar a {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: #fff8ea;
-  transition: color 180ms ease;
-}
-
-.comparisonBar a:hover {
-  color: var(--gold-300);
-}
-
-.comparisonBar svg {
-  width: 15px;
-  height: 15px;
-}
-
 .verseBar {
-  padding: 12px 24px 13px;
-  color: var(--wine-950);
-  background: linear-gradient(90deg, #c99338, #f2d88f 48%, #c99338);
+  min-height: 84px;
+  padding: 17px 24px 18px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: var(--gold-300);
+  border-bottom: 1px solid rgba(222, 185, 104, 0.52);
+  background:
+    radial-gradient(circle at 50% -110%, rgba(241, 219, 153, 0.16), transparent 62%),
+    linear-gradient(105deg, #26000e 0%, #5d0a2a 48%, #310012 100%);
+  box-shadow: 0 8px 26px rgba(38, 0, 14, 0.12);
   text-align: center;
 }
 
 .verseBar p {
+  max-width: 1240px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: baseline;
   justify-content: center;
   gap: 12px;
-  font-size: 0.94rem;
+  color: var(--gold-300);
+  background: linear-gradient(90deg, #b97918 0%, #f0d68b 22%, #fff2bd 45%, #c48b2b 68%, #f4dfa4 100%);
+  background-size: 240% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.7;
+  text-shadow: 0 0 20px rgba(241, 219, 153, 0.14);
+  animation: verseGoldShimmer 5.8s linear infinite;
 }
 
 .verseBar small {
   white-space: nowrap;
+  color: #e7c978;
+  -webkit-text-fill-color: #e7c978;
   font-size: 0.69rem;
-  opacity: 0.7;
+  opacity: 0.88;
 }
 
 .header {
@@ -453,6 +445,7 @@
   color: #b97918;
   filter: drop-shadow(0 0 9px rgba(173, 118, 32, 0.58));
   animation: sparkDance 3.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .spark svg {
@@ -488,11 +481,12 @@
   grid-template-columns: auto auto minmax(300px, 1fr);
   align-items: center;
   gap: 18px;
-  border: 1px solid rgba(255, 238, 184, 0.7);
+  border: 1px solid rgba(222, 185, 104, 0.58);
   border-radius: 24px;
   background:
-    linear-gradient(90deg, rgba(180, 116, 29, 0.98), rgba(244, 218, 145, 0.98) 48%, rgba(181, 116, 29, 0.98));
-  box-shadow: 0 16px 34px rgba(78, 42, 20, 0.1);
+    radial-gradient(circle at 50% -80%, rgba(241, 219, 153, 0.12), transparent 55%),
+    linear-gradient(115deg, #26000e, #6a1032 50%, #350014);
+  box-shadow: 0 18px 38px rgba(60, 0, 23, 0.16);
   backdrop-filter: blur(12px);
 }
 
@@ -500,9 +494,9 @@
   width: 52px;
   height: 52px;
   padding: 14px;
-  color: var(--gold-300);
-  background: var(--wine-900);
-  border: 1px solid rgba(93, 10, 42, 0.4);
+  color: #f1d98f;
+  background: rgba(241, 219, 153, 0.08);
+  border: 1px solid rgba(241, 219, 153, 0.42);
   border-radius: 50%;
 }
 
@@ -516,12 +510,12 @@
 }
 
 .freeRibbon small {
-  color: rgba(60, 0, 23, 0.68);
+  color: rgba(241, 219, 153, 0.72);
   font-size: 0.68rem;
 }
 
 .freeRibbon strong {
-  color: var(--wine-950);
+  color: #f5dda0;
   font-size: 1.22rem;
 }
 
@@ -529,8 +523,8 @@
   max-width: 680px;
   margin: 0;
   padding-inline-start: 28px;
-  border-inline-start: 1px solid rgba(60, 0, 23, 0.3);
-  color: var(--wine-900);
+  border-inline-start: 1px solid rgba(241, 219, 153, 0.28);
+  color: #ead093;
   font-size: 0.88rem;
   line-height: 1.85;
 }
@@ -2330,6 +2324,15 @@
   }
 }
 
+@keyframes verseGoldShimmer {
+  0% {
+    background-position: 180% center;
+  }
+  100% {
+    background-position: -60% center;
+  }
+}
+
 @keyframes fireworkRay {
   0%,
   7%,
@@ -2757,18 +2760,19 @@
 }
 
 @media (max-width: 700px) {
-  .comparisonBar {
-    padding-inline: 18px;
-    font-size: 0.71rem;
+  .verseBar {
+    min-height: 72px;
+    padding: 13px 18px 14px;
   }
 
   .verseBar p {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.82rem;
   }
 
   .verseBar small {
-    margin-inline-start: 7px;
+    margin-top: 2px;
+    display: block;
   }
 
   .header {
@@ -3246,8 +3250,8 @@
 }
 
 @media (max-width: 480px) {
-  .comparisonBar span {
-    max-width: 45%;
+  .verseBar p {
+    font-size: 0.76rem;
   }
 
   .brandLink,

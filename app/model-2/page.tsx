@@ -31,6 +31,7 @@ import {
 import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
 
+const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 const privacyIcons = [Mail, Handshake, SlidersHorizontal, FileCheck2];
 const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
 
@@ -43,9 +44,11 @@ export default function ModelTwo() {
 
   const labels = isArabic
     ? {
-        model: "نموذج التصميم رقم ٢",
-        first: "فتح النموذج الأول",
         coupleAlt: "رسم فني لعروسين داخل قلب مضيء",
+        matchmakerEyebrow: "خدمة الموفّق الشخصي",
+        matchmakerTitle: "نبحث لك عن شريك حياة مناسب",
+        matchmakerDescription:
+          "موفّقون للطرفين يراجعون المواصفات بعناية ويساعدونك في الوصول إلى توافق جاد وواضح.",
         ringsAlt: "يدا زوجين بخاتمين ذهبي وفضي بجوار ورد أبيض",
         journeyAlt: "خيط عهد ذهبي تتدلّى منه بطاقات مراحل الرحلة الأربع",
         journey: "من النية إلى أول حوار",
@@ -71,9 +74,11 @@ export default function ModelTwo() {
         support: "الدعم",
       }
     : {
-        model: "Design model 2",
-        first: "Open model 1",
         coupleAlt: "Gold line-art bride and groom inside a glowing heart",
+        matchmakerEyebrow: "Personal matchmaker service",
+        matchmakerTitle: "We help you find the right life partner",
+        matchmakerDescription:
+          "Dedicated matchmakers support both sides, review preferences carefully, and help you reach a serious, compatible match.",
         ringsAlt: "A couple wearing gold and silver wedding rings beside white roses",
         journeyAlt: "Four AHED journey cards suspended from a golden commitment thread",
         journey: "From intention to the first conversation",
@@ -106,14 +111,6 @@ export default function ModelTwo() {
       dir={isArabic ? "rtl" : "ltr"}
       lang={locale}
     >
-      <div className={styles.comparisonBar}>
-        <span>{labels.model}</span>
-        <Link href="/">
-          {labels.first}
-          <DirectionalArrow aria-hidden="true" />
-        </Link>
-      </div>
-
       <div className={styles.verseBar}>
         <p>
           <span>{copy.announcement.text}</span>
@@ -174,6 +171,39 @@ export default function ModelTwo() {
         </div>
 
         <div className={styles.heroArtwork}>
+          <span
+            className={`${styles.firework} ${styles.fireworkLeft}`}
+            aria-hidden="true"
+          >
+            {fireworkRays.map((ray) => (
+              <i key={ray} />
+            ))}
+          </span>
+          <span
+            className={`${styles.firework} ${styles.fireworkRight}`}
+            aria-hidden="true"
+          >
+            {fireworkRays.map((ray) => (
+              <i key={ray} />
+            ))}
+          </span>
+          <span
+            className={`${styles.firework} ${styles.fireworkTop}`}
+            aria-hidden="true"
+          >
+            {fireworkRays.map((ray) => (
+              <i key={ray} />
+            ))}
+          </span>
+          <span className={`${styles.spark} ${styles.sparkOne}`} aria-hidden="true">
+            <Sparkles />
+          </span>
+          <span className={`${styles.spark} ${styles.sparkTwo}`} aria-hidden="true">
+            <Sparkles />
+          </span>
+          <span className={`${styles.spark} ${styles.sparkThree}`} aria-hidden="true">
+            <Sparkles />
+          </span>
           <div className={styles.coupleStage}>
             <Image
               alt={labels.coupleAlt}
@@ -187,13 +217,13 @@ export default function ModelTwo() {
           </div>
         </div>
 
-        <div className={styles.freeRibbon} aria-label={copy.freeJoin.title}>
-          <UserRoundPlus aria-hidden="true" />
+        <div className={styles.freeRibbon} aria-label={labels.matchmakerTitle}>
+          <Handshake aria-hidden="true" />
           <div>
-            <small>{copy.freeJoin.eyebrow}</small>
-            <strong>{copy.freeJoin.title}</strong>
+            <small>{labels.matchmakerEyebrow}</small>
+            <strong>{labels.matchmakerTitle}</strong>
           </div>
-          <p>{copy.freeJoin.description}</p>
+          <p>{labels.matchmakerDescription}</p>
         </div>
       </section>
 
