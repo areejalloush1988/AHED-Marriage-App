@@ -7,15 +7,16 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
+  FileCheck2,
   Globe2,
+  Handshake,
   Heart,
   Headphones,
   Languages,
-  LockKeyhole,
   Mail,
   Music2,
   Phone,
-  ShieldCheck,
+  SlidersHorizontal,
   Sparkles,
   UserRoundPlus,
 } from "lucide-react";
@@ -26,6 +27,7 @@ import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
 
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
+const privacyIcons = [Mail, Handshake, SlidersHorizontal, FileCheck2];
 
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
@@ -324,53 +326,34 @@ export default function ModelTwo() {
           <small>{labels.privacyPromise}</small>
         </header>
 
-        <h2 className={styles.safetyTitle}>{copy.safety.title}</h2>
-
-        <svg
-          aria-hidden="true"
-          className={styles.safetyArcTitle}
-          viewBox="0 0 900 190"
-        >
-          <defs>
-            <path
-              d="M 90 166 Q 450 -24 810 166"
-              id="safety-title-arc"
-            />
-          </defs>
-          <text
-            className={styles.safetyArcText}
-            lang={locale}
-            style={{ direction: isArabic ? "rtl" : "ltr" }}
-          >
-            <textPath
-              href="#safety-title-arc"
-              startOffset="50%"
-              textAnchor="middle"
-            >
-              {copy.safety.title}
-            </textPath>
-          </text>
-        </svg>
-
-        <div className={styles.safetySealStage}>
-          <ul className={styles.safetyList}>
-            {copy.safety.items.map((item) => (
-              <li key={item}>
-                <span className={styles.safetyPlaqueIcon}>
-                  <ShieldCheck aria-hidden="true" />
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className={styles.safetySeal} aria-hidden="true">
-            <span className={styles.safetySealInset} />
-            <LockKeyhole />
-          </div>
+        <div className={styles.safetyBanner}>
+          <span className={styles.safetyBannerFlourish} aria-hidden="true" />
+          <h2>{copy.safety.title}</h2>
+          <span className={styles.safetyBannerFlourish} aria-hidden="true" />
         </div>
 
         <p className={styles.safetyDescription}>{copy.safety.description}</p>
+
+        <ol className={styles.safetyScreen}>
+          {copy.safety.items.map((item, index) => {
+            const PrivacyIcon = privacyIcons[index];
+
+            return (
+              <li key={item}>
+                <span className={styles.safetyPanelInner}>
+                  <span className={styles.safetyPanelIcon}>
+                    <PrivacyIcon aria-hidden="true" />
+                  </span>
+                  <strong>{item}</strong>
+                  <span className={styles.safetyPanelDrape} aria-hidden="true" />
+                </span>
+                {index > 0 ? (
+                  <span className={styles.safetyPanelHinges} aria-hidden="true" />
+                ) : null}
+              </li>
+            );
+          })}
+        </ol>
       </section>
 
       <section id="plans" className={styles.membershipSection}>

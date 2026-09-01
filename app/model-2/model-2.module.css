@@ -1102,225 +1102,262 @@
 }
 
 .safetyPromise {
-  width: min(1440px, calc(100% - 48px));
+  width: min(1360px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 104px 0 132px;
+  padding: 104px 0 128px;
   position: relative;
   text-align: center;
-  isolation: isolate;
 }
 
 .safetyHeader {
   display: grid;
   place-items: center;
-  gap: 7px;
+  gap: 5px;
 }
 
 .safetyHeader .storyIndex {
   margin: 0;
   color: var(--gold-600);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .safetyHeader small {
   color: var(--wine-700);
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.05em;
 }
 
-.safetyTitle {
-  width: 1px;
-  height: 1px;
-  position: absolute;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-.safetyArcTitle {
-  width: min(900px, 78vw);
-  height: auto;
-  margin: 4px auto -44px;
-  display: block;
-  overflow: visible;
-}
-
-.safetyArcText {
-  fill: var(--wine-950);
-  font-family: "Noto Naskh Arabic", serif;
-  font-size: 54px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-[dir="ltr"] .safetyArcText {
-  font-size: 43px;
-  letter-spacing: -0.035em;
-}
-
-.safetySealStage {
-  min-height: 510px;
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(230px, 1fr) minmax(340px, 430px) minmax(230px, 1fr);
-  grid-template-rows: repeat(2, minmax(190px, 1fr));
-  grid-template-areas:
-    "leftTop seal rightTop"
-    "leftBottom seal rightBottom";
-  align-items: center;
-  gap: 30px 46px;
-  direction: ltr;
-}
-
-.safetyList {
-  display: contents;
-}
-
-.safetyList li {
-  width: min(380px, 100%);
-  min-height: 126px;
-  padding: 24px 30px;
+.safetyBanner {
+  width: min(980px, 82vw);
+  min-height: 86px;
+  margin: 12px auto 0;
+  padding: 18px 88px;
   position: relative;
   display: flex;
   align-items: center;
-  gap: 18px;
-  color: #5f3042;
+  justify-content: space-between;
+  gap: 38px;
+  color: #fffaf1;
   background: #b18134;
-  filter: drop-shadow(0 14px 19px rgba(60, 0, 23, 0.09));
-  clip-path: polygon(7% 0, 93% 0, 100% 22%, 100% 78%, 93% 100%, 7% 100%, 0 78%, 0 22%);
-  direction: rtl;
-  font-size: clamp(0.82rem, 1.05vw, 0.96rem);
-  font-weight: 700;
-  line-height: 1.75;
-  text-align: start;
+  clip-path: polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%);
+  filter: drop-shadow(0 12px 20px rgba(60, 0, 23, 0.12));
   isolation: isolate;
 }
 
-[dir="ltr"] .safetyList li {
-  direction: ltr;
-}
-
-.safetyList li::before {
+.safetyBanner::before,
+.safetyBanner::after {
   content: "";
   position: absolute;
+  pointer-events: none;
+  clip-path: inherit;
+}
+
+.safetyBanner::before {
   z-index: -1;
-  inset: 1px;
-  background: #fffaf1;
-  clip-path: inherit;
+  inset: 3px;
+  background: var(--wine-900);
 }
 
-.safetyList li:nth-child(1) {
-  grid-area: leftTop;
-  justify-self: end;
+.safetyBanner::after {
+  inset: 9px 7%;
+  border: 1px solid rgba(241, 219, 153, 0.55);
+  clip-path: none;
 }
 
-.safetyList li:nth-child(2) {
-  grid-area: rightTop;
-  justify-self: start;
-}
-
-.safetyList li:nth-child(3) {
-  grid-area: leftBottom;
-  justify-self: end;
-}
-
-.safetyList li:nth-child(4) {
-  grid-area: rightBottom;
-  justify-self: start;
-}
-
-.safetyPlaqueIcon {
-  width: 48px;
-  height: 48px;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  color: #fffaf1;
-  background: var(--gold-600);
-  border-radius: 50%;
-}
-
-.safetyPlaqueIcon svg {
-  width: 23px;
-  height: 23px;
-}
-
-.safetySeal {
-  width: min(420px, 31vw);
-  aspect-ratio: 1;
+.safetyBanner h2 {
+  margin: 0 auto;
   position: relative;
-  grid-area: seal;
-  justify-self: center;
-  display: grid;
-  place-items: center;
-  background: #b18134;
-  filter: drop-shadow(0 24px 32px rgba(60, 0, 23, 0.16));
-  clip-path: polygon(29% 0, 71% 0, 100% 29%, 100% 71%, 71% 100%, 29% 100%, 0 71%, 0 29%);
-}
-
-.safetySeal::before,
-.safetySeal::after,
-.safetySealInset {
-  content: "";
-  position: absolute;
-  clip-path: inherit;
-}
-
-.safetySeal::before {
-  inset: 7px;
-  background: var(--wine-950);
-}
-
-.safetySeal::after {
-  inset: 20px;
-  background: #b18134;
-}
-
-.safetySealInset {
   z-index: 2;
-  inset: 24px;
-  background: var(--wine-800);
+  color: #fffaf1;
+  font-size: clamp(1.9rem, 3.4vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
-.safetySealInset::after {
+.safetyBannerFlourish {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+  border: 1px solid var(--gold-300);
+  transform: rotate(45deg);
+}
+
+.safetyBannerFlourish::before,
+.safetyBannerFlourish::after {
   content: "";
   position: absolute;
-  inset: 12px;
-  border: 1px solid rgba(241, 219, 153, 0.32);
-  clip-path: inherit;
+  inset: 6px;
+  border: 1px solid var(--gold-400);
 }
 
-.safetySeal > svg {
-  width: 116px;
-  height: 116px;
-  padding: 28px;
-  position: relative;
-  z-index: 4;
-  color: var(--gold-300);
-  background: var(--wine-950);
-  border: 2px solid var(--gold-500);
-  border-radius: 50%;
+.safetyBannerFlourish::after {
+  inset: 12px -6px;
+  border-inline: 0;
 }
 
 .safetyDescription {
-  max-width: 860px;
-  margin: 30px auto 0;
+  max-width: 820px;
+  margin: 20px auto 44px;
   position: relative;
   color: #795363;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 2;
+  font-size: 0.94rem;
+  font-weight: 500;
+  line-height: 1.9;
 }
 
-.safetyDescription::before {
+.safetyScreen {
+  max-width: 1240px;
+  min-height: 430px;
+  margin: 0 auto;
+  padding: 0 8px 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  list-style: none;
+  direction: ltr;
+  perspective: 1800px;
+}
+
+.safetyScreen > li {
+  min-height: 410px;
+  margin: 0 -1px;
+  position: relative;
+  background: #b18134;
+  clip-path: polygon(50% 0, 100% 5.5%, 100% 100%, 0 100%, 0 5.5%);
+  filter: drop-shadow(0 16px 15px rgba(60, 0, 23, 0.08));
+  transform-style: preserve-3d;
+}
+
+.safetyScreen > li:nth-child(1) {
+  transform: rotateY(-2.4deg);
+  transform-origin: right center;
+}
+
+.safetyScreen > li:nth-child(2) {
+  transform: rotateY(1.7deg);
+  transform-origin: left center;
+}
+
+.safetyScreen > li:nth-child(3) {
+  transform: rotateY(-1.7deg);
+  transform-origin: right center;
+}
+
+.safetyScreen > li:nth-child(4) {
+  transform: rotateY(2.4deg);
+  transform-origin: left center;
+}
+
+.safetyPanelInner {
+  position: absolute;
+  inset: 3px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 88px 30px 145px;
+  color: var(--wine-950);
+  background:
+    radial-gradient(circle at 50% 10%, rgba(214, 179, 104, 0.1), transparent 32%),
+    #fffaf1;
+  clip-path: inherit;
+  direction: rtl;
+}
+
+[dir="ltr"] .safetyPanelInner {
+  direction: ltr;
+}
+
+.safetyPanelInner::before {
   content: "";
-  width: 92px;
+  position: absolute;
+  z-index: 0;
+  inset: 10px;
+  border: 1px solid rgba(173, 118, 32, 0.48);
+  clip-path: polygon(50% 0, 100% 4%, 100% 100%, 0 100%, 0 4%);
+  pointer-events: none;
+}
+
+.safetyPanelIcon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: var(--wine-800);
+  border: 1px solid var(--gold-500);
+  border-radius: 50%;
+}
+
+.safetyPanelIcon::after {
+  content: "";
+  width: 74px;
   height: 1px;
-  margin: 0 auto 18px;
-  display: block;
-  background: var(--gold-500);
+  position: absolute;
+  top: calc(100% + 12px);
+  background: linear-gradient(90deg, transparent, var(--gold-500), transparent);
+}
+
+.safetyPanelIcon svg {
+  width: 29px;
+  height: 29px;
+  stroke-width: 1.55;
+}
+
+.safetyPanelInner strong {
+  max-width: 220px;
+  position: relative;
+  z-index: 2;
+  color: var(--wine-950);
+  font-size: clamp(0.88rem, 1.15vw, 1.02rem);
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.safetyPanelDrape {
+  height: 39%;
+  position: absolute;
+  z-index: 1;
+  right: -4%;
+  bottom: -1px;
+  left: -4%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 25% 70%, transparent 0 18px, rgba(241, 219, 153, 0.08) 19px 20px, transparent 21px),
+    radial-gradient(circle at 75% 78%, transparent 0 21px, rgba(241, 219, 153, 0.07) 22px 23px, transparent 24px),
+    var(--wine-900);
+  clip-path: polygon(0 31%, 18% 39%, 38% 26%, 60% 42%, 80% 31%, 100% 42%, 100% 100%, 0 100%);
+}
+
+.safetyPanelDrape::before {
+  content: "";
+  width: 19px;
+  height: 19px;
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  border: 1px solid var(--gold-400);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.safetyPanelHinges {
+  width: 10px;
+  height: 31px;
+  position: absolute;
+  z-index: 5;
+  top: 31%;
+  left: -5px;
+  background: linear-gradient(90deg, #8a5a20, #e1bc69 48%, #8a5a20);
+  border: 1px solid #855719;
+  border-radius: 2px;
+  box-shadow: 0 184px 0 #b18134, 0 184px 0 1px #855719;
 }
 
 .membershipSection {
@@ -2225,43 +2262,60 @@
 
   .safetyPromise {
     width: calc(100% - 32px);
-    padding: 82px 0 110px;
+    padding: 82px 0 108px;
   }
 
-  .safetyArcTitle {
-    width: min(780px, 94vw);
-    margin-bottom: -30px;
+  .safetyBanner {
+    width: min(820px, 92vw);
+    min-height: 76px;
+    padding: 16px 68px;
+    gap: 28px;
   }
 
-  .safetyArcText {
-    font-size: 50px;
+  .safetyBanner h2 {
+    font-size: clamp(1.75rem, 3.8vw, 2.6rem);
   }
 
-  [dir="ltr"] .safetyArcText {
-    font-size: 39px;
+  .safetyBannerFlourish {
+    width: 29px;
+    height: 29px;
   }
 
-  .safetySealStage {
-    min-height: 440px;
-    grid-template-columns: minmax(190px, 1fr) minmax(275px, 330px) minmax(190px, 1fr);
-    grid-template-rows: repeat(2, minmax(170px, 1fr));
-    gap: 20px 24px;
+  .safetyDescription {
+    margin-bottom: 36px;
+    font-size: 0.88rem;
   }
 
-  .safetySeal {
-    width: min(320px, 34vw);
+  .safetyScreen {
+    min-height: 370px;
+    padding-inline: 4px;
   }
 
-  .safetyList li {
-    min-height: 112px;
-    padding: 20px 22px;
-    gap: 12px;
+  .safetyScreen > li {
+    min-height: 360px;
+  }
+
+  .safetyPanelInner {
+    padding: 73px 20px 126px;
+  }
+
+  .safetyPanelIcon {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 21px;
+  }
+
+  .safetyPanelIcon svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .safetyPanelInner strong {
     font-size: 0.78rem;
   }
 
-  .safetyPlaqueIcon {
-    width: 40px;
-    height: 40px;
+  .safetyPanelHinges {
+    box-shadow: 0 158px 0 #b18134, 0 158px 0 1px #855719;
   }
 
   .membershipRow {
@@ -2505,56 +2559,55 @@
 
   .safetyPromise {
     width: calc(100% - 32px);
-    padding: 76px 0 98px;
+    padding: 76px 0 96px;
   }
 
-  .safetyArcTitle {
-    display: none;
-  }
-
-  .safetyTitle {
-    width: auto;
-    height: auto;
-    margin: 14px auto 32px;
-    position: static;
-    overflow: visible;
-    color: var(--wine-950);
-    font-size: clamp(2rem, 7vw, 2.8rem);
-    font-weight: 600;
-    line-height: 1.45;
-    clip: auto;
-    clip-path: none;
-    white-space: normal;
-  }
-
-  .safetySealStage {
-    min-height: 0;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: auto auto auto;
-    grid-template-areas:
-      "seal seal"
-      "leftTop rightTop"
-      "leftBottom rightBottom";
-    gap: 14px;
-  }
-
-  .safetySeal {
-    width: min(330px, 72vw);
-    margin-bottom: 12px;
-  }
-
-  .safetyList li {
+  .safetyBanner {
     width: 100%;
-    min-height: 128px;
-    padding: 20px;
-    justify-self: stretch;
-    font-size: 0.8rem;
+    min-height: 72px;
+    padding: 14px 48px;
+    gap: 20px;
+  }
+
+  .safetyBanner h2 {
+    font-size: clamp(1.65rem, 5.5vw, 2.2rem);
+  }
+
+  .safetyBannerFlourish {
+    width: 25px;
+    height: 25px;
   }
 
   .safetyDescription {
-    margin-top: 28px;
-    padding-inline: 10px;
-    font-size: 0.9rem;
+    margin: 18px auto 32px;
+    padding-inline: 12px;
+    font-size: 0.86rem;
+  }
+
+  .safetyScreen {
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 0;
+    perspective: none;
+  }
+
+  .safetyScreen > li,
+  .safetyScreen > li:nth-child(1),
+  .safetyScreen > li:nth-child(2),
+  .safetyScreen > li:nth-child(3),
+  .safetyScreen > li:nth-child(4) {
+    min-height: 336px;
+    margin: 0;
+    transform: none;
+  }
+
+  .safetyPanelInner {
+    padding: 68px 24px 118px;
+  }
+
+  .safetyPanelHinges {
+    display: none;
   }
 
   .membershipRow,
@@ -2731,20 +2784,24 @@
     font-size: 0.78rem;
   }
 
-  .safetySealStage {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "seal"
-      "leftTop"
-      "rightTop"
-      "leftBottom"
-      "rightBottom";
-    gap: 12px;
+  .safetyScreen {
+    gap: 10px;
   }
 
-  .safetyList li {
-    min-height: 104px;
-    padding: 18px 24px;
+  .safetyScreen > li,
+  .safetyScreen > li:nth-child(1),
+  .safetyScreen > li:nth-child(2),
+  .safetyScreen > li:nth-child(3),
+  .safetyScreen > li:nth-child(4) {
+    min-height: 320px;
+  }
+
+  .safetyPanelInner {
+    padding: 64px 18px 112px;
+  }
+
+  .safetyPanelInner strong {
+    font-size: 0.76rem;
   }
 }
 
@@ -2803,16 +2860,31 @@
     width: calc(100% - 20px);
   }
 
-  .safetyTitle {
-    font-size: 2rem;
+  .safetyBanner {
+    padding-inline: 30px;
+    clip-path: polygon(7% 0, 93% 0, 100% 50%, 93% 100%, 7% 100%, 0 50%);
   }
 
-  .safetySeal {
-    width: min(280px, 82vw);
+  .safetyBanner h2 {
+    font-size: 1.55rem;
   }
 
-  .safetyList li {
-    padding-inline: 19px;
+  .safetyBannerFlourish {
+    display: none;
+  }
+
+  .safetyScreen {
+    max-width: 340px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .safetyScreen > li,
+  .safetyScreen > li:nth-child(1),
+  .safetyScreen > li:nth-child(2),
+  .safetyScreen > li:nth-child(3),
+  .safetyScreen > li:nth-child(4) {
+    min-height: 320px;
   }
 
   .faqItem summary {
