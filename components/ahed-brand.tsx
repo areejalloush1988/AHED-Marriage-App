@@ -21,7 +21,7 @@ export function AhedBrand({
       className={className}
       height={1835}
       priority={priority}
-      src="/ahed-logo.webp"
+      src="/ahed-logo.webp?v=20260902-hd-gold"
       width={4096}
     />
   );

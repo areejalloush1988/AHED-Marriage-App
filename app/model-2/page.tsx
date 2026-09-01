@@ -285,7 +285,7 @@ export default function ModelTwo() {
               height={2449}
               priority
               sizes="(max-width: 920px) calc(100vw - 40px), 52vw"
-              src="/ahed-couple-v2.webp"
+              src="/ahed-couple-v2.webp?v=20260902-hd-gold"
               width={3072}
             />
           </div>
@@ -411,7 +411,7 @@ export default function ModelTwo() {
             className={styles.ringsImage}
             height={1470}
             sizes="(max-width: 620px) calc(100vw - 20px), (max-width: 920px) 58vw, 58vw"
-            src="/ahed-rings-hands-v1.webp"
+            src="/ahed-rings-hands-v1.webp?v=20260902-hd-gold"
             width={2912}
           />
           <span className={styles.ringsGlint} aria-hidden="true" />
