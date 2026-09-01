@@ -6,6 +6,7 @@ import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  ClipboardCheck,
   FileCheck2,
   Globe2,
   Handshake,
@@ -13,11 +14,13 @@ import {
   Headphones,
   Languages,
   Mail,
+  MessageCircleMore,
   Music2,
   Phone,
   SlidersHorizontal,
   Sparkles,
   UserRoundPlus,
+  UserSearch,
 } from "lucide-react";
 
 import {
@@ -31,7 +34,7 @@ import styles from "./model-2.module.css";
 
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 const privacyIcons = [Mail, Handshake, SlidersHorizontal, FileCheck2];
-const journeyIcons = [UserRoundPlus, FileCheck2, SlidersHorizontal, Handshake];
+const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
 
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
@@ -264,9 +267,58 @@ export default function ModelTwo() {
             className={styles.journeyPath}
             role="group"
           >
-            <div className={styles.journeyThread} aria-hidden="true">
-              <span className={styles.journeyKnot} />
-            </div>
+            <svg
+              aria-hidden="true"
+              className={styles.journeyThread}
+              preserveAspectRatio="none"
+              viewBox="0 0 1400 100"
+            >
+              <defs>
+                <linearGradient id="journey-rope-gold" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stopColor="#a76e1d" />
+                  <stop offset="0.23" stopColor="#f2d48a" />
+                  <stop offset="0.5" stopColor="#bd8330" />
+                  <stop offset="0.76" stopColor="#f7dda0" />
+                  <stop offset="1" stopColor="#a56b1d" />
+                </linearGradient>
+              </defs>
+
+              <path
+                className={styles.journeyRopeShadow}
+                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+              />
+              <path
+                className={styles.journeyRopeMain}
+                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+              />
+              <path
+                className={styles.journeyRopeHighlight}
+                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+              />
+              <path
+                className={styles.journeyRopeBraid}
+                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+              />
+
+              <g className={styles.journeyKnot}>
+                <path
+                  className={styles.journeyRopeShadow}
+                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
+                />
+                <path
+                  className={styles.journeyRopeMain}
+                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
+                />
+                <path
+                  className={styles.journeyRopeHighlight}
+                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
+                />
+                <path
+                  className={styles.journeyRopeBraid}
+                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
+                />
+              </g>
+            </svg>
 
             <ol className={styles.journeySteps}>
               {copy.process.steps.map((step, index) => {
@@ -278,11 +330,21 @@ export default function ModelTwo() {
                       {step.number}
                     </span>
                     <span className={styles.journeyDrop} aria-hidden="true" />
-                    <div className={styles.journeyCard}>
-                      <JourneyIcon aria-hidden="true" />
-                      <span className={styles.journeyOrnament} aria-hidden="true" />
-                      <h3>{step.title}</h3>
-                      <p>{step.description}</p>
+                    <div className={styles.journeyCardFrame}>
+                      <svg
+                        aria-hidden="true"
+                        className={styles.journeyCardShape}
+                        preserveAspectRatio="none"
+                        viewBox="0 0 300 360"
+                      >
+                        <path d="M20 34 H119 C126 34 130 31 134 24 L144 9 C148 3 152 3 156 9 L166 24 C170 31 174 34 181 34 H280 C288 34 293 39 293 47 V334 C293 346 286 353 274 353 H26 C14 353 7 346 7 334 V47 C7 39 12 34 20 34 Z" />
+                      </svg>
+                      <div className={styles.journeyCard}>
+                        <JourneyIcon aria-hidden="true" />
+                        <span className={styles.journeyOrnament} aria-hidden="true" />
+                        <h3>{step.title}</h3>
+                        <p>{step.description}</p>
+                      </div>
                     </div>
                   </li>
                 );
