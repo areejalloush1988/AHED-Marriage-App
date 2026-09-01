@@ -1593,35 +1593,23 @@
 }
 
 .faqSection {
-  width: min(1480px, calc(100% - 32px));
+  width: min(1260px, calc(100% - 48px));
   margin: 24px auto 104px;
-  padding: 72px clamp(28px, 5vw, 76px) 64px;
+  padding: 72px 0 64px;
   position: relative;
   display: block;
-  overflow: hidden;
-  color: var(--gold-300);
-  background:
-    radial-gradient(circle at 50% 118%, rgba(241, 219, 153, 0.14), transparent 42%),
-    radial-gradient(circle at 7% 12%, rgba(222, 185, 104, 0.09), transparent 25rem),
-    linear-gradient(142deg, #320011 0%, #5d0a2a 48%, #26000e 100%);
-  border: 1px solid rgba(222, 185, 104, 0.48);
-  border-radius: 42px;
-  box-shadow:
-    0 30px 74px rgba(38, 0, 14, 0.21),
-    inset 0 1px 0 rgba(255, 238, 184, 0.12);
-  isolation: isolate;
+  overflow: visible;
+  color: var(--wine-950);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  isolation: auto;
 }
 
 .faqSection::before,
 .faqSection::after {
-  content: "";
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  z-index: -1;
-  border: 1px solid rgba(241, 219, 153, 0.1);
-  border-radius: 50%;
-  box-shadow: 0 0 0 34px rgba(241, 219, 153, 0.025);
+  content: none;
 }
 
 .faqSection::before {
@@ -1643,18 +1631,18 @@
 }
 
 .faqHeading .eyebrow {
-  color: var(--gold-300);
+  color: var(--gold-600);
 }
 
 .faqHeading h2 {
   margin-top: 12px;
-  color: #ffe7a1;
+  color: var(--wine-950);
   font-size: clamp(2.4rem, 4.6vw, 4.2rem);
 }
 
 .faqHeading p {
   margin-inline: auto;
-  color: #f7e8c7;
+  color: #795363;
 }
 
 .faqDoorHint {
@@ -1662,7 +1650,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--gold-300);
+  color: var(--wine-700);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -1673,23 +1661,25 @@
 }
 
 .faqDoors {
-  margin: 0;
+  max-width: 850px;
+  margin: 0 auto;
   padding: 0;
   position: relative;
   z-index: 3;
   display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
   justify-content: center;
-  gap: clamp(12px, 1.55vw, 24px);
+  gap: 44px 52px;
   list-style: none;
 }
 
 .faqDoor {
   min-width: 0;
-  max-width: 230px;
+  max-width: 240px;
   position: relative;
   z-index: 1;
-  flex: 1 1 190px;
+  flex: 0 0 240px;
   perspective: 1200px;
   transition: z-index 0s 420ms;
 }
@@ -1940,7 +1930,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--gold-300);
+  color: var(--wine-700);
   font-family: sans-serif;
   font-size: 0.76rem;
   font-weight: 700;
@@ -2517,19 +2507,18 @@
   }
 
   .faqSection {
-    padding-inline: 38px;
+    padding-inline: 0;
   }
 
   .faqDoors {
     max-width: 820px;
     margin-inline: auto;
-    flex-wrap: wrap;
-    row-gap: 28px;
+    gap: 40px 46px;
   }
 
   .faqDoor {
     max-width: 240px;
-    flex: 0 1 calc(33.333% - 18px);
+    flex: 0 1 calc(33.333% - 31px);
   }
 
 }
@@ -2743,7 +2732,7 @@
   }
 
   .faqSection {
-    padding-inline: 30px;
+    padding-inline: 0;
   }
 
   .faqDoorStage {
@@ -3036,11 +3025,10 @@
   }
 
   .faqSection {
-    width: calc(100% - 20px);
+    width: calc(100% - 32px);
     margin-bottom: 76px;
-    padding: 64px 20px 52px;
+    padding: 64px 0 52px;
     display: block;
-    border-radius: 30px;
   }
 
   .faqHeading {
@@ -3054,12 +3042,12 @@
 
   .faqDoors {
     max-width: 560px;
-    gap: 18px;
+    gap: 32px;
   }
 
   .faqDoor {
     max-width: 250px;
-    flex: 0 1 calc(50% - 9px);
+    flex: 0 1 calc(50% - 16px);
   }
 
   .faqDoorStage {
@@ -3371,24 +3359,16 @@
   }
 
   .faqDoors {
-    max-width: none;
-    padding: 8px 20px 20px;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-padding-inline: 20px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .faqDoors::-webkit-scrollbar {
-    display: none;
+    max-width: 320px;
+    padding: 8px 0 20px;
+    justify-content: center;
+    gap: 30px;
+    overflow: visible;
   }
 
   .faqDoor {
     max-width: 280px;
     flex: 0 0 min(78vw, 280px);
-    scroll-snap-align: center;
   }
 
   .faqDoorStage {
