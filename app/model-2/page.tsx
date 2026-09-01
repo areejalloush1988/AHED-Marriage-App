@@ -280,10 +280,22 @@ export default function ModelTwo() {
           <p>{copy.why.description}</p>
         </div>
 
-        <ol className={styles.principleLines}>
-          {copy.why.principles.map((principle, index) => (
+        <ol className={`${styles.principleGroup} ${styles.principlesUnderVisual}`}>
+          {copy.why.principles.slice(0, 2).map((principle, index) => (
             <li key={principle.title}>
               <span>0{index + 1}</span>
+              <div>
+                <h3>{principle.title}</h3>
+                <p>{principle.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <ol className={`${styles.principleGroup} ${styles.principlesUnderContent}`} start={3}>
+          {copy.why.principles.slice(2).map((principle, index) => (
+            <li key={principle.title}>
+              <span>0{index + 3}</span>
               <div>
                 <h3>{principle.title}</h3>
                 <p>{principle.description}</p>
