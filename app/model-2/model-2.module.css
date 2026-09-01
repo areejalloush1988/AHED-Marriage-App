@@ -577,68 +577,132 @@
   line-height: 1.9;
 }
 
-.journeyPath {
-  min-height: 470px;
+.journeyVisual {
   position: relative;
+}
+
+.journeyScene {
+  aspect-ratio: 3 / 2;
+  position: relative;
+  overflow: hidden;
+  background: #ead9c5;
+  border: 1px solid rgba(173, 118, 32, 0.28);
+  border-radius: 36px 36px 128px 36px;
+  box-shadow: 0 30px 80px rgba(60, 0, 23, 0.16);
+  isolation: isolate;
+}
+
+[dir="ltr"] .journeyScene {
+  border-radius: 36px 36px 36px 128px;
+}
+
+.journeyImage {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.journeyVeil {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(38, 0, 14, 0.7) 0%,
+    rgba(38, 0, 14, 0.32) 15%,
+    transparent 36%
+  );
+  pointer-events: none;
+}
+
+.journeyShimmer {
+  width: 22%;
+  height: 140%;
+  position: absolute;
+  z-index: -1;
+  top: -20%;
+  left: -30%;
+  background: linear-gradient(90deg, transparent, rgba(255, 240, 187, 0.25), transparent);
+  filter: blur(8px);
+  transform: rotate(13deg);
+  animation: journeyShimmer 9s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.gateSteps {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 3;
+  inset-inline: 2.4%;
+  bottom: 2.8%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 46px;
+  align-items: end;
+  gap: 12px;
+  list-style: none;
 }
 
-.pathLine {
-  height: 122px;
-  position: absolute;
-  top: 91px;
-  inset-inline: 4%;
-  border-top: 2px solid var(--gold-500);
-  border-radius: 50%;
-  opacity: 0.55;
-  transform: rotate(-2deg);
-}
-
-.journeyStop {
+.gateStep {
+  min-height: 134px;
+  padding: 16px 17px 15px;
   position: relative;
-  z-index: 1;
-  padding-top: 10px;
-  transition: transform 300ms ease;
+  overflow: hidden;
+  color: #fff9ed;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(241, 219, 153, 0.14), transparent 8rem),
+    linear-gradient(145deg, rgba(120, 23, 58, 0.93), rgba(38, 0, 14, 0.95));
+  border: 1px solid rgba(241, 219, 153, 0.42);
+  border-radius: 22px 22px 9px 9px;
+  box-shadow: 0 18px 38px rgba(38, 0, 14, 0.25), inset 0 1px rgba(255, 248, 226, 0.12);
+  backdrop-filter: blur(12px);
+  animation: gateCardGlow 5.5s ease-in-out infinite;
 }
 
-.journeyStop:nth-of-type(1) { transform: translateY(-18px); }
-.journeyStop:nth-of-type(2) { transform: translateY(102px); }
-.journeyStop:nth-of-type(3) { transform: translateY(30px); }
-.journeyStop:nth-of-type(4) { transform: translateY(152px); }
+.gateStep:nth-child(2) { animation-delay: -1.35s; }
+.gateStep:nth-child(3) { animation-delay: -2.7s; }
+.gateStep:nth-child(4) { animation-delay: -4.05s; }
 
-.stopNumber {
-  color: rgba(93, 10, 42, 0.16);
-  font-family: sans-serif;
-  font-size: 4.6rem;
-  font-weight: 700;
-  line-height: 1;
+.gateStep::after {
+  content: "";
+  width: 36%;
+  height: 180%;
+  position: absolute;
+  top: -40%;
+  left: -70%;
+  background: linear-gradient(90deg, transparent, rgba(255, 233, 164, 0.2), transparent);
+  transform: rotate(13deg);
+  animation: gateCardSweep 7.5s ease-in-out infinite;
+  pointer-events: none;
 }
 
-.stopDot {
-  width: 17px;
-  height: 17px;
-  margin: 16px 0 20px;
+.gateStep:nth-child(2)::after { animation-delay: -1.8s; }
+.gateStep:nth-child(3)::after { animation-delay: -3.6s; }
+.gateStep:nth-child(4)::after { animation-delay: -5.4s; }
+
+.gateStepNumber {
+  margin-bottom: 5px;
   display: block;
-  border: 4px solid var(--wine-800);
-  border-radius: 50%;
-  background: var(--gold-300);
-  box-shadow: 0 0 0 8px rgba(200, 149, 61, 0.12);
-}
-
-.journeyStop h3 {
-  margin: 0 0 8px;
-  color: var(--wine-800);
-  font-size: 1.3rem;
+  color: var(--gold-300);
+  font-family: sans-serif;
+  font-size: 0.68rem;
   font-weight: 700;
+  letter-spacing: 0.13em;
 }
 
-.journeyStop p {
+.gateStep h3 {
+  margin: 0 0 4px;
+  color: var(--gold-300);
+  font-size: 1.06rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.gateStep p {
   margin: 0;
-  color: #785263;
-  font-size: 0.86rem;
-  line-height: 1.85;
+  color: rgba(255, 249, 237, 0.78);
+  font-size: 0.76rem;
+  line-height: 1.7;
 }
 
 .ringsStory {
@@ -1575,6 +1639,48 @@
   }
 }
 
+@keyframes journeyShimmer {
+  0%,
+  18% {
+    left: -30%;
+    opacity: 0;
+  }
+  36% {
+    opacity: 1;
+  }
+  68%,
+  100% {
+    left: 112%;
+    opacity: 0;
+  }
+}
+
+@keyframes gateCardGlow {
+  0%,
+  100% {
+    box-shadow: 0 18px 38px rgba(38, 0, 14, 0.25), inset 0 1px rgba(255, 248, 226, 0.12);
+  }
+  50% {
+    box-shadow: 0 22px 46px rgba(38, 0, 14, 0.34), 0 0 24px rgba(222, 185, 104, 0.12), inset 0 1px rgba(255, 248, 226, 0.18);
+  }
+}
+
+@keyframes gateCardSweep {
+  0%,
+  30% {
+    left: -70%;
+    opacity: 0;
+  }
+  44% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    left: 145%;
+    opacity: 0;
+  }
+}
+
 @keyframes ringsDrift {
   0% {
     filter: brightness(1.06) contrast(1.08) saturate(1.08);
@@ -1665,8 +1771,23 @@
     grid-template-columns: minmax(330px, 0.8fr) minmax(460px, 1.2fr);
   }
 
-  .journeyPath {
-    gap: 28px;
+  .gateSteps {
+    inset-inline: 1.8%;
+    bottom: 2%;
+    gap: 8px;
+  }
+
+  .gateStep {
+    min-height: 146px;
+    padding: 14px 12px;
+  }
+
+  .gateStep h3 {
+    font-size: 0.98rem;
+  }
+
+  .gateStep p {
+    font-size: 0.7rem;
   }
 
   .membershipRow {
@@ -1718,25 +1839,43 @@
     grid-column: auto;
   }
 
-  .journeyPath {
-    min-height: auto;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 48px 56px;
+  .journeyVisual {
+    display: grid;
+    gap: 18px;
   }
 
-  .pathLine {
-    display: none;
+  .journeyScene {
+    border-radius: 30px 30px 94px 30px;
   }
 
-  .journeyStop:nth-of-type(2),
-  .journeyStop:nth-of-type(4) {
-    margin-top: 0;
+  [dir="ltr"] .journeyScene {
+    border-radius: 30px 30px 30px 94px;
   }
 
-  .journeyStop:nth-of-type(1) { transform: translateY(-12px); }
-  .journeyStop:nth-of-type(2) { transform: translateY(54px); }
-  .journeyStop:nth-of-type(3) { transform: translateY(14px); }
-  .journeyStop:nth-of-type(4) { transform: translateY(76px); }
+  .journeyVeil {
+    background: linear-gradient(0deg, rgba(38, 0, 14, 0.18), transparent 30%);
+  }
+
+  .gateSteps {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .gateStep {
+    min-height: 150px;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .gateStep h3 {
+    font-size: 1.08rem;
+  }
+
+  .gateStep p {
+    font-size: 0.78rem;
+    line-height: 1.72;
+  }
 
   .ringsStory {
     min-height: 950px;
@@ -1926,45 +2065,14 @@
     font-size: 2.15rem;
   }
 
-  .journeyPath {
-    padding-inline-start: 30px;
-    grid-template-columns: 1fr;
-    gap: 0;
+  .journeyScene,
+  [dir="ltr"] .journeyScene {
+    border-radius: 24px 24px 68px 24px;
+    box-shadow: 0 22px 54px rgba(60, 0, 23, 0.14);
   }
 
-  .journeyPath::before {
-    content: "";
-    width: 1px;
-    position: absolute;
-    top: 50px;
-    bottom: 50px;
-    inset-inline-start: 7px;
-    background: var(--gold-500);
-    opacity: 0.55;
-  }
-
-  .journeyStop,
-  .journeyStop:nth-of-type(2),
-  .journeyStop:nth-of-type(4) {
-    min-height: 205px;
-    margin-top: 0;
-    padding-bottom: 30px;
-    transform: none;
-  }
-
-  .journeyStop:nth-of-type(1),
-  .journeyStop:nth-of-type(3) {
-    transform: none;
-  }
-
-  .stopNumber {
-    font-size: 3.8rem;
-  }
-
-  .stopDot {
-    position: absolute;
-    top: 48px;
-    inset-inline-start: -30px;
+  [dir="ltr"] .journeyScene {
+    border-radius: 24px 24px 24px 68px;
   }
 
   .ringsStory {
@@ -2133,6 +2241,23 @@
   .editorialHeading > span {
     margin-bottom: 20px;
     display: inline-block;
+  }
+
+  .journeyScene,
+  [dir="ltr"] .journeyScene {
+    border-radius: 20px 20px 52px 20px;
+  }
+
+  [dir="ltr"] .journeyScene {
+    border-radius: 20px 20px 20px 52px;
+  }
+
+  .gateSteps {
+    grid-template-columns: 1fr;
+  }
+
+  .gateStep {
+    min-height: 0;
   }
 
   .faqItem summary {

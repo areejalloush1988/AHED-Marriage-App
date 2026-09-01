@@ -39,6 +39,7 @@ export default function ModelTwo() {
         first: "فتح النموذج الأول",
         coupleAlt: "رسم فني لعروسين داخل قلب مضيء",
         ringsAlt: "خاتما زواج على قماش مخملي خمري",
+        journeyAlt: "أربع بوابات خمرية تمثل مراحل رحلة عَهْد",
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
         privacyPromise: "وعد الخصوصية",
@@ -55,6 +56,7 @@ export default function ModelTwo() {
         first: "Open model 1",
         coupleAlt: "Gold line-art bride and groom inside a glowing heart",
         ringsAlt: "Wedding rings on burgundy velvet",
+        journeyAlt: "Four burgundy gates representing the AHED journey",
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
         privacyPromise: "The privacy promise",
@@ -208,16 +210,28 @@ export default function ModelTwo() {
           </div>
         </div>
 
-        <div className={styles.journeyPath}>
-          <span className={styles.pathLine} aria-hidden="true" />
-          {copy.process.steps.map((step) => (
-            <article key={step.number} className={styles.journeyStop}>
-              <span className={styles.stopNumber}>{step.number}</span>
-              <span className={styles.stopDot} aria-hidden="true" />
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </article>
-          ))}
+        <div className={styles.journeyVisual}>
+          <div className={styles.journeyScene}>
+            <Image
+              alt={labels.journeyAlt}
+              className={styles.journeyImage}
+              fill
+              sizes="(max-width: 920px) calc(100vw - 32px), 1260px"
+              src="/ahed-journey-gates-v1.webp"
+            />
+            <span className={styles.journeyVeil} aria-hidden="true" />
+            <span className={styles.journeyShimmer} aria-hidden="true" />
+          </div>
+
+          <ol className={styles.gateSteps}>
+            {copy.process.steps.map((step) => (
+              <li key={step.number} className={styles.gateStep}>
+                <span className={styles.gateStepNumber}>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
