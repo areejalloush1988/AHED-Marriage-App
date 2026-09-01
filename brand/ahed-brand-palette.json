@@ -1,0 +1,18 @@
+{
+  "brand": "AHED | عَهْد",
+  "approvedGold": {
+    "name": "Warm Polished Gold",
+    "deep": "#AE6605",
+    "base": "#F2B11F",
+    "highlight": "#FCEFA2",
+    "secondaryHighlight": "#F8C23A",
+    "shadow": "#A45A00",
+    "gradient": "linear-gradient(135deg, #AE6605 0%, #F2B11F 30%, #FCEFA2 50%, #F8C23A 72%, #A45A00 100%)"
+  },
+  "approvedBurgundy": {
+    "deep": "#4F001D",
+    "base": "#6F1D38",
+    "bright": "#9A002D"
+  },
+  "usage": "Use this warm, clean polished gold for AHED logo accents and future brand highlights. Avoid black contamination, dusty antique gold, bronze, copper, silver, white gold, or stainless-steel finishes."
+}

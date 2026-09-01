@@ -37,6 +37,7 @@ import {
   Users,
 } from "lucide-react";
 
+import { AhedBrand } from "@/components/ahed-brand";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
@@ -196,7 +197,11 @@ const defaultMySpecs: MySpecs = { height: "168", childrenStatus: "none", wantsCh
 const defaultPartnerSpecs: PartnerSpecs = { ageMin: "27", ageMax: "38", country: "all", maritalStatus: "all", education: "all", heightMin: "160", heightMax: "190", childrenStatus: "all", smoking: "never", relocation: "all", commitment: "all", requiredFields: ["العمر", "التدخين"], nearMatches: true };
 
 function Brand() {
-  return <div className="inside-brand" aria-label="عَهْد AHED"><span className="inside-brand__mark">ع</span><span><strong>عَهْد</strong><small>AHED</small></span></div>;
+  return (
+    <div className="inside-brand" aria-label="شعار عَهْد" role="img">
+      <AhedBrand alt="" className="inside-brand-logo" />
+    </div>
+  );
 }
 
 function formatConversationTime(value: string) {

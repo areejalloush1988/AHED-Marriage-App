@@ -2457,7 +2457,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+}
+
+.footerBrandLogo {
+  width: 270px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.28));
+  animation: footerWordGlow 4.6s ease-in-out infinite;
 }
 
 .footerLogoIcon {

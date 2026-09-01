@@ -35,43 +35,13 @@
 .inside-brand {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
   width: max-content;
 }
 
-.inside-brand__mark {
-  display: grid;
-  width: 45px;
-  height: 45px;
-  place-items: center;
-  border-radius: 15px;
-  color: #fff9f3;
-  background:
-    linear-gradient(145deg, #8d405a, #5b142f);
-  box-shadow: 0 10px 24px rgba(111, 29, 56, 0.22);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.55rem;
-  font-weight: 800;
-}
-
-.inside-brand > span:last-child {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.05;
-}
-
-.inside-brand strong {
-  color: var(--inside-primary);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.4rem;
-}
-
-.inside-brand small {
-  margin-top: 4px;
-  color: var(--inside-muted);
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.19em;
+.inside-brand-logo {
+  display: block;
+  width: 205px;
+  height: auto;
 }
 
 .inside-profile-chip {
@@ -1354,15 +1324,8 @@
     display: block;
   }
 
-  .inside-mobile-brand .inside-brand__mark {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    font-size: 1.25rem;
-  }
-
-  .inside-mobile-brand .inside-brand strong {
-    font-size: 1.08rem;
+  .inside-mobile-brand .inside-brand-logo {
+    width: 154px;
   }
 
   .inside-search {

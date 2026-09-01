@@ -15,6 +15,17 @@
 }
 
 :root {
+  --ahed-gold-deep: #ae6605;
+  --ahed-gold: #f2b11f;
+  --ahed-gold-light: #fcefa2;
+  --ahed-gold-shine: linear-gradient(
+    135deg,
+    var(--ahed-gold-deep) 0%,
+    var(--ahed-gold) 30%,
+    var(--ahed-gold-light) 50%,
+    #f8c23a 72%,
+    #a45a00 100%
+  );
   --background: #fff9f3;
   --foreground: #2d1820;
   --card: #fffdf9;
@@ -192,7 +203,7 @@ textarea {
 
 .registration-brand-logo {
   display: block;
-  width: 160px;
+  width: 205px;
   height: auto;
 }
 
@@ -204,24 +215,17 @@ textarea {
 .registration-brand-icon {
   position: relative;
   display: block;
-  width: 78px;
-  height: 78px;
-  overflow: hidden;
-  border: 1px solid rgba(238, 204, 130, 0.48);
-  border-radius: 26px;
-  box-shadow:
-    0 0 0 6px rgba(213, 166, 74, 0.055),
-    0 14px 34px rgba(0, 0, 0, 0.2);
+  width: min(270px, 76vw);
+  height: auto;
+  overflow: visible;
 }
 
 .registration-brand-icon-source {
-  position: absolute;
-  top: -21.5px;
-  right: -9px;
+  position: static;
   display: block;
-  width: 285px;
-  max-width: none;
+  width: 100%;
   height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
 }
 
 .launch-chip {
@@ -1099,7 +1103,7 @@ textarea {
   }
 
   .registration-brand-logo {
-    width: 138px;
+    width: 170px;
   }
 
   .launch-chip {
@@ -1195,7 +1199,7 @@ textarea {
 
 @media (max-width: 460px) {
   .registration-brand-logo {
-    width: 126px;
+    width: 154px;
   }
 
   .launch-chip {

@@ -40,8 +40,9 @@ export const metadata: Metadata = {
       "منصة للزواج الجاد تقوم على الخصوصية والقبول المتبادل قبل التواصل.",
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

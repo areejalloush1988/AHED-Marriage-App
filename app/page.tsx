@@ -19,7 +19,7 @@ import {
   UserRoundPlus,
 } from "lucide-react";
 
-import { AhedBrand, AhedWordmark } from "@/components/ahed-brand";
+import { AhedBrand } from "@/components/ahed-brand";
 
 import { homeContent, type HomeLocale } from "./home-content";
 import styles from "./home.module.css";
@@ -40,10 +40,7 @@ function Brand({
         className={`${styles.brand} ${styles.brandLight}`}
         role="img"
       >
-        <span className={styles.footerBrandIcon} aria-hidden="true">
-          <AhedBrand alt="" className={styles.footerBrandIconSource} />
-        </span>
-        <AhedWordmark className={styles.footerBrandWord} />
+        <AhedBrand alt="" className={styles.footerBrandLogo} />
       </span>
     );
   }

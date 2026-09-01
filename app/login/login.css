@@ -84,7 +84,7 @@
 
 .login-brand-logo {
   display: block;
-  width: 160px;
+  width: 205px;
   height: auto;
 }
 
@@ -164,27 +164,20 @@
 
 .login-story-brand {
   position: absolute;
-  top: 55px;
+  top: 38px;
   left: 50%;
   display: block;
-  width: 76px;
-  height: 76px;
-  overflow: hidden;
-  border: 1px solid rgba(238, 204, 130, 0.5);
-  border-radius: 25px;
-  box-shadow:
-    0 0 0 6px rgba(213, 166, 74, 0.06),
-    0 14px 34px rgba(0, 0, 0, 0.2);
+  width: min(245px, 70%);
+  height: auto;
+  overflow: visible;
   transform: translateX(-50%);
 }
 
 .login-story-brand-source {
-  position: absolute;
-  top: -21px;
-  right: -9px;
-  width: 278px;
-  max-width: none;
+  position: static;
+  width: 100%;
   height: auto;
+  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.24));
 }
 
 .login-eyebrow {
@@ -512,7 +505,7 @@
   }
 
   .login-brand-logo {
-    width: 138px;
+    width: 170px;
   }
 
   .login-shell {
@@ -560,7 +553,7 @@
   }
 
   .login-brand-logo {
-    width: 126px;
+    width: 152px;
   }
 
   .login-story {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   BadgeCheck,
@@ -14,7 +15,7 @@ import {
 
 import "./website.css";
 
-const LOGO = "/ahed-logo.png";
+const LOGO = "/ahed-logo.webp";
 
 const trustItems = [
   { icon: ShieldCheck, title: "خصوصية من البداية", text: "بيانات التواصل لا تظهر لأي مستخدم آخر." },
@@ -54,7 +55,14 @@ export default function WebsiteConceptPage() {
       <nav className="website-nav">
         <div className="website-wrap">
           <Link className="website-logo-link" href="/website" aria-label="عهد">
-            <img className="website-logo" src={LOGO} alt="شعار عَهْد" />
+            <Image
+              alt="شعار عَهْد"
+              className="website-logo"
+              height={925}
+              priority
+              src={LOGO}
+              width={2048}
+            />
           </Link>
 
           <div className="website-navlinks">
@@ -97,7 +105,13 @@ export default function WebsiteConceptPage() {
           <div className="hero-visual" aria-label="معاينة لهوية منصة عهد">
             <div className="hero-phone">
               <div className="hero-phone-top">
-                <img className="hero-phone-logo" src={LOGO} alt="" />
+                <Image
+                  alt=""
+                  className="hero-phone-logo"
+                  height={925}
+                  src={LOGO}
+                  width={2048}
+                />
                 <span className="hero-phone-dot" />
               </div>
 
@@ -208,7 +222,13 @@ export default function WebsiteConceptPage() {
           </div>
 
           <div className="privacy-visual">
-            <img className="privacy-visual-logo" src={LOGO} alt="شعار عَهْد" />
+            <Image
+              alt="شعار عَهْد"
+              className="privacy-visual-logo"
+              height={925}
+              src={LOGO}
+              width={2048}
+            />
             <div className="privacy-stats">
               <div className="privacy-stat"><strong>18+</strong><small>للبالغين فقط</small></div>
               <div className="privacy-stat"><strong>1×</strong><small>دفع لمرة واحدة</small></div>
@@ -264,7 +284,13 @@ export default function WebsiteConceptPage() {
       <footer className="website-footer">
         <div className="website-wrap footer-grid">
           <div className="footer-brand">
-            <img className="website-logo" src={LOGO} alt="شعار عَهْد" />
+            <Image
+              alt="شعار عَهْد"
+              className="website-logo"
+              height={925}
+              src={LOGO}
+              width={2048}
+            />
             <p>عَهْد منصة زواج جاد وموثوق، صممت لتجمع بين وضوح النية، الخصوصية، والتواصل المنظم.</p>
           </div>
           <div className="footer-col">

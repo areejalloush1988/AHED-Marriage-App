@@ -24,10 +24,7 @@ import {
   UserSearch,
 } from "lucide-react";
 
-import {
-  AhedBrand,
-  AhedWordmark,
-} from "@/components/ahed-brand";
+import { AhedBrand } from "@/components/ahed-brand";
 
 import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
@@ -677,10 +674,7 @@ export default function ModelTwo() {
 
       <footer className={styles.footer}>
         <div className={styles.footerBrandLockup} aria-label="شعار عَهْد" role="img">
-          <span className={styles.footerLogoIcon} aria-hidden="true">
-            <AhedBrand alt="" className={styles.footerLogoSource} />
-          </span>
-          <AhedWordmark className={styles.footerWordmark} />
+          <AhedBrand alt="" className={styles.footerBrandLogo} />
         </div>
         <p>{copy.footer.description}</p>
 
