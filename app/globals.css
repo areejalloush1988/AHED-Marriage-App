@@ -59,7 +59,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-sans: "Noto Naskh Arabic", "Geeza Pro", serif;
 }
 
 * {
@@ -76,7 +76,7 @@ body {
   overflow-x: hidden;
   color: var(--foreground);
   background: var(--background);
-  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -318,7 +318,7 @@ textarea {
 .brand-statement h2 {
   max-width: 500px;
   margin: 13px 0 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif;
   font-size: clamp(2.25rem, 3.6vw, 3.7rem);
   line-height: 1.35;
   color: #f4d99e;
@@ -508,7 +508,7 @@ textarea {
 .completion-state h1 {
   margin: 12px 0 0;
   color: #4f1026;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif;
   font-size: clamp(2rem, 4vw, 3.45rem);
   line-height: 1.3;
 }
@@ -864,7 +864,7 @@ textarea {
 }
 
 .plan-price strong {
-  font-family: Georgia, serif;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif;
   font-size: 2.45rem;
   line-height: 1;
 }

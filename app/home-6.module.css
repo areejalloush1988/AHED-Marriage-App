@@ -768,3 +768,167 @@
     animation: none;
   }
 }
+
+/* Unified AHED typography and burgundy-card system. */
+.site,
+.site * {
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif !important;
+}
+
+.site {
+  --card-gold: #f2d597;
+  --card-gold-strong: #ffe7ad;
+  --card-gold-soft: rgba(242, 213, 151, 0.72);
+  --card-gold-muted: rgba(242, 213, 151, 0.56);
+  --card-gold-line: rgba(232, 193, 121, 0.3);
+  --card-wine-top: #792541;
+  --card-wine-bottom: #480e23;
+}
+
+.principleCard,
+.stepCard,
+.planCard,
+.faqItem {
+  border-color: var(--card-gold-line);
+  color: var(--card-gold);
+  background:
+    radial-gradient(circle at 88% 4%, rgba(244, 214, 158, 0.12), transparent 10rem),
+    linear-gradient(145deg, var(--card-wine-top), var(--card-wine-bottom));
+  box-shadow:
+    0 18px 42px rgba(61, 12, 30, 0.15),
+    inset 0 1px rgba(255, 242, 215, 0.08);
+}
+
+.principleCard:hover,
+.stepCard:hover,
+.planCard:hover,
+.faqItem[open] {
+  border-color: rgba(242, 213, 151, 0.52);
+  box-shadow:
+    0 25px 55px rgba(61, 12, 30, 0.22),
+    inset 0 1px rgba(255, 242, 215, 0.12);
+}
+
+.principleCard .iconBox {
+  border: 1px solid var(--card-gold-line);
+  color: var(--card-gold-strong);
+  background: rgba(38, 3, 15, 0.26);
+  box-shadow: 0 10px 22px rgba(28, 2, 11, 0.16);
+}
+
+.principleCard h3,
+.stepCard h3,
+.planCard h3,
+.faqItem summary {
+  color: var(--card-gold-strong);
+}
+
+.principleCard p,
+.stepCard p,
+.planHead p,
+.faqItem p {
+  color: var(--card-gold-soft);
+}
+
+.stepCard > span {
+  color: var(--card-gold-strong);
+}
+
+.planFeatured {
+  border-color: rgba(242, 213, 151, 0.5);
+  background:
+    radial-gradient(circle at 88% 4%, rgba(255, 228, 171, 0.17), transparent 12rem),
+    linear-gradient(145deg, #842b49, #4a0e24);
+  box-shadow:
+    0 28px 66px rgba(61, 12, 30, 0.24),
+    inset 0 1px rgba(255, 242, 215, 0.12);
+}
+
+.planBadge {
+  border: 1px solid rgba(255, 236, 194, 0.55);
+  color: #4d1026;
+  background: linear-gradient(135deg, #f9e3b2, #d6a653);
+  box-shadow: 0 12px 24px rgba(39, 3, 16, 0.22);
+}
+
+.priceRows > div {
+  border: 1px solid rgba(242, 213, 151, 0.18);
+  background: rgba(39, 3, 16, 0.26);
+}
+
+.priceRows span,
+.priceRows strong {
+  color: var(--card-gold-strong);
+}
+
+.priceRows small {
+  color: var(--card-gold-muted);
+}
+
+.onceLabel {
+  border-color: rgba(242, 213, 151, 0.24);
+  color: var(--card-gold);
+  background: rgba(39, 3, 16, 0.18);
+}
+
+.planCard li {
+  color: var(--card-gold-soft);
+}
+
+.planCard li svg {
+  color: var(--card-gold-strong);
+}
+
+.planCard .planButton,
+.planFeatured .planButton,
+.planButton:hover {
+  border-color: #efd294;
+  color: #4d1026 !important;
+  background: linear-gradient(135deg, #f9e3b2, #d6a653);
+  box-shadow: 0 11px 24px rgba(38, 3, 15, 0.18);
+}
+
+.faqItem summary::before,
+.faqItem summary::after {
+  background: var(--card-gold-strong);
+}
+
+.safetySection,
+.finalCta {
+  border: 1px solid var(--card-gold-line);
+}
+
+.safetyCopy .eyebrow,
+.safetyCopy h2,
+.safetyCopy li,
+.finalCta .eyebrow,
+.finalCta h2 {
+  color: var(--card-gold-strong);
+}
+
+.safetyCopy > p,
+.finalCta p {
+  color: var(--card-gold-soft);
+}
+
+.safetyCopy li svg,
+.safetyOrbit,
+.safetyLock {
+  color: var(--card-gold-strong);
+}
+
+.safetyLock,
+.safetyOrbit {
+  border-color: var(--card-gold-line);
+  background: rgba(39, 3, 16, 0.3);
+}
+
+.finalCta .ctaLight {
+  color: #4d1026 !important;
+  background: linear-gradient(135deg, #f9e3b2, #d6a653);
+}
+
+.finalCta .ctaOutline {
+  border-color: rgba(242, 213, 151, 0.4);
+  color: var(--card-gold-strong) !important;
+}
