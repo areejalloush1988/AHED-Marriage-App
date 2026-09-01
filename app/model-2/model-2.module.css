@@ -698,197 +698,213 @@
 
 .journeyVisual {
   position: relative;
-  padding: 12px 0 20px;
+  padding: 18px 0 28px;
 }
 
-.journeyBook {
-  width: min(1300px, 100%);
+.journeyPath {
+  width: min(1360px, 100%);
   margin: 0 auto;
-  padding: 15px 17px 25px;
+  padding-top: 18px;
   position: relative;
-  background: #4b0924;
-  border: 1px solid #a9782f;
-  border-radius: 36px 36px 26px 26px;
-  box-shadow: 0 26px 58px rgba(51, 4, 22, 0.2);
   isolation: isolate;
 }
 
-.journeyBook::before {
+.journeyPath::before {
   content: "";
+  width: 46%;
+  height: 190px;
   position: absolute;
-  z-index: 0;
-  inset: 7px;
-  border: 1px solid rgba(222, 185, 104, 0.45);
-  border-radius: 29px 29px 20px 20px;
-  pointer-events: none;
-}
-
-.bookCoverEdge {
-  height: 11px;
-  position: absolute;
-  z-index: 0;
-  right: 4.5%;
-  bottom: 7px;
-  left: 4.5%;
-  background: #310518;
-  border: 1px solid rgba(200, 149, 61, 0.48);
-  border-radius: 0 0 14px 14px;
-}
-
-.bookPages {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr);
-  grid-template-areas: "leftPage spine rightPage";
-  align-items: stretch;
-  direction: ltr;
-}
-
-.bookPage {
-  min-width: 0;
-  margin: 0;
-  padding: 34px 42px 42px;
-  position: relative;
-  display: grid;
-  grid-template-rows: repeat(2, minmax(175px, 1fr));
-  color: var(--wine-950);
-  background: #fbf3e6;
-  border: 1px solid rgba(173, 118, 32, 0.46);
-  direction: rtl;
-  list-style: none;
-}
-
-[dir="ltr"] .bookPage {
-  direction: ltr;
-}
-
-.bookPage::before {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border: 1px solid rgba(200, 149, 61, 0.28);
-  border-radius: 16px;
-  pointer-events: none;
-}
-
-.bookPageLeft {
-  grid-area: leftPage;
-  border-radius: 26px 7px 14px 30px;
-  box-shadow: inset -18px 0 28px rgba(79, 35, 18, 0.08);
-}
-
-.bookPageRight {
-  grid-area: rightPage;
-  border-radius: 7px 26px 30px 14px;
-  box-shadow: inset 18px 0 28px rgba(79, 35, 18, 0.08);
-}
-
-.bookSpine {
-  grid-area: spine;
-  position: relative;
-  z-index: 3;
-  background: #e6d7c1;
-  border-block: 1px solid rgba(173, 118, 32, 0.38);
-  box-shadow: inset 9px 0 12px rgba(70, 25, 12, 0.09), inset -9px 0 12px rgba(70, 25, 12, 0.09);
-}
-
-.bookSpine::after {
-  content: "";
-  width: 1px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  z-index: -1;
+  top: -42px;
   left: 50%;
-  background: rgba(113, 71, 34, 0.2);
+  background: radial-gradient(ellipse, rgba(222, 185, 104, 0.14), transparent 70%);
+  filter: blur(9px);
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 
-.bookChapter {
-  min-width: 0;
-  min-height: 175px;
-  padding: 57px clamp(16px, 3vw, 46px) 30px;
+.journeyThread {
+  height: 3px;
+  position: absolute;
+  z-index: 0;
+  top: 50px;
+  right: 3%;
+  left: 3%;
+  background: linear-gradient(90deg, #b7832e, #f2d691 18%, #c3943f 50%, #f2d691 82%, #b7832e);
+  border-radius: 999px;
+  box-shadow: 0 2px 7px rgba(128, 76, 17, 0.24);
+}
+
+.journeyKnot {
+  width: 74px;
+  height: 46px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #fffaf1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 12px #fffaf1, 0 5px 20px rgba(140, 89, 23, 0.16);
+  transform: translate(-50%, -50%);
+}
+
+.journeyKnot::before,
+.journeyKnot::after {
+  content: "";
+  width: 37px;
+  height: 21px;
+  position: absolute;
+  top: 11px;
+  border: 3px solid #c99843;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(255, 244, 208, 0.7);
+}
+
+.journeyKnot::before {
+  left: 7px;
+  transform: rotate(38deg);
+}
+
+.journeyKnot::after {
+  right: 7px;
+  transform: rotate(-38deg);
+}
+
+.journeySteps {
+  margin: 0;
+  padding: 0;
   position: relative;
   z-index: 1;
   display: grid;
-  place-items: center;
-  text-align: center;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 34px);
+  list-style: none;
 }
 
-.bookChapter:first-child {
-  border-bottom: 1px solid rgba(173, 118, 32, 0.34);
-}
-
-.bookChapterNumber {
-  min-width: 82px;
-  padding: 13px 15px 21px;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  color: #d7ad58;
-  background: var(--wine-800);
-  border-inline: 1px solid #a9782f;
-  font-family: sans-serif;
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  line-height: 1;
-  text-align: center;
-  transform: translateX(-50%);
-  clip-path: polygon(0 0, 100% 0, 100% 74%, 50% 100%, 0 74%);
-}
-
-.bookChapterCopy {
-  width: min(390px, 100%);
-}
-
-.bookOrnament {
-  width: 58px;
-  height: 15px;
-  margin: 0 auto 13px;
+.journeyStep {
+  min-width: 0;
   position: relative;
-  display: block;
-  border-top: 1px solid var(--gold-500);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.bookOrnament::before {
+.journeyMedallion {
+  width: 66px;
+  height: 66px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: #f1d58a;
+  background: linear-gradient(145deg, #76133a, #4d0622);
+  border: 3px solid #c99b47;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(76, 8, 34, 0.2), inset 0 0 0 3px rgba(255, 236, 178, 0.08);
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.journeyDrop {
+  width: 2px;
+  height: 40px;
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: linear-gradient(#c99b47, #efd68e);
+}
+
+.journeyDrop::after {
   content: "";
   width: 8px;
   height: 8px;
   position: absolute;
-  top: -5px;
+  bottom: -4px;
   left: 50%;
-  background: #fbf3e6;
-  border: 1px solid var(--gold-500);
+  background: #fffaf1;
+  border: 1px solid #c99b47;
   transform: translateX(-50%) rotate(45deg);
 }
 
-.bookChapter h3 {
-  margin: 0 0 9px;
-  color: var(--wine-800);
-  font-size: clamp(1.18rem, 1.75vw, 1.6rem);
-  font-weight: 800;
-  line-height: 1.35;
+.journeyCard {
+  width: 100%;
+  min-height: 286px;
+  padding: 48px clamp(18px, 2.2vw, 30px) 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--wine-950);
+  background: linear-gradient(155deg, rgba(255, 253, 247, 0.98), #fbf4e8);
+  border: 1px solid rgba(190, 138, 49, 0.5);
+  border-radius: 26px 26px 34px 34px;
+  box-shadow: 0 18px 38px rgba(78, 42, 20, 0.08), inset 0 0 0 7px rgba(255, 255, 255, 0.42);
+  text-align: center;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
-.bookChapter p {
-  margin: 0;
-  color: #795363;
-  font-size: clamp(0.78rem, 1vw, 0.92rem);
-  font-weight: 600;
-  line-height: 1.82;
-}
-
-.bookBookmark {
-  width: 54px;
-  height: 62px;
+.journeyCard::before {
+  content: "";
+  width: 18px;
+  height: 18px;
   position: absolute;
-  z-index: 4;
-  bottom: -34px;
+  top: -10px;
   left: 50%;
-  background: var(--wine-800);
-  border-inline: 1px solid var(--gold-500);
-  transform: translateX(-50%);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+  background: #fdf8ee;
+  border-top: 1px solid #c99b47;
+  border-left: 1px solid #c99b47;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.journeyStep:hover .journeyCard {
+  box-shadow: 0 23px 46px rgba(78, 42, 20, 0.12), inset 0 0 0 7px rgba(255, 255, 255, 0.5);
+  transform: translateY(-5px);
+}
+
+.journeyCard > svg {
+  width: 42px;
+  height: 42px;
+  color: #bd8b36;
+  stroke-width: 1.45;
+}
+
+.journeyOrnament {
+  width: 58px;
+  height: 14px;
+  margin: 18px auto 14px;
+  position: relative;
+  display: block;
+  border-top: 1px solid rgba(190, 138, 49, 0.72);
+}
+
+.journeyOrnament::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  background: #fffaf1;
+  border: 1px solid #c99b47;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.journeyCard h3 {
+  margin: 0 0 12px;
+  color: var(--wine-800);
+  font-size: clamp(1.15rem, 1.55vw, 1.45rem);
+  font-weight: 800;
+  line-height: 1.42;
+}
+
+.journeyCard p {
+  margin: 0;
+  color: #795d68;
+  font-size: clamp(0.78rem, 0.92vw, 0.88rem);
+  font-weight: 600;
+  line-height: 1.85;
 }
 
 .ringsStory {
@@ -2556,12 +2572,13 @@
     padding-inline: 28px;
   }
 
-  .bookPage {
-    padding-inline: 28px;
+  .journeySteps {
+    gap: 20px;
   }
 
-  .bookChapter {
-    padding-inline: 18px;
+  .journeyCard {
+    min-height: 276px;
+    padding-inline: 20px;
   }
 
   .faqSection {
@@ -2642,41 +2659,38 @@
     grid-row: 3;
   }
 
-  .journeyBook {
-    padding: 12px 13px 22px;
-    border-radius: 28px 28px 22px 22px;
+  .journeyPath {
+    padding-top: 0;
   }
 
-  .bookPages {
-    grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
+  .journeyThread {
+    display: none;
   }
 
-  .bookPage {
-    padding: 28px 20px 34px;
-    grid-template-rows: repeat(2, minmax(168px, 1fr));
+  .journeySteps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 34px 24px;
   }
 
-  .bookPage::before {
-    inset: 11px;
+  .journeyStep {
+    isolation: isolate;
   }
 
-  .bookChapter {
-    min-height: 168px;
-    padding: 54px 12px 24px;
+  .journeyStep::before {
+    content: "";
+    height: 2px;
+    position: absolute;
+    z-index: 0;
+    top: 32px;
+    right: -12px;
+    left: -12px;
+    background: linear-gradient(90deg, #b7832e, #efd58d 50%, #b7832e);
+    box-shadow: 0 2px 6px rgba(128, 76, 17, 0.18);
   }
 
-  .bookChapterNumber {
-    min-width: 70px;
-    padding: 12px 12px 19px;
-  }
-
-  .bookChapter h3 {
-    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
-  }
-
-  .bookChapter p {
-    font-size: clamp(0.72rem, 1.7vw, 0.84rem);
-    line-height: 1.72;
+  .journeyCard {
+    min-height: 250px;
+    padding: 40px 28px 28px;
   }
 
   .ringsStory {
@@ -2953,29 +2967,13 @@
     font-size: 2.15rem;
   }
 
-  .journeyBook {
-    padding: 10px 11px 20px;
-    border-radius: 24px 24px 19px 19px;
+  .journeySteps {
+    gap: 28px 18px;
   }
 
-  .bookPages {
-    grid-template-columns: minmax(0, 1fr) 18px minmax(0, 1fr);
-  }
-
-  .bookPage {
-    padding: 24px 13px 30px;
-  }
-
-  .bookPage::before {
-    inset: 8px;
-  }
-
-  .bookChapter {
-    padding-inline: 8px;
-  }
-
-  .bookOrnament {
-    width: 44px;
+  .journeyCard {
+    min-height: 238px;
+    padding: 36px 20px 25px;
   }
 
   .ringsStory {
@@ -3182,71 +3180,92 @@
     margin-bottom: 38px;
   }
 
-  .journeyBook {
+  .journeySteps {
     width: min(520px, 100%);
-    padding: 10px 10px 22px;
-    border-radius: 24px 24px 18px 18px;
-  }
-
-  .bookPages {
+    margin-inline: auto;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 22px;
   }
 
-  .bookSpine {
-    display: none;
+  .journeyStep {
+    display: grid;
+    grid-template-columns: 66px 24px minmax(0, 1fr);
+    align-items: center;
   }
 
-  .bookPage {
-    display: contents;
+  .journeyStep::before {
+    width: 2px;
+    height: auto;
+    top: -22px;
+    right: auto;
+    bottom: -22px;
+    left: auto;
+    inset-inline-start: 32px;
+    background: linear-gradient(#b7832e, #efd58d 50%, #b7832e);
   }
 
-  .bookPage::before {
+  .journeyStep:first-child::before {
+    top: 50%;
+  }
+
+  .journeyStep:last-child::before {
+    bottom: 50%;
+  }
+
+  .journeyMedallion {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .journeyDrop {
+    width: 24px;
+    height: 2px;
+    grid-column: 2;
+    grid-row: 1;
+    background: linear-gradient(90deg, #c99b47, #efd68e);
+  }
+
+  .journeyDrop::after {
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: -3px;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  [dir="ltr"] .journeyDrop::after {
+    right: -3px;
+    left: auto;
+  }
+
+  .journeyCard {
+    min-height: 0;
+    padding: 26px 22px;
+    grid-column: 3;
+    grid-row: 1;
+    border-radius: 22px;
+  }
+
+  .journeyCard::before {
     content: none;
   }
 
-  .bookChapter {
-    width: 100%;
-    min-height: 178px;
-    padding: 56px 40px 27px;
-    color: var(--wine-950);
-    background: #fbf3e6;
-    border: 1px solid rgba(173, 118, 32, 0.46);
-    border-radius: 18px;
-    box-shadow: inset 0 0 28px rgba(79, 35, 18, 0.06);
-    direction: rtl;
+  .journeyCard > svg {
+    width: 35px;
+    height: 35px;
   }
 
-  [dir="ltr"] .bookChapter {
-    direction: ltr;
+  .journeyOrnament {
+    margin: 13px auto 11px;
   }
 
-  .bookChapter:first-child {
-    border-bottom: 1px solid rgba(173, 118, 32, 0.46);
+  .journeyCard h3 {
+    font-size: 1.22rem;
   }
 
-  .bookPageRight .bookChapter:nth-child(1) {
-    order: 1;
-  }
-
-  .bookPageLeft .bookChapter:nth-child(1) {
-    order: 2;
-  }
-
-  .bookPageRight .bookChapter:nth-child(2) {
-    order: 3;
-  }
-
-  .bookPageLeft .bookChapter:nth-child(2) {
-    order: 4;
-  }
-
-  .bookChapter h3 {
-    font-size: 1.3rem;
-  }
-
-  .bookChapter p {
-    font-size: 0.85rem;
+  .journeyCard p {
+    font-size: 0.82rem;
+    line-height: 1.75;
   }
 
   .ringsStory {
@@ -3393,21 +3412,8 @@
     font-size: 0.72rem;
   }
 
-  .bookPage {
-    padding-inline: 14px;
-  }
-
-  .bookChapter {
-    min-height: 170px;
-    padding-inline: 18px;
-  }
-
-  .bookChapter h3 {
-    font-size: 1.18rem;
-  }
-
-  .bookChapter p {
-    font-size: 0.8rem;
+  .journeyCard {
+    box-shadow: 0 12px 28px rgba(78, 42, 20, 0.08), inset 0 0 0 5px rgba(255, 255, 255, 0.42);
   }
 
   .safetyPromise {
