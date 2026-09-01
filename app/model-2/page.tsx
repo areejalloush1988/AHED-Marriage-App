@@ -387,7 +387,26 @@ export default function ModelTwo() {
                         preserveAspectRatio="none"
                         viewBox="0 0 300 360"
                       >
-                        <path d="M20 34 H119 C126 34 130 31 134 24 L144 9 C148 3 152 3 156 9 L166 24 C170 31 174 34 181 34 H280 C288 34 293 39 293 47 V334 C293 346 286 353 274 353 H26 C14 353 7 346 7 334 V47 C7 39 12 34 20 34 Z" />
+                        <defs>
+                          <linearGradient
+                            id={`journey-card-gold-${index}`}
+                            x1="0"
+                            x2="1"
+                            y1="0"
+                            y2="1"
+                          >
+                            <stop offset="0" stopColor="#7e470f" />
+                            <stop offset="0.18" stopColor="#d6993a" />
+                            <stop offset="0.38" stopColor="#f3ce7e" />
+                            <stop offset="0.52" stopColor="#fdf7d3" />
+                            <stop offset="0.7" stopColor="#e9b559" />
+                            <stop offset="1" stopColor="#a36013" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M20 34 H119 C126 34 130 31 134 24 L144 9 C148 3 152 3 156 9 L166 24 C170 31 174 34 181 34 H280 C288 34 293 39 293 47 V334 C293 346 286 353 274 353 H26 C14 353 7 346 7 334 V47 C7 39 12 34 20 34 Z"
+                          stroke={`url(#journey-card-gold-${index})`}
+                        />
                       </svg>
                       <div className={styles.journeyCard}>
                         <JourneyIcon aria-hidden="true" />
