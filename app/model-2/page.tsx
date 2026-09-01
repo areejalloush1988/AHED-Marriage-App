@@ -8,7 +8,6 @@ import {
   ArrowRight,
   CalendarDays,
   ClipboardCheck,
-  FileCheck2,
   Globe2,
   GraduationCap,
   Handshake,
@@ -20,7 +19,6 @@ import {
   MessageCircleMore,
   Music2,
   Phone,
-  SlidersHorizontal,
   Sparkles,
   UserRoundPlus,
   UserSearch,
@@ -35,7 +33,7 @@ import { homeContent, type HomeLocale } from "../home-content";
 import styles from "./model-2.module.css";
 
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
-const privacyIcons = [Mail, Handshake, SlidersHorizontal, FileCheck2];
+const compatibilityIcons = [Heart, Sparkles, GraduationCap, Handshake];
 const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
 
 export default function ModelTwo() {
@@ -56,7 +54,30 @@ export default function ModelTwo() {
         journeyAlt: "خيط عهد ذهبي تتدلّى منه بطاقات مراحل الرحلة الأربع",
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
-        privacyPromise: "وعد الخصوصية",
+        compatibilityNav: "التوافق",
+        compatibilityEyebrow: "بوصلة التوافق",
+        compatibilityTitle: "التوافق أعمق من الانطباع الأول.",
+        compatibilityDescription:
+          "في عَهْد، ننظر إلى ما يصنع حياة مشتركة قابلة للاستمرار.",
+        compatibilityFooter: "أربع زوايا تساعدك على قراءة التوافق بوضوح.",
+        compatibilityDimensions: [
+          {
+            title: "القيم",
+            description: "مشاركة المبادئ التي توجّه القرارات وتبني الثقة.",
+          },
+          {
+            title: "أسلوب الحياة",
+            description: "تقارب العادات والاهتمامات لصناعة حياة يومية مريحة.",
+          },
+          {
+            title: "الطموح",
+            description: "انسجام الرؤية والأهداف لبناء مستقبل منسجم.",
+          },
+          {
+            title: "الاستعداد للزواج",
+            description: "وضوح النية والجاهزية لبناء علاقة مسؤولة ومستقرة.",
+          },
+        ],
         storyEyebrow: "قصة عَهْد في ١٥ ثانية",
         storyNav: "قصة عَهْد",
         storyTitle: "مو تعارف عابر… عَهْد للزواج الجاد.",
@@ -101,7 +122,30 @@ export default function ModelTwo() {
         journeyAlt: "Four AHED journey cards suspended from a golden commitment thread",
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
-        privacyPromise: "The privacy promise",
+        compatibilityNav: "Compatibility",
+        compatibilityEyebrow: "Compatibility compass",
+        compatibilityTitle: "Compatibility goes deeper than a first impression.",
+        compatibilityDescription:
+          "At AHED, we look at what makes a shared life capable of lasting.",
+        compatibilityFooter: "Four dimensions that help you read compatibility clearly.",
+        compatibilityDimensions: [
+          {
+            title: "Values",
+            description: "Shared principles that guide decisions and build trust.",
+          },
+          {
+            title: "Lifestyle",
+            description: "Aligned habits and interests for a comfortable daily life.",
+          },
+          {
+            title: "Ambition",
+            description: "A compatible vision and goals for a shared future.",
+          },
+          {
+            title: "Readiness for marriage",
+            description: "Clear intention and readiness for a responsible, stable bond.",
+          },
+        ],
         storyEyebrow: "AHED in 15 seconds",
         storyNav: "Our story",
         storyTitle: "Not casual dating… AHED is for serious marriage.",
@@ -160,7 +204,7 @@ export default function ModelTwo() {
           <nav className={styles.nav} aria-label={copy.navLabel}>
             <a href="#how">{copy.nav.how}</a>
             <a href="#why">{copy.nav.why}</a>
-            <a href="#safety">{copy.nav.safety}</a>
+            <a href="#compatibility">{labels.compatibilityNav}</a>
             <a href="#story">{labels.storyNav}</a>
             <a href="#faq">{copy.nav.faq}</a>
           </nav>
@@ -408,40 +452,40 @@ export default function ModelTwo() {
         </ol>
       </section>
 
-      <section id="safety" className={styles.safetyPromise}>
-        <header className={styles.safetyHeader}>
+      <section id="compatibility" className={styles.compatibilitySection}>
+        <header className={styles.compatibilityHeader}>
           <span className={styles.storyIndex}>03</span>
-          <small>{labels.privacyPromise}</small>
+          <small>{labels.compatibilityEyebrow}</small>
+          <h2>{labels.compatibilityTitle}</h2>
+          <p>{labels.compatibilityDescription}</p>
         </header>
 
-        <div className={styles.safetyBanner}>
-          <span className={styles.safetyBannerFlourish} aria-hidden="true" />
-          <h2>{copy.safety.title}</h2>
-          <span className={styles.safetyBannerFlourish} aria-hidden="true" />
+        <div className={styles.compatibilityMap}>
+          <div className={styles.compatibilityCompass} aria-hidden="true">
+            <span className={styles.compassFace}>
+              <span className={styles.compassNeedle} />
+              <span className={styles.compassPin} />
+            </span>
+          </div>
+
+          <ol className={styles.compatibilityCards}>
+            {labels.compatibilityDimensions.map((dimension, index) => {
+              const DimensionIcon = compatibilityIcons[index];
+
+              return (
+                <li key={dimension.title}>
+                  <span className={styles.compatibilityIcon}>
+                    <DimensionIcon aria-hidden="true" />
+                  </span>
+                  <h3>{dimension.title}</h3>
+                  <p>{dimension.description}</p>
+                </li>
+              );
+            })}
+          </ol>
         </div>
 
-        <p className={styles.safetyDescription}>{copy.safety.description}</p>
-
-        <ol className={styles.safetyScreen}>
-          {copy.safety.items.map((item, index) => {
-            const PrivacyIcon = privacyIcons[index];
-
-            return (
-              <li key={item}>
-                <span className={styles.safetyPanelInner}>
-                  <span className={styles.safetyPanelIcon}>
-                    <PrivacyIcon aria-hidden="true" />
-                  </span>
-                  <strong>{item}</strong>
-                  <span className={styles.safetyPanelDrape} aria-hidden="true" />
-                </span>
-                {index > 0 ? (
-                  <span className={styles.safetyPanelHinges} aria-hidden="true" />
-                ) : null}
-              </li>
-            );
-          })}
-        </ol>
+        <p className={styles.compatibilityFooter}>{labels.compatibilityFooter}</p>
       </section>
 
       <section id="story" className={styles.storySection}>
@@ -686,7 +730,7 @@ export default function ModelTwo() {
         <div className={styles.footerBottom}>
           <span>{copy.footer.copyright}</span>
           <nav aria-label={copy.footer.navLabel}>
-            <a href="#safety">{copy.footer.privacy}</a>
+            <a href="#compatibility">{labels.compatibilityNav}</a>
             <a href="#faq">{copy.footer.faq}</a>
             <Link href="/login">{copy.footer.login}</Link>
           </nav>
