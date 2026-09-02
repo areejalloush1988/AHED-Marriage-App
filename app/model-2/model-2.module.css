@@ -5229,17 +5229,44 @@
 
 .ringsContent {
   align-items: center;
-  border: 8px solid var(--wine-800);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(253, 247, 211, 0.15), transparent 42%) padding-box,
+    linear-gradient(145deg, #78173a, #4b001d 60%, #2c000f) padding-box,
+    var(--gold-metal) border-box;
+  border: 5px solid transparent;
+  border-radius: 32px;
   box-shadow:
-    0 26px 68px rgba(60, 0, 23, 0.16),
-    inset 0 0 0 2px rgba(255, 250, 241, 0.5),
-    0 0 18px rgba(93, 10, 42, 0.18);
+    inset 0 0 0 3px rgba(243, 206, 126, 0.06),
+    0 26px 68px rgba(60, 0, 23, 0.2),
+    0 0 22px rgba(233, 181, 89, 0.25);
   text-align: center;
+}
+
+.ringsContent::before {
+  border-color: rgba(243, 206, 126, 0.42);
+  box-shadow:
+    0 0 0 15px rgba(243, 206, 126, 0.055),
+    0 0 0 31px rgba(233, 181, 89, 0.035),
+    0 0 14px rgba(243, 206, 126, 0.18);
 }
 
 .ringsContent::after {
   inset: 8px;
-  border: 2px solid rgba(93, 10, 42, 0.72);
+  border: 2px solid rgba(243, 206, 126, 0.55);
+  border-radius: 24px;
+  box-shadow: inset 0 0 16px rgba(243, 206, 126, 0.07);
+}
+
+.ringsContent .storyIndex,
+.ringsContent > small,
+.ringsContent h2,
+.ringsContent > p {
+  color: var(--gold-300);
+  text-shadow: 0 0 8px rgba(243, 206, 126, 0.14);
+}
+
+.ringsContent h2 {
+  color: var(--gold-200);
 }
 
 .ringsContent > p {
@@ -5557,8 +5584,8 @@
 .site .compatibilityCards li {
   padding: 58px 28px 27px;
   background:
-    linear-gradient(145deg, rgba(255, 252, 245, 0.99), rgba(248, 234, 204, 0.95)) padding-box,
-    linear-gradient(118deg, var(--gold-600) 0%, var(--gold-200) 24%, var(--gold-500) 48%, var(--gold-100) 68%, var(--gold-400) 84%, var(--gold-600) 100%) border-box;
+    linear-gradient(115deg, rgba(255, 250, 240, 0.99), rgba(250, 239, 214, 0.95)) padding-box,
+    linear-gradient(110deg, var(--gold-600), var(--gold-200) 34%, var(--gold-500) 67%, var(--gold-200)) border-box;
   border: 7px solid transparent;
   box-shadow:
     inset 0 0 0 2px rgba(253, 247, 211, 0.72),
@@ -5901,7 +5928,16 @@
   padding: 34px 28px;
   position: relative;
   overflow: hidden;
+  color: var(--wine-body);
+  background:
+    linear-gradient(115deg, rgba(255, 250, 240, 0.99), rgba(250, 239, 214, 0.95)) padding-box,
+    linear-gradient(110deg, var(--gold-600), var(--gold-200) 34%, var(--gold-500) 67%, var(--gold-200)) border-box;
+  border: 4px solid transparent;
   border-radius: 28px;
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 255, 255, 0.4),
+    0 18px 42px rgba(60, 0, 23, 0.09),
+    0 0 18px rgba(233, 181, 89, 0.22);
 }
 
 .reviewSummaryCard {
@@ -5909,16 +5945,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  color: var(--gold-300);
-  background:
-    radial-gradient(circle at 18% 0%, rgba(253, 247, 211, 0.14), transparent 42%),
-    linear-gradient(145deg, #7b163d, #4b001d 62%, #2b000f) padding-box,
-    var(--gold-metal) border-box;
-  border: 4px solid transparent;
-  box-shadow:
-    inset 0 0 0 3px rgba(243, 206, 126, 0.07),
-    0 20px 44px rgba(60, 0, 23, 0.16),
-    0 0 18px rgba(233, 181, 89, 0.2);
 }
 
 .reviewStars {
@@ -5938,11 +5964,12 @@
 
 .reviewSummaryCard h3,
 .reviewSummaryCard p {
-  color: var(--gold-300);
+  color: var(--wine-body);
 }
 
 .reviewSummaryCard h3 {
   margin: 0;
+  color: var(--wine-heading);
   font-size: 1.55rem;
   line-height: 1.45;
 }
@@ -5961,9 +5988,11 @@
   align-items: center;
   justify-content: center;
   gap: 9px;
-  color: var(--wine-900);
-  background: var(--gold-300);
-  border: 1px solid var(--gold-200);
+  color: var(--gold-200);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(243, 206, 126, 0.14), transparent 60%),
+    linear-gradient(145deg, #78173a, #4b001d 60%, #2c000f);
+  border: 2px solid var(--gold-400);
   border-radius: 999px;
   box-shadow: 0 0 14px rgba(243, 206, 126, 0.2);
   font-size: 0.96rem;
@@ -5972,7 +6001,7 @@
 }
 
 .site .reviewSummaryCard > a {
-  color: var(--wine-900);
+  color: var(--gold-200);
 }
 
 .reviewSummaryCard > a:hover,
@@ -5991,15 +6020,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--wine-body);
-  background:
-    linear-gradient(var(--ivory), var(--ivory)) padding-box,
-    var(--gold-metal) border-box;
-  border: 3px solid transparent;
-  box-shadow:
-    inset 0 0 0 5px rgba(255, 255, 255, 0.45),
-    0 16px 38px rgba(60, 0, 23, 0.08),
-    0 0 15px rgba(233, 181, 89, 0.18);
   text-align: center;
 }
 
