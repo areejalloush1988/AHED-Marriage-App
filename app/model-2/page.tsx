@@ -17,8 +17,6 @@ import {
   Mail,
   MapPin,
   MessageCircleMore,
-  Music2,
-  Phone,
   Sparkles,
   UserRoundPlus,
   UserSearch,
@@ -32,6 +30,24 @@ import styles from "./model-2.module.css";
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 const compatibilityIcons = [Heart, Sparkles, GraduationCap, Handshake];
 const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
+
+function WhatsAppMark() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M20.4 11.5a8.4 8.4 0 0 1-12.5 7.3L3 20l1.3-4.7a8.4 8.4 0 1 1 16.1-3.8Z" />
+      <path d="M8.2 7.8c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.8c-.2.2-.2.4 0 .7.7 1.2 1.7 2.1 2.9 2.7.3.2.5.1.7-.1l.8-1c.2-.3.4-.3.7-.2l1.8.9c.3.1.4.3.4.5 0 .4-.2 1.3-.8 1.8-.6.5-1.4.8-2.3.6-1.1-.2-2.5-.7-4.2-2.2-1.4-1.2-2.4-2.7-2.7-3.8-.4-1.3-.1-2.4.2-3.1Z" />
+    </svg>
+  );
+}
+
+function TikTokMark() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M14.5 4v10.2a4.2 4.2 0 1 1-3.5-4.1" />
+      <path d="M14.5 4c.8 2.2 2.3 3.5 4.5 3.8" />
+    </svg>
+  );
+}
 
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
@@ -48,7 +64,7 @@ export default function ModelTwo() {
         matchmakerDescription:
           "موفّقون للطرفين يراجعون المواصفات بعناية ويساعدونك في الوصول إلى توافق جاد وواضح.",
         ringsAlt: "يدا زوجين بخاتمين ذهبي وفضي بجوار ورد أبيض",
-        journeyAlt: "خيط عهد ذهبي تتدلّى منه بطاقات مراحل الرحلة الأربع",
+        journeyAlt: "إكليل عهد ذهبي تتدلّى منه بطاقات مراحل الرحلة الأربع",
         journey: "من النية إلى أول حوار",
         principles: "أربع قيم تصنع تجربة مختلفة",
         compatibilityNav: "التوافق",
@@ -106,6 +122,18 @@ export default function ModelTwo() {
         website: "الموقع الرسمي",
         call: "طلب اتصال",
         callValue: "تواصل مع فريق عَهْد",
+        contactEyebrow: "للاستفسارات والدعم",
+        contactTitle: "كل سؤال يستحق إجابة واضحة.",
+        contactDescription:
+          "راسل فريق عَهْد عبر البريد الرسمي للاستفسار عن التسجيل أو الخصوصية أو خدمة الموفّق، وسنتابع رسالتك بعناية.",
+        contactAction: "راسلنا عبر البريد الإلكتروني",
+        footerPrivacy: "سياسة الخصوصية",
+        footerTerms: "شروط الاستخدام",
+        footerAbout: "عن عَهْد",
+        footerContact: "تواصل معنا",
+        privacySummary: "نحمي بياناتك ولا نعرض معلومات التواصل للملفات الأخرى.",
+        termsSummary: "استخدام عَهْد مخصّص للزواج الجاد ضمن تجربة محترمة وواضحة.",
+        whatsapp: "واتساب",
         tiktok: "تيك توك",
         support: "الدعم",
       }
@@ -116,7 +144,7 @@ export default function ModelTwo() {
         matchmakerDescription:
           "Dedicated matchmakers support both sides, review preferences carefully, and help you reach a serious, compatible match.",
         ringsAlt: "A couple wearing gold and silver wedding rings beside white roses",
-        journeyAlt: "Four AHED journey cards suspended from a golden commitment thread",
+        journeyAlt: "Four AHED journey cards suspended from a golden laurel garland",
         journey: "From intention to the first conversation",
         principles: "Four values shaping a different experience",
         compatibilityNav: "Compatibility",
@@ -174,6 +202,18 @@ export default function ModelTwo() {
         website: "Official website",
         call: "Request a call",
         callValue: "Contact the AHED team",
+        contactEyebrow: "Questions and support",
+        contactTitle: "Every question deserves a clear answer.",
+        contactDescription:
+          "Email the AHED team with questions about registration, privacy, or the personal matchmaker service, and we will follow up with care.",
+        contactAction: "Email the AHED team",
+        footerPrivacy: "Privacy policy",
+        footerTerms: "Terms of use",
+        footerAbout: "About AHED",
+        footerContact: "Contact us",
+        privacySummary: "We protect your data and never display contact details to other profiles.",
+        termsSummary: "AHED is intended for serious marriage within a respectful and transparent experience.",
+        whatsapp: "WhatsApp",
         tiktok: "TikTok",
         support: "Support",
       };
@@ -282,11 +322,11 @@ export default function ModelTwo() {
             <Image
               alt={labels.coupleAlt}
               className={styles.coupleImage}
-              height={2449}
+              height={1113}
               priority
               sizes="(max-width: 920px) calc(100vw - 40px), 52vw"
-              src="/ahed-couple-v3-clean.webp?v=20260902-clean-gold"
-              width={3072}
+              src="/ahed-couple-v4-clean-ivory.webp?v=20260902-clean-ivory"
+              width={1413}
             />
           </div>
         </div>
@@ -331,32 +371,67 @@ export default function ModelTwo() {
                   <stop offset="0.76" stopColor="#fdf7d3" />
                   <stop offset="1" stopColor="#a36013" />
                 </linearGradient>
+                <linearGradient id="journey-wreath-gold" x1="0" x2="1" y1="1" y2="0">
+                  <stop offset="0" stopColor="#a36013" />
+                  <stop offset="0.34" stopColor="#e9b559" />
+                  <stop offset="0.62" stopColor="#fdf7d3" />
+                  <stop offset="1" stopColor="#d6993a" />
+                </linearGradient>
+                <path
+                  id="journey-laurel-leaf"
+                  d="M0 0C7-8 16-7 20-1C14 5 6 6 0 0Z"
+                />
               </defs>
 
               <path
                 className={styles.journeyRopeShadow}
-                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
+                d="M-10 64C150 55 255 29 410 38C532 45 610 60 700 62C790 60 868 45 990 38C1145 29 1250 55 1410 64"
               />
               <path
                 className={styles.journeyRopeMain}
-                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
+                d="M-10 64C150 55 255 29 410 38C532 45 610 60 700 62C790 60 868 45 990 38C1145 29 1250 55 1410 64"
               />
               <path
                 className={styles.journeyRopeHighlight}
-                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
-              />
-              <path
-                className={styles.journeyRopeBraid}
-                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
+                d="M-10 62C150 53 255 27 410 36C532 43 610 58 700 60C790 58 868 43 990 36C1145 27 1250 53 1410 62"
               />
 
-              <g className={styles.journeyJewels}>
-                <path d="M337 50 350 38 363 50 350 62Z" />
-                <circle cx="350" cy="50" r="3.25" />
-                <path d="M681 50 700 32 719 50 700 68Z" />
-                <circle cx="700" cy="50" r="4" />
-                <path d="M1037 50 1050 38 1063 50 1050 62Z" />
-                <circle cx="1050" cy="50" r="3.25" />
+              <g className={styles.journeyWreathLeaves}>
+                <use href="#journey-laurel-leaf" transform="translate(35 61) rotate(-22)" />
+                <use href="#journey-laurel-leaf" transform="translate(94 55) rotate(-34) scale(.92)" />
+                <use href="#journey-laurel-leaf" transform="translate(155 47) rotate(-42)" />
+                <use href="#journey-laurel-leaf" transform="translate(220 38) rotate(-48) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(285 32) rotate(-54)" />
+                <use href="#journey-laurel-leaf" transform="translate(352 31) rotate(-60) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(420 36) rotate(-68)" />
+                <use href="#journey-laurel-leaf" transform="translate(492 44) rotate(-72) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(560 51) rotate(-78)" />
+                <use href="#journey-laurel-leaf" transform="translate(627 57) rotate(-84) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(1375 61) rotate(202)" />
+                <use href="#journey-laurel-leaf" transform="translate(1316 55) rotate(214) scale(.92)" />
+                <use href="#journey-laurel-leaf" transform="translate(1255 47) rotate(222)" />
+                <use href="#journey-laurel-leaf" transform="translate(1190 38) rotate(228) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(1125 32) rotate(234)" />
+                <use href="#journey-laurel-leaf" transform="translate(1058 31) rotate(240) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(990 36) rotate(248)" />
+                <use href="#journey-laurel-leaf" transform="translate(918 44) rotate(252) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(850 51) rotate(258)" />
+                <use href="#journey-laurel-leaf" transform="translate(783 57) rotate(264) scale(.9)" />
+                <use href="#journey-laurel-leaf" transform="translate(55 68) rotate(158) scale(.82)" />
+                <use href="#journey-laurel-leaf" transform="translate(180 53) rotate(142) scale(.8)" />
+                <use href="#journey-laurel-leaf" transform="translate(315 41) rotate(130) scale(.82)" />
+                <use href="#journey-laurel-leaf" transform="translate(455 48) rotate(118) scale(.8)" />
+                <use href="#journey-laurel-leaf" transform="translate(590 61) rotate(102) scale(.82)" />
+                <use href="#journey-laurel-leaf" transform="translate(1355 68) rotate(22) scale(.82)" />
+                <use href="#journey-laurel-leaf" transform="translate(1230 53) rotate(38) scale(.8)" />
+                <use href="#journey-laurel-leaf" transform="translate(1095 41) rotate(50) scale(.82)" />
+                <use href="#journey-laurel-leaf" transform="translate(955 48) rotate(62) scale(.8)" />
+                <use href="#journey-laurel-leaf" transform="translate(820 61) rotate(78) scale(.82)" />
+              </g>
+
+              <g className={styles.journeyWreathClasp}>
+                <path d="M682 61C688 45 700 43 700 54C700 43 712 45 718 61C709 70 704 73 700 77C696 73 691 70 682 61Z" />
+                <circle cx="700" cy="61" r="4" />
               </g>
             </svg>
 
@@ -591,10 +666,23 @@ export default function ModelTwo() {
           })}
         </ol>
 
-        <a className={styles.faqContact} href="mailto:info@ahedmarriage.com">
-          <Mail aria-hidden="true" />
-          info@ahedmarriage.com
-        </a>
+        <aside id="contact" className={styles.faqContactCard} aria-labelledby="contact-title">
+          <span className={styles.faqContactIcon} aria-hidden="true">
+            <Mail />
+          </span>
+          <div className={styles.faqContactCopy}>
+            <span>{labels.contactEyebrow}</span>
+            <h3 id="contact-title">{labels.contactTitle}</h3>
+            <p>{labels.contactDescription}</p>
+          </div>
+          <a
+            className={styles.faqContactAction}
+            href="mailto:info@ahedmarriage.com?subject=AHED%20Inquiry"
+          >
+            <Mail aria-hidden="true" />
+            {labels.contactAction}
+          </a>
+        </aside>
       </section>
 
       <section className={styles.decisionSection} aria-labelledby="decision-title">
@@ -702,16 +790,36 @@ export default function ModelTwo() {
               <strong>www.ahedmarriage.com</strong>
             </span>
           </a>
-          <a href="mailto:info@ahedmarriage.com?subject=AHED%20Call%20Request">
-            <Phone aria-hidden="true" />
+          <a href="mailto:info@ahedmarriage.com?subject=AHED%20Support">
+            <Headphones aria-hidden="true" />
             <span>
-              <small>{labels.call}</small>
+              <small>{labels.support}</small>
               <strong>{labels.callValue}</strong>
             </span>
           </a>
         </div>
 
+        <div className={styles.footerPolicies}>
+          <p id="privacy">
+            <strong>{labels.footerPrivacy}</strong>
+            <span>{labels.privacySummary}</span>
+          </p>
+          <p id="terms">
+            <strong>{labels.footerTerms}</strong>
+            <span>{labels.termsSummary}</span>
+          </p>
+        </div>
+
         <div className={styles.footerSideActions}>
+          <a
+            href="https://wa.me/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label={labels.whatsapp}
+            title={labels.whatsapp}
+          >
+            <WhatsAppMark />
+          </a>
           <a
             href="https://www.tiktok.com"
             target="_blank"
@@ -719,23 +827,17 @@ export default function ModelTwo() {
             aria-label={labels.tiktok}
             title={labels.tiktok}
           >
-            <Music2 aria-hidden="true" />
-          </a>
-          <a
-            href="mailto:info@ahedmarriage.com?subject=AHED%20Support"
-            aria-label={labels.support}
-          >
-            <Headphones aria-hidden="true" />
-            <span>{labels.support}</span>
+            <TikTokMark />
           </a>
         </div>
 
         <div className={styles.footerBottom}>
           <span>{copy.footer.copyright}</span>
           <nav aria-label={copy.footer.navLabel}>
-            <a href="#compatibility">{labels.compatibilityNav}</a>
-            <a href="#faq">{copy.footer.faq}</a>
-            <Link href="/login">{copy.footer.login}</Link>
+            <a href="#privacy">{labels.footerPrivacy}</a>
+            <a href="#terms">{labels.footerTerms}</a>
+            <a href="#story">{labels.footerAbout}</a>
+            <a href="#contact">{labels.footerContact}</a>
           </nav>
         </div>
       </footer>
