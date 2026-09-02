@@ -875,7 +875,7 @@
   padding: 38px 0;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(420px, 0.85fr) minmax(0, 1.15fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "content visual"
     "principlesContent principlesVisual";
@@ -970,9 +970,9 @@
   justify-content: center;
   overflow: hidden;
   background:
-    radial-gradient(circle at 4% 4%, rgba(233, 181, 89, 0.18), transparent 14rem),
-    linear-gradient(145deg, #fffdf8, #f4e7d5);
-  border: 1px solid rgba(163, 96, 19, 0.3);
+    radial-gradient(circle at 4% 4%, rgba(255, 250, 241, 0.5), transparent 14rem),
+    linear-gradient(135deg, var(--gold-300), var(--gold-200) 36%, var(--gold-400) 72%, var(--gold-300));
+  border: 2px solid var(--wine-800);
   border-radius: 116px 28px 116px 28px;
   box-shadow:
     0 26px 68px rgba(60, 0, 23, 0.13),
@@ -994,11 +994,11 @@
   z-index: -1;
   top: -116px;
   left: -54px;
-  border: 1px solid rgba(163, 96, 19, 0.26);
+  border: 1px solid rgba(93, 10, 42, 0.5);
   border-radius: 50%;
   box-shadow:
-    0 0 0 15px rgba(233, 181, 89, 0.045),
-    0 0 0 31px rgba(233, 181, 89, 0.025);
+    0 0 0 15px rgba(120, 23, 58, 0.08),
+    0 0 0 31px rgba(93, 10, 42, 0.045);
 }
 
 .ringsContent::after {
@@ -1006,7 +1006,7 @@
   position: absolute;
   z-index: 0;
   inset: 9px;
-  border: 1px solid rgba(163, 96, 19, 0.16);
+  border: 1px solid rgba(93, 10, 42, 0.48);
   border-radius: 107px 20px 107px 20px;
   pointer-events: none;
 }
@@ -1027,23 +1027,23 @@
 }
 
 .ringsContent > small {
-  color: var(--gold-300);
+  color: var(--wine-700);
 }
 
 .ringsContent > small {
-  color: var(--gold-600);
+  color: var(--wine-700);
   font-size: 0.95rem;
 }
 
 .ringsContent h2 {
-  color: var(--wine-950);
+  color: var(--wine-heading);
   font-size: clamp(2.2rem, 3.25vw, 3.4rem);
 }
 
 .ringsContent > p {
   max-width: 610px;
   margin: 0;
-  color: #765362;
+  color: var(--wine-body);
   font-size: 1.08rem;
   line-height: 1.9;
 }
@@ -3064,7 +3064,7 @@
     width: calc(100% - 28px);
     min-height: 0;
     padding: 24px 0;
-    grid-template-columns: minmax(270px, 0.82fr) minmax(0, 1.18fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
     gap: clamp(18px, 3vw, 28px);
   }
@@ -4045,27 +4045,26 @@
 
 .ringsContent {
   background:
-    radial-gradient(circle at 4% 4%, rgba(233, 181, 89, 0.18), transparent 14rem) padding-box,
-    linear-gradient(145deg, #fffdf8, #f4e7d5) padding-box,
-    var(--gold-metal) border-box;
-  border: 2px solid transparent;
+    radial-gradient(circle at 4% 4%, rgba(255, 250, 241, 0.5), transparent 14rem),
+    linear-gradient(135deg, var(--gold-300), var(--gold-200) 36%, var(--gold-400) 72%, var(--gold-300));
+  border: 2px solid var(--wine-800);
   box-shadow:
     0 26px 68px rgba(60, 0, 23, 0.13),
     inset 0 1px rgba(255, 255, 255, 0.9),
-    0 0 18px rgba(233, 181, 89, 0.2);
+    0 0 18px rgba(93, 10, 42, 0.15);
 }
 
 .ringsContent::after {
-  border-color: var(--gold-400);
-  box-shadow: inset 0 0 12px rgba(243, 206, 126, 0.13);
+  border-color: rgba(93, 10, 42, 0.48);
+  box-shadow: inset 0 0 12px rgba(93, 10, 42, 0.08);
 }
 
 .ringsContent::before {
-  border-color: var(--gold-400);
+  border-color: var(--wine-700);
   box-shadow:
-    0 0 0 15px rgba(233, 181, 89, 0.08),
-    0 0 0 31px rgba(243, 206, 126, 0.045),
-    0 0 12px rgba(233, 181, 89, 0.22);
+    0 0 0 15px rgba(120, 23, 58, 0.08),
+    0 0 0 31px rgba(93, 10, 42, 0.045),
+    0 0 12px rgba(93, 10, 42, 0.16);
 }
 
 .principleGroup li {
