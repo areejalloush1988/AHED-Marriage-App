@@ -5629,7 +5629,7 @@
   background:
     radial-gradient(circle at 50% -70%, rgba(243, 206, 126, 0.2), transparent 50%) padding-box,
     linear-gradient(105deg, #2b000f, #6f1438 24%, #4b001d 52%, #7b163d 76%, #2b000f) padding-box,
-    linear-gradient(112deg, var(--gold-600), var(--gold-200) 24%, var(--gold-500) 50%, var(--gold-100) 72%, var(--gold-600)) border-box;
+    linear-gradient(112deg, var(--gold-600), var(--gold-200) 24%, var(--gold-500) 50%, var(--gold-200) 72%, var(--gold-600)) border-box;
   border: 5px solid transparent;
   border-radius: 0;
   box-shadow:
@@ -5676,11 +5676,11 @@
   width: 60px;
   height: 60px;
   padding: 14px;
-  color: var(--gold-100);
+  color: var(--gold-200);
   background:
     radial-gradient(circle at 45% 18%, rgba(253, 247, 211, 0.18), transparent 54%) padding-box,
     linear-gradient(145deg, #7b163d, #4b001d 64%, #2b000f) padding-box,
-    linear-gradient(118deg, var(--gold-600), var(--gold-200) 26%, var(--gold-500) 52%, var(--gold-100) 72%, var(--gold-600)) border-box;
+    linear-gradient(118deg, var(--gold-600), var(--gold-200) 26%, var(--gold-500) 52%, var(--gold-200) 72%, var(--gold-600)) border-box;
   border: 4px solid transparent;
   border-radius: 50%;
   box-shadow:
@@ -5775,18 +5775,17 @@
   }
 }
 
-/* The personal-matchmaker route is a single burgundy card with larger gold type. */
+/* Match the personal-matchmaker card to the ivory profile card beside it. */
 .site .decisionMatchmakerCard {
-  color: var(--gold-300);
+  color: var(--wine-900);
   background:
-    radial-gradient(circle at 58% -18%, rgba(253, 247, 211, 0.14), transparent 44%) padding-box,
-    linear-gradient(145deg, #7b163d, #4b001d 62%, #2b000f) padding-box,
+    linear-gradient(var(--ivory), var(--ivory)) padding-box,
     var(--gold-metal) border-box;
-  border: 4px solid transparent;
+  border: 3px solid transparent;
   box-shadow:
-    inset 0 0 0 3px rgba(243, 206, 126, 0.08),
-    0 20px 50px rgba(60, 0, 23, 0.2),
-    0 0 20px rgba(233, 181, 89, 0.26);
+    0 20px 50px rgba(60, 0, 23, 0.09),
+    0 6px 18px rgba(163, 96, 19, 0.16),
+    0 0 22px rgba(233, 181, 89, 0.24);
 }
 
 .site .decisionMatchmakerCard .decisionMatchmakerVisual {
@@ -5799,10 +5798,21 @@
 
 .site .decisionMatchmakerCard .decisionCardEyebrow,
 .site .decisionMatchmakerCard h2,
-.site .decisionMatchmakerCard .decisionCardCopy p,
+.site .decisionMatchmakerCard .decisionCardCopy p {
+  color: var(--wine-body);
+  text-shadow: none;
+}
+
+.site .decisionMatchmakerCard .decisionCardEyebrow {
+  color: var(--wine-subheading);
+}
+
+.site .decisionMatchmakerCard h2 {
+  color: var(--wine-heading);
+}
+
 .site .decisionMatchmakerCard .decisionCardAction {
   color: var(--gold-300);
-  text-shadow: 0 0 8px rgba(243, 206, 126, 0.16);
 }
 
 .site .decisionMatchmakerCard .decisionCardEyebrow {
@@ -5823,8 +5833,8 @@
 }
 
 .site .decisionMatchmakerCard .decisionCardDivider::after {
-  color: var(--gold-200);
-  background: #4b001d;
+  color: var(--gold-600);
+  background: var(--ivory);
 }
 
 @media (max-width: 620px) {
@@ -6347,6 +6357,114 @@
 
 @media (prefers-reduced-motion: reduce) {
   .downloadSection::after {
+    animation: none;
+  }
+}
+
+/* Persistent install access: visible without requiring a scroll to the final CTA. */
+.floatingInstall {
+  position: fixed;
+  z-index: 80;
+  inset-inline-end: clamp(14px, 2.1vw, 30px);
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.floatingInstall > button {
+  min-height: 56px;
+  padding: 12px 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(243, 206, 126, 0.14), transparent 58%),
+    linear-gradient(145deg, #7b163d, #4b001d 62%, #2b000f) padding-box,
+    var(--gold-metal) border-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  box-shadow:
+    inset 0 0 0 2px rgba(243, 206, 126, 0.07),
+    0 14px 32px rgba(60, 0, 23, 0.28),
+    0 0 18px rgba(233, 181, 89, 0.28);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 850;
+  cursor: pointer;
+  pointer-events: auto;
+  animation: floatingInstallGlow 3.8s ease-in-out infinite;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.floatingInstall > button:hover,
+.floatingInstall > button:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-3px);
+}
+
+.floatingInstall > button svg {
+  width: 20px;
+  height: 20px;
+  color: var(--gold-200);
+}
+
+.floatingInstallMessage {
+  width: min(390px, calc(100vw - 28px));
+  margin: 0;
+  padding: 14px 17px;
+  color: var(--gold-300);
+  background:
+    linear-gradient(145deg, #6f1438, #3c0017) padding-box,
+    var(--gold-metal) border-box;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(60, 0, 23, 0.24);
+  font-size: 0.94rem;
+  font-weight: 750;
+  line-height: 1.75;
+  pointer-events: auto;
+}
+
+@keyframes floatingInstallGlow {
+  0%,
+  100% {
+    box-shadow:
+      inset 0 0 0 2px rgba(243, 206, 126, 0.07),
+      0 14px 32px rgba(60, 0, 23, 0.28),
+      0 0 13px rgba(233, 181, 89, 0.18);
+  }
+  50% {
+    box-shadow:
+      inset 0 0 0 2px rgba(243, 206, 126, 0.11),
+      0 16px 36px rgba(60, 0, 23, 0.32),
+      0 0 24px rgba(243, 206, 126, 0.36);
+  }
+}
+
+@media (max-width: 620px) {
+  .floatingInstall {
+    inset-inline: 14px;
+    align-items: stretch;
+  }
+
+  .floatingInstall > button {
+    width: 100%;
+    min-height: 54px;
+  }
+
+  .floatingInstallMessage {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floatingInstall > button {
     animation: none;
   }
 }

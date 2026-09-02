@@ -64,6 +64,7 @@ export default function ModelTwo() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [installMessage, setInstallMessage] = useState("");
+  const [isAppInstalled, setIsAppInstalled] = useState(false);
   const copy = homeContent[locale];
   const isArabic = locale === "ar";
   const DirectionalArrow = isArabic ? ArrowLeft : ArrowRight;
@@ -324,9 +325,37 @@ export default function ModelTwo() {
       setInstallPrompt(event as BeforeInstallPromptEvent);
     };
 
+    const markAppInstalled = () => {
+      setIsAppInstalled(true);
+      setInstallPrompt(null);
+      setInstallMessage("");
+    };
+
+    const navigatorWithStandalone = window.navigator as Navigator & { standalone?: boolean };
+    const standaloneQuery = window.matchMedia("(display-mode: standalone)");
+    const updateInstalledState = () => {
+      setIsAppInstalled(
+        standaloneQuery.matches || navigatorWithStandalone.standalone === true,
+      );
+    };
+    const initialCheck = window.requestAnimationFrame(updateInstalledState);
+
     window.addEventListener("beforeinstallprompt", captureInstallPrompt);
-    return () => window.removeEventListener("beforeinstallprompt", captureInstallPrompt);
+    window.addEventListener("appinstalled", markAppInstalled);
+    standaloneQuery.addEventListener("change", updateInstalledState);
+    return () => {
+      window.cancelAnimationFrame(initialCheck);
+      window.removeEventListener("beforeinstallprompt", captureInstallPrompt);
+      window.removeEventListener("appinstalled", markAppInstalled);
+      standaloneQuery.removeEventListener("change", updateInstalledState);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!installMessage) return;
+    const timeout = window.setTimeout(() => setInstallMessage(""), 12000);
+    return () => window.clearTimeout(timeout);
+  }, [installMessage]);
 
   const handleInstall = async () => {
     if (installPrompt) {
@@ -392,6 +421,20 @@ export default function ModelTwo() {
           </div>
         </div>
       </header>
+
+      {!isAppInstalled ? (
+        <aside className={styles.floatingInstall} aria-label={labels.downloadNav}>
+          {installMessage ? (
+            <p className={styles.floatingInstallMessage} role="status">
+              {installMessage}
+            </p>
+          ) : null}
+          <button type="button" onClick={() => void handleInstall()}>
+            <Download aria-hidden="true" />
+            <span>{labels.downloadNav}</span>
+          </button>
+        </aside>
+      ) : null}
 
       <section className={styles.hero} data-hero-layout="static-couple">
         <div className={styles.heroCopy}>
