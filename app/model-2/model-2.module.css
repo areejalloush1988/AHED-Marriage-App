@@ -4938,38 +4938,6 @@
   font-weight: 900;
 }
 
-.footerPolicies {
-  width: min(980px, 100%);
-  margin: 30px auto 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-}
-
-.footerPolicies p {
-  margin: 0;
-  padding: 18px 20px;
-  display: grid;
-  gap: 7px;
-  color: var(--gold-300);
-  background: rgba(243, 206, 126, 0.035);
-  border: 1px solid rgba(243, 206, 126, 0.16);
-  border-radius: 16px;
-  line-height: 1.7;
-}
-
-.footerPolicies strong {
-  color: var(--gold-200);
-  font-size: 0.85rem;
-  font-weight: 900;
-}
-
-.footerPolicies span {
-  color: var(--gold-300);
-  font-size: 0.76rem;
-  font-weight: 650;
-}
-
 .footerSideActions {
   top: 84px;
   flex-direction: column;
@@ -5094,11 +5062,6 @@
   .footerContacts a:last-child {
     min-height: 126px;
     border: 1px solid rgba(243, 206, 126, 0.27);
-  }
-
-  .footerPolicies {
-    grid-template-columns: 1fr;
-    gap: 14px;
   }
 
   .footerBottom nav {
@@ -5230,5 +5193,238 @@
   .ringsContent > p {
     font-size: 0.74rem;
     line-height: 1.55;
+  }
+}
+
+/* Final visual refinements: stronger gold frames, centered copy, and burgundy actions. */
+.freeRibbon {
+  grid-template-columns: auto minmax(170px, auto) minmax(280px, 560px);
+  justify-content: center;
+  justify-items: center;
+  gap: clamp(18px, 2.6vw, 38px);
+  text-align: center;
+}
+
+.freeRibbon div {
+  min-width: 0;
+  text-align: center;
+}
+
+.freeRibbon small,
+.freeRibbon strong,
+.freeRibbon p {
+  color: var(--gold-300);
+  font-family: inherit;
+  font-size: clamp(0.98rem, 1.15vw, 1.14rem);
+  font-weight: 850;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.freeRibbon p {
+  max-width: 560px;
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.ringsContent {
+  align-items: center;
+  border: 8px solid var(--wine-800);
+  box-shadow:
+    0 26px 68px rgba(60, 0, 23, 0.16),
+    inset 0 0 0 2px rgba(255, 250, 241, 0.5),
+    0 0 18px rgba(93, 10, 42, 0.18);
+  text-align: center;
+}
+
+.ringsContent::after {
+  inset: 8px;
+  border: 2px solid rgba(93, 10, 42, 0.72);
+}
+
+.ringsContent > p {
+  margin-inline: auto;
+}
+
+.principleGroup {
+  width: 92%;
+  justify-self: center;
+}
+
+.principleGroup li {
+  min-height: 172px;
+  padding: clamp(20px, 1.7vw, 27px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.principleGroup li > div {
+  width: 100%;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.principleGroup h3,
+.principleGroup p {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.compatibilityCompass {
+  width: clamp(280px, 26vw, 350px);
+  border: 4px solid transparent;
+  border-radius: 72px;
+  background:
+    linear-gradient(rgba(255, 250, 241, 0.96), rgba(248, 232, 199, 0.94)) padding-box,
+    linear-gradient(125deg, var(--gold-600), var(--gold-200) 28%, var(--gold-500) 55%, var(--gold-100) 76%, var(--gold-600)) border-box;
+  box-shadow:
+    0 30px 72px rgba(60, 0, 23, 0.16),
+    0 0 0 9px rgba(255, 250, 241, 0.88),
+    0 0 0 12px rgba(243, 206, 126, 0.34),
+    0 0 42px rgba(233, 181, 89, 0.34);
+  transform: rotate(45deg);
+}
+
+.compatibilityCompass::before {
+  inset: 7%;
+  border: 2px solid rgba(243, 206, 126, 0.68);
+  border-radius: 52px;
+}
+
+.compatibilityCompass::after {
+  inset: -17px;
+  border: 2px dashed rgba(214, 153, 58, 0.48);
+  border-radius: 88px;
+}
+
+.compatibilityCompass > .compassFace {
+  width: 76%;
+  border-width: 4px;
+  transform: rotate(-45deg);
+}
+
+.compatibilityCards li {
+  padding: 55px 30px 28px;
+  background:
+    linear-gradient(145deg, rgba(255, 252, 245, 0.98), rgba(248, 234, 204, 0.94)) padding-box,
+    linear-gradient(115deg, var(--gold-600), var(--gold-200) 24%, var(--gold-500) 52%, var(--gold-100) 74%, var(--gold-600)) border-box;
+  border: 4px solid transparent;
+  box-shadow:
+    0 20px 46px rgba(60, 0, 23, 0.1),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.48),
+    0 0 18px rgba(233, 181, 89, 0.28);
+}
+
+.compatibilityIcon {
+  color: var(--gold-200);
+  background:
+    radial-gradient(circle at 48% 20%, rgba(243, 206, 126, 0.12), transparent 54%),
+    linear-gradient(145deg, #7b163d, #4b001d 62%, #2b000f);
+  border: 3px solid var(--gold-300);
+  box-shadow:
+    0 10px 24px rgba(60, 0, 23, 0.2),
+    0 0 0 7px rgba(255, 250, 241, 0.94),
+    0 0 16px rgba(233, 181, 89, 0.32);
+}
+
+.compatibilityIcon svg {
+  color: var(--gold-200);
+  filter: drop-shadow(0 0 5px rgba(243, 206, 126, 0.55));
+  stroke-width: 1.85;
+}
+
+.decisionCardAction,
+.decisionChoiceButton {
+  color: var(--gold-200);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(243, 206, 126, 0.14), transparent 60%) padding-box,
+    linear-gradient(145deg, #7b163d, #4b001d 60%, #2b000f) padding-box,
+    linear-gradient(115deg, var(--gold-600), var(--gold-200) 30%, var(--gold-500) 68%, var(--gold-100)) border-box;
+  border: 3px solid transparent;
+  box-shadow:
+    inset 0 0 0 3px rgba(243, 206, 126, 0.05),
+    0 12px 26px rgba(60, 0, 23, 0.2),
+    0 0 15px rgba(233, 181, 89, 0.22);
+}
+
+.site a.decisionCardAction,
+.site a.decisionChoiceButton,
+.decisionCardAction svg,
+.decisionChoiceButton svg {
+  color: var(--gold-200);
+}
+
+.decisionCardAction:hover,
+.decisionCardAction:focus-visible,
+.decisionChoiceButton:hover,
+.decisionChoiceButton:focus-visible,
+.site a.decisionCardAction:hover,
+.site a.decisionCardAction:focus-visible,
+.site a.decisionChoiceButton:hover,
+.site a.decisionChoiceButton:focus-visible {
+  color: var(--gold-100);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(253, 247, 211, 0.2), transparent 62%) padding-box,
+    linear-gradient(145deg, #8b2048, #5d0a2a 60%, #350014) padding-box,
+    linear-gradient(115deg, var(--gold-500), var(--gold-100) 30%, var(--gold-400) 68%, var(--gold-200)) border-box;
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 0 0 3px rgba(243, 206, 126, 0.08),
+    0 16px 32px rgba(60, 0, 23, 0.24),
+    0 0 20px rgba(233, 181, 89, 0.3);
+}
+
+@media (max-width: 920px) {
+  .compatibilityCompass {
+    width: clamp(245px, 31vw, 310px);
+    border-radius: 60px;
+  }
+
+  .compatibilityCompass::before {
+    border-radius: 43px;
+  }
+
+  .principleGroup {
+    width: 96%;
+  }
+}
+
+@media (max-width: 760px) {
+  .freeRibbon {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+  }
+
+  .freeRibbon small,
+  .freeRibbon strong,
+  .freeRibbon p {
+    font-size: 0.96rem;
+  }
+
+  .ringsContent {
+    border-width: 6px;
+  }
+
+  .principleGroup {
+    width: 100%;
+  }
+
+  .compatibilityCompass {
+    transform: rotate(45deg) scale(0.9);
+  }
+}
+
+@media (max-width: 620px) {
+  .principleGroup {
+    grid-template-columns: 1fr;
+  }
+
+  .principleGroup li {
+    min-height: 150px;
   }
 }

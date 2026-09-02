@@ -509,9 +509,8 @@ export default function ModelTwo() {
         </div>
 
         <ol className={`${styles.principleGroup} ${styles.principlesUnderVisual}`}>
-          {copy.why.principles.slice(0, 2).map((principle, index) => (
+          {copy.why.principles.slice(0, 2).map((principle) => (
             <li key={principle.title}>
-              <span>0{index + 1}</span>
               <div>
                 <h3>{principle.title}</h3>
                 <p>{principle.description}</p>
@@ -521,9 +520,8 @@ export default function ModelTwo() {
         </ol>
 
         <ol className={`${styles.principleGroup} ${styles.principlesUnderContent}`} start={3}>
-          {copy.why.principles.slice(2).map((principle, index) => (
+          {copy.why.principles.slice(2).map((principle) => (
             <li key={principle.title}>
-              <span>0{index + 3}</span>
               <div>
                 <h3>{principle.title}</h3>
                 <p>{principle.description}</p>
@@ -799,17 +797,6 @@ export default function ModelTwo() {
           </a>
         </div>
 
-        <div className={styles.footerPolicies}>
-          <p id="privacy">
-            <strong>{labels.footerPrivacy}</strong>
-            <span>{labels.privacySummary}</span>
-          </p>
-          <p id="terms">
-            <strong>{labels.footerTerms}</strong>
-            <span>{labels.termsSummary}</span>
-          </p>
-        </div>
-
         <div className={styles.footerSideActions}>
           <a
             href="https://wa.me/"
@@ -834,8 +821,8 @@ export default function ModelTwo() {
         <div className={styles.footerBottom}>
           <span>{copy.footer.copyright}</span>
           <nav aria-label={copy.footer.navLabel}>
-            <a href="#privacy">{labels.footerPrivacy}</a>
-            <a href="#terms">{labels.footerTerms}</a>
+            <a href="/website/#privacy">{labels.footerPrivacy}</a>
+            <a href="mailto:info@ahedmarriage.com?subject=AHED%20Terms%20of%20Use">{labels.footerTerms}</a>
             <a href="#story">{labels.footerAbout}</a>
             <a href="#contact">{labels.footerContact}</a>
           </nav>
