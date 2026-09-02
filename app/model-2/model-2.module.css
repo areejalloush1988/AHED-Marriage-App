@@ -22,7 +22,7 @@
   );
   --ivory: #fffaf1;
   --paper: #f8efe1;
-  --ink: #3a0e1e;
+  --ink: var(--wine-950);
   min-height: 100vh;
   overflow: hidden;
   color: var(--ink);
@@ -74,7 +74,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.7;
   text-shadow: 0 0 20px rgba(243, 206, 126, 0.14);
@@ -85,7 +85,7 @@
   white-space: nowrap;
   color: var(--gold-300);
   -webkit-text-fill-color: var(--gold-300);
-  font-size: 0.69rem;
+  font-size: 0.82rem;
   opacity: 0.88;
 }
 
@@ -175,30 +175,49 @@
   cursor: pointer;
 }
 
-.languageButton {
-  border: 1px solid rgba(93, 10, 42, 0.16);
-  color: var(--wine-800);
-  background: transparent;
+.languageButton,
+.site a.loginButton,
+.site a.createButton {
+  border: 1px solid var(--gold-500);
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(243, 206, 126, 0.12), transparent 60%),
+    linear-gradient(145deg, var(--wine-700), var(--wine-900) 58%, var(--wine-950));
+  box-shadow:
+    inset 0 0 0 2px rgba(243, 206, 126, 0.05),
+    0 8px 20px rgba(60, 0, 23, 0.14),
+    0 0 10px rgba(233, 181, 89, 0.12);
 }
 
 .languageButton svg,
 .createButton svg {
   width: 16px;
   height: 16px;
+  color: var(--gold-300);
 }
 
 .loginButton {
-  border: 1px solid rgba(93, 10, 42, 0.16);
-  color: var(--wine-800);
-  background: #fffdf8;
+  border: 1px solid var(--gold-500);
 }
 
 .createButton {
   min-width: 126px;
-  border: 1px solid var(--wine-800);
-  color: var(--gold-300);
-  background: var(--wine-800);
-  box-shadow: 0 10px 24px rgba(60, 0, 23, 0.14);
+}
+
+.languageButton:hover,
+.languageButton:focus-visible,
+.site a.loginButton:hover,
+.site a.loginButton:focus-visible,
+.site a.createButton:hover,
+.site a.createButton:focus-visible {
+  color: var(--gold-200);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(243, 206, 126, 0.19), transparent 62%),
+    linear-gradient(145deg, #8a1c43, var(--wine-800) 58%, #350014);
+  box-shadow:
+    inset 0 0 0 2px rgba(243, 206, 126, 0.08),
+    0 10px 24px rgba(60, 0, 23, 0.2),
+    0 0 14px rgba(233, 181, 89, 0.22);
 }
 
 .hero {
@@ -3159,13 +3178,13 @@
 
 @media (max-width: 700px) {
   .verseBar {
-    min-height: 72px;
-    padding: 13px 18px 14px;
+    min-height: 82px;
+    padding: 14px 18px 15px;
   }
 
   .verseBar p {
     display: block;
-    font-size: 0.82rem;
+    font-size: 1.07rem;
   }
 
   .verseBar small {
@@ -4253,6 +4272,353 @@
       0 12px 28px rgba(78, 42, 20, 0.08),
       inset 0 0 0 5px rgba(255, 255, 255, 0.42),
       0 0 13px rgba(233, 181, 89, 0.2);
+  }
+}
+
+/* Larger type scale and one near-black burgundy ink across every ivory surface. */
+.nav,
+.eyebrow,
+.eyebrowLight,
+.hero h1,
+.hero h1 em,
+.heroCopy > p,
+.heroNote,
+.editorialHeading > span,
+.editorialHeading small,
+.editorialHeading h2,
+.editorialHeading p,
+.journeyCard h3,
+.journeyCard p,
+.storyIndex,
+.ringsContent > small,
+.ringsContent h2,
+.ringsContent > p,
+.compatibilityHeader .storyIndex,
+.compatibilityHeader small,
+.compatibilityHeader h2,
+.compatibilityHeader p,
+.compatibilityCards h3,
+.compatibilityCards p,
+.compatibilityFooter,
+.storyIntro small,
+.storyIntro h2,
+.storyIntro p,
+.storyTimeline strong,
+.storyTimes,
+.faqHeading .eyebrow,
+.faqHeading h2,
+.faqHeading p,
+.faqDoorHint,
+.faqContact,
+.faqDoorAnswerLabel,
+.faqDoorAnswerQuestion,
+.faqDoorAnswerText,
+.decisionCardEyebrow,
+.decisionCard h2,
+.decisionCardCopy p,
+.decisionChoice h2 {
+  color: var(--wine-950);
+}
+
+.nav {
+  font-size: 1.025rem;
+}
+
+.languageButton,
+.loginButton,
+.createButton {
+  font-size: 0.935rem;
+}
+
+.eyebrow,
+.eyebrowLight {
+  font-size: 0.925rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.475rem, 3.55vw, 3.775rem);
+}
+
+.heroCopy > p {
+  font-size: 1.125rem;
+}
+
+.heroNote {
+  font-size: 0.925rem;
+}
+
+.freeRibbon strong {
+  font-size: 1.345rem;
+}
+
+.freeRibbon p {
+  font-size: 1.005rem;
+}
+
+.editorialHeading > span {
+  font-size: 0.895rem;
+}
+
+.editorialHeading small {
+  font-size: 0.925rem;
+}
+
+.editorialHeading h2 {
+  font-size: clamp(2.125rem, 3.5vw, 3.275rem);
+}
+
+.editorialHeading p,
+.faqHeading p {
+  font-size: 1.065rem;
+}
+
+.journeyCard h3 {
+  font-size: clamp(1.275rem, 1.7vw, 1.575rem);
+}
+
+.journeyCard p {
+  font-size: clamp(0.905rem, 1.02vw, 1.005rem);
+}
+
+.ringsContent > small {
+  font-size: 1.075rem;
+}
+
+.ringsContent h2 {
+  font-size: clamp(2.325rem, 3.4vw, 3.525rem);
+}
+
+.ringsContent > p {
+  font-size: 1.205rem;
+}
+
+.principleGroup h3 {
+  font-size: 1.175rem;
+}
+
+.principleGroup p {
+  font-size: 0.925rem;
+}
+
+.compatibilityHeader .storyIndex,
+.compatibilityHeader small {
+  font-size: 0.945rem;
+}
+
+.compatibilityHeader h2 {
+  font-size: clamp(2.475rem, 4.75vw, 4.225rem);
+}
+
+.compatibilityHeader p {
+  font-size: clamp(1.105rem, 1.5vw, 1.275rem);
+}
+
+.compatibilityCards h3 {
+  font-size: clamp(1.475rem, 1.95vw, 1.875rem);
+}
+
+.compatibilityCards p {
+  font-size: clamp(0.925rem, 1.12vw, 1.065rem);
+}
+
+.compatibilityFooter {
+  font-size: 1.205rem;
+}
+
+.storyIntro small {
+  font-size: 0.905rem;
+}
+
+.storyIntro h2 {
+  font-size: clamp(2.275rem, 4.15vw, 3.875rem);
+}
+
+.storyIntro p {
+  font-size: 1.125rem;
+}
+
+.storyTimeline strong {
+  font-size: 0.955rem;
+}
+
+.storyTimes {
+  font-size: 0.785rem;
+}
+
+.faqHeading h2 {
+  font-size: clamp(2.525rem, 4.75vw, 4.325rem);
+}
+
+.faqDoorHint {
+  font-size: 0.905rem;
+}
+
+.faqDoorAnswerLabel {
+  font-size: 0.845rem;
+}
+
+.faqDoorAnswerQuestion {
+  font-size: 1.025rem;
+}
+
+.faqDoorAnswerText {
+  font-size: clamp(0.815rem, 0.94vw, 0.915rem);
+}
+
+.faqDoorNumber {
+  font-size: 1.575rem;
+}
+
+.faqDoorQuestion {
+  font-size: clamp(0.945rem, 1.25vw, 1.125rem);
+}
+
+.faqDoorPrompt {
+  font-size: 0.765rem;
+}
+
+.faqContact {
+  font-size: 0.885rem;
+}
+
+.decisionCardEyebrow {
+  font-size: 0.825rem;
+}
+
+.decisionCard h2 {
+  font-size: clamp(1.775rem, 2.4vw, 2.475rem);
+}
+
+.decisionCardCopy p {
+  font-size: 1.005rem;
+}
+
+.decisionCardAction {
+  font-size: 0.985rem;
+}
+
+.decisionProfileVisual > span:not(.decisionProfileAvatar, .decisionProfileRule) {
+  font-size: 0.785rem;
+}
+
+.decisionChoice h2 {
+  font-size: clamp(2.275rem, 4.15vw, 3.725rem);
+}
+
+.decisionChoiceButton {
+  font-size: 1.125rem;
+}
+
+.footer > p {
+  font-size: 0.965rem;
+}
+
+.footerContacts small {
+  font-size: 0.745rem;
+}
+
+.footerContacts strong {
+  font-size: 0.895rem;
+}
+
+.footerBottom {
+  font-size: 0.845rem;
+}
+
+@media (max-width: 1160px) {
+  .hero h1 {
+    font-size: clamp(2.375rem, 4.35vw, 3.425rem);
+  }
+}
+
+@media (max-width: 920px) {
+  .ringsContent h2 {
+    font-size: clamp(1.825rem, 3.65vw, 2.475rem);
+  }
+
+  .ringsContent > p {
+    font-size: 0.985rem;
+  }
+
+  .principleGroup h3 {
+    font-size: 1.025rem;
+  }
+
+  .principleGroup p,
+  .journeyCard p,
+  .compatibilityCards p {
+    font-size: 0.905rem;
+  }
+
+  .compatibilityCards h3 {
+    font-size: clamp(1.325rem, 1.85vw, 1.675rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .languageButton,
+  .createButton {
+    font-size: 0.845rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.325rem, 10.2vw, 3.275rem);
+  }
+
+  .editorialHeading h2 {
+    font-size: 2.275rem;
+  }
+
+  .ringsContent h2 {
+    font-size: clamp(1.625rem, 4.3vw, 2.025rem);
+  }
+
+  .principleGroup h3 {
+    font-size: 0.945rem;
+  }
+
+  .principleGroup p {
+    font-size: 0.775rem;
+  }
+
+  .compatibilityHeader h2 {
+    font-size: clamp(2.275rem, 6.7vw, 3.475rem);
+  }
+
+  .compatibilityCards h3 {
+    font-size: 1.675rem;
+  }
+
+  .compatibilityCards p {
+    font-size: 1.005rem;
+  }
+
+  .faqHeading h2 {
+    font-size: clamp(2.225rem, 9.2vw, 3.125rem);
+  }
+}
+
+@media (max-width: 620px) {
+  .journeyCard p {
+    font-size: 0.945rem;
+  }
+
+  .compatibilityHeader h2 {
+    font-size: clamp(2.125rem, 10vw, 2.925rem);
+  }
+
+  .compatibilityCards p {
+    font-size: 1.025rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .decisionCard h2 {
+    font-size: 1.875rem;
+  }
+
+  .decisionChoice h2 {
+    font-size: clamp(2.125rem, 11.2vw, 2.875rem);
   }
 }
 
