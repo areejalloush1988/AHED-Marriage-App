@@ -5552,3 +5552,225 @@
   border-color: var(--gold-200) !important;
   filter: brightness(1.06);
 }
+
+/* Strong, clearly visible satin-gold frames around the compass cards and icons. */
+.site .compatibilityCards li {
+  padding: 58px 28px 27px;
+  background:
+    linear-gradient(145deg, rgba(255, 252, 245, 0.99), rgba(248, 234, 204, 0.95)) padding-box,
+    linear-gradient(118deg, var(--gold-600) 0%, var(--gold-200) 24%, var(--gold-500) 48%, var(--gold-100) 68%, var(--gold-400) 84%, var(--gold-600) 100%) border-box;
+  border: 7px solid transparent;
+  box-shadow:
+    inset 0 0 0 2px rgba(253, 247, 211, 0.72),
+    0 18px 42px rgba(60, 0, 23, 0.11),
+    0 0 0 2px rgba(163, 96, 19, 0.24),
+    0 0 24px rgba(243, 206, 126, 0.46);
+}
+
+.site .compatibilityIcon {
+  width: 74px;
+  height: 74px;
+  top: -41px;
+  color: var(--gold-100);
+  background:
+    radial-gradient(circle at 45% 18%, rgba(243, 206, 126, 0.18), transparent 52%) padding-box,
+    linear-gradient(145deg, #7b163d, #4b001d 64%, #2b000f) padding-box,
+    linear-gradient(118deg, var(--gold-600), var(--gold-200) 25%, var(--gold-500) 50%, var(--gold-100) 70%, var(--gold-600)) border-box;
+  border: 5px solid transparent;
+  box-shadow:
+    inset 0 0 0 2px rgba(243, 206, 126, 0.12),
+    0 10px 25px rgba(60, 0, 23, 0.22),
+    0 0 0 5px rgba(255, 250, 241, 0.96),
+    0 0 0 7px rgba(233, 181, 89, 0.62),
+    0 0 22px rgba(243, 206, 126, 0.58);
+}
+
+.site .compatibilityIcon svg {
+  width: 30px;
+  height: 30px;
+  color: var(--gold-100);
+  filter:
+    drop-shadow(0 0 4px rgba(253, 247, 211, 0.76))
+    drop-shadow(0 0 7px rgba(243, 206, 126, 0.54));
+}
+
+@media (max-width: 620px) {
+  .site .compatibilityCards li {
+    padding-top: 53px;
+    border-width: 6px;
+  }
+
+  .site .compatibilityIcon {
+    width: 66px;
+    height: 66px;
+    top: -37px;
+    border-width: 4px;
+  }
+
+  .site .compatibilityIcon svg {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+/* Keep every personal-matchmaker phrase on one unified line and type size. */
+.site .freeRibbon {
+  min-height: 96px;
+  margin-top: 24px;
+  padding: 17px clamp(54px, 5.5vw, 88px);
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.5vw, 20px);
+  overflow: hidden;
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% -70%, rgba(243, 206, 126, 0.2), transparent 50%) padding-box,
+    linear-gradient(105deg, #2b000f, #6f1438 24%, #4b001d 52%, #7b163d 76%, #2b000f) padding-box,
+    linear-gradient(112deg, var(--gold-600), var(--gold-200) 24%, var(--gold-500) 50%, var(--gold-100) 72%, var(--gold-600)) border-box;
+  border: 5px solid transparent;
+  border-radius: 0;
+  box-shadow:
+    inset 0 0 0 3px rgba(243, 206, 126, 0.05),
+    0 18px 40px rgba(60, 0, 23, 0.2),
+    0 0 24px rgba(243, 206, 126, 0.28);
+  clip-path: polygon(3.2% 0, 96.8% 0, 100% 50%, 96.8% 100%, 3.2% 100%, 0 50%);
+  filter: drop-shadow(0 14px 18px rgba(60, 0, 23, 0.15));
+  isolation: isolate;
+  text-align: center;
+}
+
+.site .freeRibbon::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 8px 34px;
+  border: 1px solid rgba(243, 206, 126, 0.58);
+  clip-path: polygon(2.4% 0, 97.6% 0, 100% 50%, 97.6% 100%, 2.4% 100%, 0 50%);
+  pointer-events: none;
+}
+
+.site .freeRibbon::after {
+  content: "";
+  width: 110px;
+  position: absolute;
+  z-index: 1;
+  top: -35px;
+  bottom: -35px;
+  left: -150px;
+  background: linear-gradient(90deg, transparent, rgba(253, 247, 211, 0.42), transparent);
+  filter: blur(2px);
+  transform: rotate(16deg);
+  animation: matchmakerPlaqueShine 6.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.site .freeRibbon > * {
+  position: relative;
+  z-index: 2;
+}
+
+.site .freeRibbon > svg {
+  width: 60px;
+  height: 60px;
+  padding: 14px;
+  color: var(--gold-100);
+  background:
+    radial-gradient(circle at 45% 18%, rgba(253, 247, 211, 0.18), transparent 54%) padding-box,
+    linear-gradient(145deg, #7b163d, #4b001d 64%, #2b000f) padding-box,
+    linear-gradient(118deg, var(--gold-600), var(--gold-200) 26%, var(--gold-500) 52%, var(--gold-100) 72%, var(--gold-600)) border-box;
+  border: 4px solid transparent;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 2px rgba(243, 206, 126, 0.1),
+    0 0 0 4px rgba(243, 206, 126, 0.11),
+    0 0 17px rgba(243, 206, 126, 0.42);
+  filter: drop-shadow(0 0 5px rgba(243, 206, 126, 0.42));
+}
+
+.site .freeRibbon div {
+  min-width: 0;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 14px);
+  white-space: nowrap;
+}
+
+.site .freeRibbon small,
+.site .freeRibbon strong,
+.site .freeRibbon p {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  flex: 0 0 auto;
+  color: var(--gold-300);
+  border: 0;
+  font-family: inherit;
+  font-size: clamp(0.82rem, 1vw, 1rem);
+  font-weight: 850;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.site .freeRibbon small::after,
+.site .freeRibbon strong::after {
+  content: "•";
+  margin-inline-start: clamp(8px, 1vw, 14px);
+  color: var(--gold-200);
+  filter: drop-shadow(0 0 4px rgba(243, 206, 126, 0.5));
+}
+
+.site .freeRibbon p {
+  max-width: none;
+}
+
+@keyframes matchmakerPlaqueShine {
+  0%,
+  62% {
+    left: -150px;
+  }
+  84%,
+  100% {
+    left: calc(100% + 70px);
+  }
+}
+
+@media (max-width: 920px) {
+  .site .freeRibbon {
+    padding-inline: 18px;
+    gap: 9px;
+  }
+
+  .site .freeRibbon div {
+    gap: 7px;
+  }
+
+  .site .freeRibbon small,
+  .site .freeRibbon strong,
+  .site .freeRibbon p {
+    font-size: clamp(0.68rem, 1.25vw, 0.82rem);
+  }
+
+  .site .freeRibbon small::after,
+  .site .freeRibbon strong::after {
+    margin-inline-start: 7px;
+  }
+}
+
+@media (max-width: 620px) {
+  .site .freeRibbon {
+    justify-content: flex-start;
+    overflow-x: auto;
+    border-radius: 26px;
+    clip-path: none;
+    scrollbar-width: none;
+  }
+
+  .site .freeRibbon::-webkit-scrollbar {
+    display: none;
+  }
+}
