@@ -235,7 +235,7 @@ export default function ModelTwo() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <a className={styles.brandLink} href="#top" aria-label={copy.brandHomeLabel}>
-            <AhedBrand alt="" className={styles.brandLogo} priority />
+            <AhedBrand alt="" className={styles.brandLogo} locale={locale} priority />
           </a>
 
           <nav className={styles.nav} aria-label={copy.navLabel}>
@@ -563,7 +563,7 @@ export default function ModelTwo() {
 
       <section id="story" className={styles.storySection}>
         <header className={styles.storyIntro}>
-          <AhedBrand alt="" className={styles.storyBrand} />
+          <AhedBrand alt="" className={styles.storyBrand} locale={locale} />
           <small>{labels.storyEyebrow}</small>
           <h2>{labels.storyTitle}</h2>
           <p>{labels.storyDescription}</p>
@@ -762,8 +762,12 @@ export default function ModelTwo() {
       </section>
 
       <footer className={styles.footer}>
-        <div className={styles.footerBrandLockup} aria-label="شعار عَهْد" role="img">
-          <AhedBrand alt="" className={styles.footerBrandLogo} />
+        <div
+          className={styles.footerBrandLockup}
+          aria-label={locale === "en" ? "AHED logo" : "شعار عَهْد"}
+          role="img"
+        >
+          <AhedBrand alt="" className={styles.footerBrandLogo} locale={locale} />
         </div>
         <p>{copy.footer.description}</p>
 

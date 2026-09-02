@@ -5774,3 +5774,65 @@
     display: none;
   }
 }
+
+/* The personal-matchmaker route is a single burgundy card with larger gold type. */
+.site .decisionMatchmakerCard {
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 58% -18%, rgba(253, 247, 211, 0.14), transparent 44%) padding-box,
+    linear-gradient(145deg, #7b163d, #4b001d 62%, #2b000f) padding-box,
+    var(--gold-metal) border-box;
+  border: 4px solid transparent;
+  box-shadow:
+    inset 0 0 0 3px rgba(243, 206, 126, 0.08),
+    0 20px 50px rgba(60, 0, 23, 0.2),
+    0 0 20px rgba(233, 181, 89, 0.26);
+}
+
+.site .decisionMatchmakerCard .decisionMatchmakerVisual {
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% 10%, rgba(253, 247, 211, 0.13), transparent 30%),
+    linear-gradient(155deg, rgba(126, 21, 61, 0.56), rgba(43, 0, 15, 0.82));
+  border-color: var(--gold-400);
+}
+
+.site .decisionMatchmakerCard .decisionCardEyebrow,
+.site .decisionMatchmakerCard h2,
+.site .decisionMatchmakerCard .decisionCardCopy p,
+.site .decisionMatchmakerCard .decisionCardAction {
+  color: var(--gold-300);
+  text-shadow: 0 0 8px rgba(243, 206, 126, 0.16);
+}
+
+.site .decisionMatchmakerCard .decisionCardEyebrow {
+  font-size: 1.025rem;
+}
+
+.site .decisionMatchmakerCard h2 {
+  font-size: clamp(2.05rem, 2.65vw, 2.75rem);
+}
+
+.site .decisionMatchmakerCard .decisionCardCopy p {
+  font-size: 1.15rem;
+  line-height: 1.9;
+}
+
+.site .decisionMatchmakerCard .decisionCardAction {
+  font-size: 1.1rem;
+}
+
+.site .decisionMatchmakerCard .decisionCardDivider::after {
+  color: var(--gold-200);
+  background: #4b001d;
+}
+
+@media (max-width: 620px) {
+  .site .decisionMatchmakerCard h2 {
+    font-size: 2rem;
+  }
+
+  .site .decisionMatchmakerCard .decisionCardCopy p {
+    font-size: 1.03rem;
+  }
+}
