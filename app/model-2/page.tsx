@@ -285,7 +285,7 @@ export default function ModelTwo() {
               height={2449}
               priority
               sizes="(max-width: 920px) calc(100vw - 40px), 52vw"
-              src="/ahed-couple-v2.webp?v=20260902-hd-gold"
+              src="/ahed-couple-v3-clean.webp?v=20260902-clean-gold"
               width={3072}
             />
           </div>
@@ -335,38 +335,28 @@ export default function ModelTwo() {
 
               <path
                 className={styles.journeyRopeShadow}
-                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
               />
               <path
                 className={styles.journeyRopeMain}
-                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
               />
               <path
                 className={styles.journeyRopeHighlight}
-                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
               />
               <path
                 className={styles.journeyRopeBraid}
-                d="M-10 50 C55 76 110 30 175 50 S350 64 525 50 C580 42 610 65 650 52 C690 40 710 66 750 52 C790 38 820 62 875 50 S1050 70 1225 50 S1350 64 1410 50"
+                d="M-10 50 C90 50 135 43 225 50 S375 57 475 50 S625 43 700 50 S825 57 925 50 S1075 43 1175 50 S1320 57 1410 50"
               />
 
-              <g className={styles.journeyKnot}>
-                <path
-                  className={styles.journeyRopeShadow}
-                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
-                />
-                <path
-                  className={styles.journeyRopeMain}
-                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
-                />
-                <path
-                  className={styles.journeyRopeHighlight}
-                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
-                />
-                <path
-                  className={styles.journeyRopeBraid}
-                  d="M610 52 C640 17 675 17 700 52 C725 87 760 87 790 52 C760 17 725 17 700 52 C675 87 640 87 610 52"
-                />
+              <g className={styles.journeyJewels}>
+                <path d="M337 50 350 38 363 50 350 62Z" />
+                <circle cx="350" cy="50" r="3.25" />
+                <path d="M681 50 700 32 719 50 700 68Z" />
+                <circle cx="700" cy="50" r="4" />
+                <path d="M1037 50 1050 38 1063 50 1050 62Z" />
+                <circle cx="1050" cy="50" r="3.25" />
               </g>
             </svg>
 
@@ -395,12 +385,12 @@ export default function ModelTwo() {
                             y1="0"
                             y2="1"
                           >
-                            <stop offset="0" stopColor="#7e470f" />
-                            <stop offset="0.18" stopColor="#d6993a" />
+                            <stop offset="0" stopColor="#d6993a" />
+                            <stop offset="0.18" stopColor="#e9b559" />
                             <stop offset="0.38" stopColor="#f3ce7e" />
                             <stop offset="0.52" stopColor="#fdf7d3" />
                             <stop offset="0.7" stopColor="#e9b559" />
-                            <stop offset="1" stopColor="#a36013" />
+                            <stop offset="1" stopColor="#d6993a" />
                           </linearGradient>
                         </defs>
                         <path

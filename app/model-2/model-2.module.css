@@ -3,9 +3,9 @@
   --wine-900: #3c0017;
   --wine-800: #5d0a2a;
   --wine-700: #78173a;
-  --wine-heading: #500b29;
-  --wine-subheading: #7c1f46;
-  --wine-body: #61263f;
+  --wine-heading: #5d0a2a;
+  --wine-subheading: #78173a;
+  --wine-body: #681c3a;
   /* Locked to the approved logo's bright satin-gold palette. */
   --gold-700: #7e470f;
   --gold-600: #a36013;
@@ -698,28 +698,41 @@
 }
 
 .journeyRopeShadow {
-  stroke: rgba(126, 71, 15, 0.42);
-  stroke-width: 10;
+  stroke: rgba(126, 71, 15, 0.34);
+  stroke-width: 8;
 }
 
 .journeyRopeMain {
   stroke: url("#journey-rope-gold");
-  stroke-width: 6.5;
+  stroke-width: 5.2;
 }
 
 .journeyRopeHighlight {
   stroke: rgba(253, 247, 211, 0.96);
-  stroke-width: 1.5;
+  stroke-width: 1.2;
 }
 
 .journeyRopeBraid {
-  stroke: rgba(126, 71, 15, 0.5);
-  stroke-width: 1.2;
-  stroke-dasharray: 2 6;
+  stroke: rgba(253, 247, 211, 0.92);
+  stroke-width: 2;
+  stroke-dasharray: 1 12;
 }
 
-.journeyKnot {
-  filter: drop-shadow(0 5px 8px rgba(126, 71, 15, 0.2));
+.journeyJewels {
+  filter: drop-shadow(0 4px 7px rgba(126, 71, 15, 0.24));
+}
+
+.journeyJewels path {
+  fill: #fffaf1;
+  stroke: var(--gold-400);
+  stroke-width: 3;
+}
+
+.journeyJewels circle {
+  fill: var(--wine-800);
+  stroke: var(--gold-300);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
 }
 
 .journeySteps {
@@ -800,8 +813,10 @@
 
 .journeyCardShape path {
   fill: #fffaf1;
-  stroke-width: 2;
-  filter: drop-shadow(0 0 4px rgba(233, 181, 89, 0.42));
+  stroke-width: 4.5;
+  filter:
+    drop-shadow(0 0 3px rgba(253, 247, 211, 0.82))
+    drop-shadow(0 0 7px rgba(233, 181, 89, 0.5));
   vector-effect: non-scaling-stroke;
 }
 
@@ -879,7 +894,7 @@
   grid-template-areas:
     "content visual"
     "principlesContent principlesVisual";
-  align-items: start;
+  align-items: stretch;
   column-gap: clamp(32px, 4vw, 64px);
   row-gap: clamp(18px, 2vw, 28px);
   overflow: visible;
@@ -905,13 +920,15 @@
 }
 
 .ringsVisual {
+  min-height: clamp(360px, 27vw, 440px);
+  height: 100%;
   min-width: 0;
   position: relative;
   grid-area: visual;
   padding: 9px;
   display: flex;
   align-items: center;
-  align-self: start;
+  align-self: stretch;
   overflow: hidden;
   background: linear-gradient(145deg, var(--gold-200), var(--gold-600) 48%, var(--gold-300) 100%);
   border: 1px solid rgba(253, 247, 211, 0.72);
@@ -935,10 +952,10 @@
 
 .ringsImage {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   border-radius: 21px 106px 21px 106px;
-  object-fit: contain;
+  object-fit: cover;
   filter: brightness(1.02) contrast(1.03) saturate(1.02);
   animation: ringsDrift 12s ease-in-out infinite alternate;
 }
@@ -959,6 +976,8 @@
 
 .ringsContent {
   width: 100%;
+  min-height: clamp(360px, 27vw, 440px);
+  height: 100%;
   max-width: none;
   margin: 0;
   padding: clamp(38px, 4vw, 58px);
@@ -3065,7 +3084,7 @@
     min-height: 0;
     padding: 24px 0;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    align-items: stretch;
     gap: clamp(18px, 3vw, 28px);
   }
 
@@ -3316,8 +3335,8 @@
     width: calc(100% - 20px);
     min-height: 0;
     padding: 18px 0;
-    grid-template-columns: minmax(245px, 0.8fr) minmax(0, 1.2fr);
-    align-items: start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
     gap: 15px;
   }
 
@@ -3664,7 +3683,14 @@
   }
 
   .ringsContent {
+    min-height: 330px;
+    height: 330px;
     padding: 38px 25px 42px;
+  }
+
+  .ringsVisual {
+    min-height: 330px;
+    height: 330px;
   }
 
   .principleGroup {
@@ -4005,8 +4031,8 @@
 
 .journeyCardShape path {
   filter:
-    drop-shadow(0 0 3px rgba(253, 247, 211, 0.72))
-    drop-shadow(0 0 7px rgba(233, 181, 89, 0.34));
+    drop-shadow(0 0 3px rgba(253, 247, 211, 0.84))
+    drop-shadow(0 0 8px rgba(233, 181, 89, 0.5));
 }
 
 .journeyMedallion {
@@ -4385,12 +4411,13 @@
   font-size: 0.925rem;
 }
 
-.freeRibbon strong {
-  font-size: 1.345rem;
-}
-
+.freeRibbon strong,
 .freeRibbon p {
-  font-size: 1.005rem;
+  color: var(--gold-300);
+  font-family: inherit;
+  font-size: clamp(1.15rem, 1.35vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1.55;
 }
 
 .editorialHeading > span {
