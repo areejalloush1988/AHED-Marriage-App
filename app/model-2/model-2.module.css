@@ -5836,3 +5836,517 @@
     font-size: 1.03rem;
   }
 }
+
+/* Verified early-feedback section: one wine statement card, three light rating areas. */
+.reviewsSection {
+  width: min(1280px, calc(100% - 48px));
+  margin: 92px auto 112px;
+  scroll-margin-top: 28px;
+}
+
+.reviewsHeading {
+  max-width: 820px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.reviewsHeading > span {
+  display: inline-flex;
+  align-items: center;
+  color: var(--gold-600);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.reviewsHeading h2 {
+  margin: 8px 0 10px;
+  color: var(--wine-heading);
+  font-size: clamp(2.45rem, 4.3vw, 4rem);
+  line-height: 1.3;
+}
+
+.reviewsHeading p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--wine-body);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.9;
+}
+
+.reviewsGrid {
+  display: grid;
+  grid-template-columns: 1.18fr repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 18px;
+}
+
+.reviewSummaryCard,
+.reviewCriterionCard {
+  min-height: 284px;
+  padding: 34px 28px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.reviewSummaryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(253, 247, 211, 0.14), transparent 42%),
+    linear-gradient(145deg, #7b163d, #4b001d 62%, #2b000f) padding-box,
+    var(--gold-metal) border-box;
+  border: 4px solid transparent;
+  box-shadow:
+    inset 0 0 0 3px rgba(243, 206, 126, 0.07),
+    0 20px 44px rgba(60, 0, 23, 0.16),
+    0 0 18px rgba(233, 181, 89, 0.2);
+}
+
+.reviewStars {
+  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-300);
+  filter: drop-shadow(0 0 7px rgba(243, 206, 126, 0.28));
+}
+
+.reviewStars svg {
+  width: 21px;
+  height: 21px;
+  fill: rgba(243, 206, 126, 0.14);
+}
+
+.reviewSummaryCard h3,
+.reviewSummaryCard p {
+  color: var(--gold-300);
+}
+
+.reviewSummaryCard h3 {
+  margin: 0;
+  font-size: 1.55rem;
+  line-height: 1.45;
+}
+
+.reviewSummaryCard p {
+  margin: 10px 0 22px;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.8;
+}
+
+.reviewSummaryCard > a {
+  min-height: 48px;
+  padding: 10px 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: var(--wine-900);
+  background: var(--gold-300);
+  border: 1px solid var(--gold-200);
+  border-radius: 999px;
+  box-shadow: 0 0 14px rgba(243, 206, 126, 0.2);
+  font-size: 0.96rem;
+  font-weight: 850;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.site .reviewSummaryCard > a {
+  color: var(--wine-900);
+}
+
+.reviewSummaryCard > a:hover,
+.reviewSummaryCard > a:focus-visible {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.reviewSummaryCard > a svg {
+  width: 18px;
+  height: 18px;
+}
+
+.reviewCriterionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--wine-body);
+  background:
+    linear-gradient(var(--ivory), var(--ivory)) padding-box,
+    var(--gold-metal) border-box;
+  border: 3px solid transparent;
+  box-shadow:
+    inset 0 0 0 5px rgba(255, 255, 255, 0.45),
+    0 16px 38px rgba(60, 0, 23, 0.08),
+    0 0 15px rgba(233, 181, 89, 0.18);
+  text-align: center;
+}
+
+.reviewCriterionIcon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 17px;
+  display: grid;
+  place-items: center;
+  color: var(--gold-300);
+  background: linear-gradient(145deg, var(--wine-700), var(--wine-950));
+  border: 2px solid var(--gold-400);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(233, 181, 89, 0.24);
+}
+
+.reviewCriterionIcon svg {
+  width: 25px;
+  height: 25px;
+  fill: rgba(243, 206, 126, 0.12);
+}
+
+.reviewCriterionCard small {
+  color: var(--gold-600);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.reviewCriterionCard h3 {
+  margin: 5px 0 8px;
+  color: var(--wine-heading);
+  font-size: 1.42rem;
+}
+
+.reviewCriterionCard p {
+  margin: 0;
+  color: var(--wine-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+/* Final install call-to-action, using the same burgundy and polished gold. */
+.downloadSection {
+  width: min(1280px, calc(100% - 48px));
+  min-height: 470px;
+  margin: -28px auto 112px;
+  padding: clamp(42px, 5vw, 72px);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.7fr);
+  align-items: center;
+  gap: clamp(42px, 7vw, 90px);
+  overflow: hidden;
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 12% -30%, rgba(253, 247, 211, 0.17), transparent 38%),
+    radial-gradient(circle at 92% 120%, rgba(214, 153, 58, 0.16), transparent 34%),
+    linear-gradient(135deg, #741337, #4b001d 56%, #26000e) padding-box,
+    var(--gold-metal) border-box;
+  border: 5px solid transparent;
+  border-radius: 44px;
+  box-shadow:
+    inset 0 0 0 3px rgba(243, 206, 126, 0.08),
+    0 28px 60px rgba(60, 0, 23, 0.2),
+    0 0 24px rgba(233, 181, 89, 0.22);
+  scroll-margin-top: 28px;
+  isolation: isolate;
+}
+
+.downloadSection::after {
+  content: "";
+  width: 120px;
+  position: absolute;
+  z-index: -1;
+  top: -80px;
+  bottom: -80px;
+  left: -180px;
+  background: linear-gradient(90deg, transparent, rgba(253, 247, 211, 0.18), transparent);
+  filter: blur(2px);
+  transform: rotate(16deg);
+  animation: downloadGoldSweep 7s ease-in-out infinite;
+}
+
+.downloadCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.downloadEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold-300);
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.downloadEyebrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.downloadCopy h2 {
+  max-width: 720px;
+  margin: 10px 0 14px;
+  color: var(--gold-200);
+  font-size: clamp(2.55rem, 4.6vw, 4.35rem);
+  line-height: 1.28;
+  text-shadow: 0 0 16px rgba(243, 206, 126, 0.13);
+}
+
+.downloadCopy > p:not(.downloadStatus) {
+  max-width: 680px;
+  margin: 0;
+  color: var(--gold-300);
+  font-size: 1.12rem;
+  font-weight: 650;
+  line-height: 1.9;
+}
+
+.downloadFeatures {
+  margin: 24px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px 18px;
+  list-style: none;
+}
+
+.downloadFeatures li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--gold-300);
+  font-size: 0.98rem;
+  font-weight: 750;
+}
+
+.downloadFeatures svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold-200);
+}
+
+.downloadActions {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+}
+
+.downloadActions button,
+.downloadActions a {
+  min-height: 54px;
+  padding: 12px 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 850;
+  cursor: pointer;
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+
+.downloadActions button {
+  color: var(--wine-900);
+  background: var(--gold-300);
+  border: 2px solid var(--gold-200);
+  box-shadow: 0 0 18px rgba(243, 206, 126, 0.23);
+}
+
+.site .downloadActions a {
+  color: var(--gold-300);
+  background: rgba(255, 250, 241, 0.035);
+  border: 2px solid var(--gold-400);
+}
+
+.downloadActions button:hover,
+.downloadActions button:focus-visible,
+.downloadActions a:hover,
+.downloadActions a:focus-visible {
+  filter: brightness(1.08);
+  box-shadow: 0 0 22px rgba(243, 206, 126, 0.27);
+  transform: translateY(-3px);
+}
+
+.downloadActions svg {
+  width: 19px;
+  height: 19px;
+}
+
+.downloadStatus {
+  max-width: 680px;
+  margin: 18px 0 0;
+  padding-inline-start: 13px;
+  color: var(--gold-200);
+  border-inline-start: 3px solid var(--gold-400);
+  font-size: 0.98rem;
+  font-weight: 750;
+  line-height: 1.75;
+}
+
+.downloadVisual {
+  min-height: 320px;
+  padding: 35px 28px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-300);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(253, 247, 211, 0.12), transparent 42%),
+    rgba(38, 0, 14, 0.48);
+  border: 3px solid var(--gold-400);
+  border-radius: 34px;
+  box-shadow:
+    inset 0 0 0 5px rgba(243, 206, 126, 0.05),
+    0 20px 42px rgba(20, 0, 7, 0.28),
+    0 0 20px rgba(233, 181, 89, 0.2);
+  text-align: center;
+}
+
+.downloadVisualIcon {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  color: var(--gold-200);
+  border: 2px solid var(--gold-400);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(243, 206, 126, 0.22);
+}
+
+.downloadVisualIcon svg {
+  width: 31px;
+  height: 31px;
+}
+
+.downloadBrandLogo {
+  width: min(270px, 86%);
+  height: auto;
+  margin: 24px auto 16px;
+  display: block;
+  filter: drop-shadow(0 7px 16px rgba(0, 0, 0, 0.28));
+}
+
+.downloadVisualRule {
+  width: min(190px, 78%);
+  height: 1px;
+  margin-bottom: 13px;
+  background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
+  filter: drop-shadow(0 0 4px rgba(243, 206, 126, 0.3));
+}
+
+.downloadVisual strong {
+  color: var(--gold-300);
+  font-size: 1.1rem;
+  font-weight: 850;
+}
+
+@keyframes downloadGoldSweep {
+  0%,
+  62% {
+    left: -180px;
+  }
+  86%,
+  100% {
+    left: calc(100% + 80px);
+  }
+}
+
+@media (max-width: 1120px) {
+  .reviewsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .downloadSection {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 0.55fr);
+    gap: 36px;
+  }
+}
+
+@media (max-width: 800px) {
+  .reviewsSection {
+    margin-block: 74px 88px;
+  }
+
+  .downloadSection {
+    margin-top: -34px;
+    grid-template-columns: 1fr;
+  }
+
+  .downloadVisual {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 620px) {
+  .reviewsSection,
+  .downloadSection {
+    width: min(100% - 28px, 1280px);
+  }
+
+  .reviewsHeading {
+    margin-bottom: 28px;
+  }
+
+  .reviewsHeading h2 {
+    font-size: 2.35rem;
+  }
+
+  .reviewsHeading p {
+    font-size: 1rem;
+  }
+
+  .reviewsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .reviewSummaryCard,
+  .reviewCriterionCard {
+    min-height: 250px;
+    padding: 29px 24px;
+  }
+
+  .downloadSection {
+    margin-bottom: 78px;
+    padding: 36px 24px;
+    border-radius: 32px;
+  }
+
+  .downloadCopy h2 {
+    font-size: 2.35rem;
+  }
+
+  .downloadCopy > p:not(.downloadStatus) {
+    font-size: 1rem;
+  }
+
+  .downloadFeatures {
+    flex-direction: column;
+  }
+
+  .downloadActions {
+    flex-direction: column;
+  }
+
+  .downloadActions button,
+  .downloadActions a {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .downloadSection::after {
+    animation: none;
+  }
+}

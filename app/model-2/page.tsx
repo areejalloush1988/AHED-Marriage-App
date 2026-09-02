@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   CalendarDays,
   ClipboardCheck,
+  Download,
   Globe2,
   GraduationCap,
   Handshake,
@@ -17,7 +18,10 @@ import {
   Mail,
   MapPin,
   MessageCircleMore,
+  MonitorSmartphone,
+  ShieldCheck,
   Sparkles,
+  Star,
   UserRoundPlus,
   UserSearch,
 } from "lucide-react";
@@ -30,6 +34,12 @@ import styles from "./model-2.module.css";
 const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 const compatibilityIcons = [Heart, Sparkles, GraduationCap, Handshake];
 const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
+const ratingStars = Array.from({ length: 5 }, (_, index) => index);
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+}
 
 function WhatsAppMark() {
   return (
@@ -52,6 +62,8 @@ function TikTokMark() {
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [installMessage, setInstallMessage] = useState("");
   const copy = homeContent[locale];
   const isArabic = locale === "ar";
   const DirectionalArrow = isArabic ? ArrowLeft : ArrowRight;
@@ -98,6 +110,31 @@ export default function ModelTwo() {
         storyStages: ["النية", "الخصوصية", "العَهْد"],
         storyVideoLabel: "فيديو تعريفي عن تجربة عَهْد للزواج الجاد",
         storyVideoFallback: "متصفحك لا يدعم تشغيل الفيديو.",
+        reviewsEyebrow: "آراء التجربة الأولية",
+        reviewsTitle: "رأيك يشارك في بناء تجربة أوضح.",
+        reviewsDescription:
+          "نعرض فقط التقييمات التي يرسلها مجرّبون حقيقيون بعد مراجعتها، من دون أسماء أو تفاصيل شخصية.",
+        reviewsPending: "نستقبل الآن أولى التقييمات الموثّقة",
+        reviewsPendingDescription:
+          "شاركنا رأيك في الخصوصية ووضوح الخطوات وسهولة الاستخدام.",
+        reviewsAction: "أرسل تقييمك",
+        reviewsEmailSubject: "تقييمي لتجربة عَهْد",
+        reviewsRatingLabel: "خمسة نجوم مخصصة للتقييم",
+        reviewsCriterionLabel: "محور التقييم",
+        reviewsCriteria: [
+          {
+            title: "الخصوصية",
+            description: "مدى الشعور بالأمان وحماية بياناتك ومعلومات التواصل.",
+          },
+          {
+            title: "وضوح الخطوات",
+            description: "سهولة فهم إنشاء الملف والمراجعة وبدء التواصل.",
+          },
+          {
+            title: "سهولة الاستخدام",
+            description: "الوصول إلى المزايا والخيارات بوضوح ومن دون تعقيد.",
+          },
+        ],
         faqAnswer: "الإجابة",
         faqOpen: "اضغط لفتح الباب",
         faqOpenLabel: "فتح الباب وقراءة الإجابة",
@@ -114,6 +151,25 @@ export default function ModelTwo() {
         decisionChoiceTitle: "اختر الطريق الأنسب لك",
         decisionChooseProfile: "ابدأ بإنشاء ملفك",
         decisionChooseMatchmaker: "دع الموفّق يساعدك",
+        downloadNav: "حمّل التطبيق",
+        downloadEyebrow: "عَهْد معك أينما كنت",
+        downloadTitle: "ثبّت تطبيق عَهْد وابدأ رحلتك بسهولة.",
+        downloadDescription:
+          "أضف عَهْد إلى شاشة جهازك للوصول السريع إلى ملفك وترشيحاتك ومحادثاتك.",
+        downloadInstall: "ثبّت التطبيق على جهازك",
+        downloadWeb: "ابدأ عبر المتصفح",
+        downloadFeatures: [
+          "وصول سريع وآمن",
+          "متوافق مع الهاتف والتابلت",
+          "تجربتك مرتبطة بحسابك",
+        ],
+        downloadIosHint:
+          "على iPhone أو iPad: افتح زر المشاركة ثم اختر «إضافة إلى الشاشة الرئيسية».",
+        downloadFallback:
+          "إذا لم تظهر نافذة التثبيت، افتح قائمة المتصفح واختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».",
+        downloadAccepted: "بدأ تثبيت تطبيق عَهْد على جهازك.",
+        downloadDismissed: "يمكنك تثبيت التطبيق لاحقًا من زر التحميل نفسه.",
+        downloadVisualLabel: "تطبيق عَهْد للزواج الجاد",
         profileAge: "العمر",
         profileLocation: "الموقع",
         profileEducation: "المستوى التعليمي",
@@ -178,6 +234,31 @@ export default function ModelTwo() {
         storyStages: ["Intention", "Privacy", "Commitment"],
         storyVideoLabel: "An introduction to the AHED serious-marriage experience",
         storyVideoFallback: "Your browser does not support video playback.",
+        reviewsEyebrow: "Early experience feedback",
+        reviewsTitle: "Your feedback helps shape a clearer experience.",
+        reviewsDescription:
+          "We publish only verified feedback from real testers after review, without names or personal details.",
+        reviewsPending: "We are collecting the first verified ratings",
+        reviewsPendingDescription:
+          "Share your thoughts on privacy, clarity, and ease of use.",
+        reviewsAction: "Send your rating",
+        reviewsEmailSubject: "My AHED experience rating",
+        reviewsRatingLabel: "Five stars available for rating",
+        reviewsCriterionLabel: "Rating area",
+        reviewsCriteria: [
+          {
+            title: "Privacy",
+            description: "How safe you feel and how well your data and contact details are protected.",
+          },
+          {
+            title: "Clarity",
+            description: "How easy it is to understand profile creation, review, and contact steps.",
+          },
+          {
+            title: "Ease of use",
+            description: "How clearly you can reach features and choices without unnecessary complexity.",
+          },
+        ],
         faqAnswer: "Answer",
         faqOpen: "Open the door",
         faqOpenLabel: "Open the door and read the answer",
@@ -194,6 +275,25 @@ export default function ModelTwo() {
         decisionChoiceTitle: "Choose the path that suits you",
         decisionChooseProfile: "Start with your profile",
         decisionChooseMatchmaker: "Let a matchmaker help",
+        downloadNav: "Download the app",
+        downloadEyebrow: "AHED wherever you are",
+        downloadTitle: "Install AHED and begin your journey with ease.",
+        downloadDescription:
+          "Add AHED to your device for quick access to your profile, recommendations, and conversations.",
+        downloadInstall: "Install on this device",
+        downloadWeb: "Continue on the web",
+        downloadFeatures: [
+          "Fast and secure access",
+          "Made for phones and tablets",
+          "Your experience stays with your account",
+        ],
+        downloadIosHint:
+          "On iPhone or iPad, open Share and choose “Add to Home Screen.”",
+        downloadFallback:
+          "If the install window does not appear, open your browser menu and choose “Install app” or “Add to Home Screen.”",
+        downloadAccepted: "AHED installation has started on your device.",
+        downloadDismissed: "You can install AHED later from the same button.",
+        downloadVisualLabel: "AHED serious-marriage app",
         profileAge: "Age",
         profileLocation: "Location",
         profileEducation: "Education",
@@ -217,6 +317,31 @@ export default function ModelTwo() {
         tiktok: "TikTok",
         support: "Support",
       };
+
+  useEffect(() => {
+    const captureInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+
+    window.addEventListener("beforeinstallprompt", captureInstallPrompt);
+    return () => window.removeEventListener("beforeinstallprompt", captureInstallPrompt);
+  }, []);
+
+  const handleInstall = async () => {
+    if (installPrompt) {
+      await installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      setInstallMessage(
+        choice.outcome === "accepted" ? labels.downloadAccepted : labels.downloadDismissed,
+      );
+      setInstallPrompt(null);
+      return;
+    }
+
+    const isIos = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
+    setInstallMessage(isIos ? labels.downloadIosHint : labels.downloadFallback);
+  };
 
   return (
     <main
@@ -244,6 +369,7 @@ export default function ModelTwo() {
             <a href="#compatibility">{labels.compatibilityNav}</a>
             <a href="#story">{labels.storyNav}</a>
             <a href="#faq">{copy.nav.faq}</a>
+            <a href="#download">{labels.downloadNav}</a>
           </nav>
 
           <div className={styles.headerActions}>
@@ -604,6 +730,47 @@ export default function ModelTwo() {
         </div>
       </section>
 
+      <section id="reviews" className={styles.reviewsSection} aria-labelledby="reviews-title">
+        <header className={styles.reviewsHeading}>
+          <span>{labels.reviewsEyebrow}</span>
+          <h2 id="reviews-title">{labels.reviewsTitle}</h2>
+          <p>{labels.reviewsDescription}</p>
+        </header>
+
+        <div className={styles.reviewsGrid}>
+          <article className={styles.reviewSummaryCard}>
+            <span
+              className={styles.reviewStars}
+              aria-label={labels.reviewsRatingLabel}
+              role="img"
+            >
+              {ratingStars.map((star) => (
+                <Star key={star} aria-hidden="true" />
+              ))}
+            </span>
+            <h3>{labels.reviewsPending}</h3>
+            <p>{labels.reviewsPendingDescription}</p>
+            <a
+              href={`mailto:info@ahedmarriage.com?subject=${encodeURIComponent(labels.reviewsEmailSubject)}`}
+            >
+              <Mail aria-hidden="true" />
+              {labels.reviewsAction}
+            </a>
+          </article>
+
+          {labels.reviewsCriteria.map((criterion, index) => (
+            <article className={styles.reviewCriterionCard} key={criterion.title}>
+              <span className={styles.reviewCriterionIcon} aria-hidden="true">
+                <Star />
+              </span>
+              <small>{labels.reviewsCriterionLabel} 0{index + 1}</small>
+              <h3>{criterion.title}</h3>
+              <p>{criterion.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section id="faq" className={styles.faqSection}>
         <div className={styles.faqHeading}>
           <span className={styles.eyebrow}>{copy.faq.eyebrow}</span>
@@ -758,6 +925,52 @@ export default function ModelTwo() {
               {labels.decisionChooseMatchmaker}
             </a>
           </div>
+        </div>
+      </section>
+
+      <section id="download" className={styles.downloadSection} aria-labelledby="download-title">
+        <div className={styles.downloadCopy}>
+          <span className={styles.downloadEyebrow}>
+            <Download aria-hidden="true" />
+            {labels.downloadEyebrow}
+          </span>
+          <h2 id="download-title">{labels.downloadTitle}</h2>
+          <p>{labels.downloadDescription}</p>
+
+          <ul className={styles.downloadFeatures}>
+            {labels.downloadFeatures.map((feature) => (
+              <li key={feature}>
+                <ShieldCheck aria-hidden="true" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <div className={styles.downloadActions}>
+            <button type="button" onClick={() => void handleInstall()}>
+              <Download aria-hidden="true" />
+              {labels.downloadInstall}
+            </button>
+            <Link href="/register">
+              <Globe2 aria-hidden="true" />
+              {labels.downloadWeb}
+            </Link>
+          </div>
+
+          {installMessage ? (
+            <p className={styles.downloadStatus} role="status">
+              {installMessage}
+            </p>
+          ) : null}
+        </div>
+
+        <div className={styles.downloadVisual} aria-label={labels.downloadVisualLabel} role="img">
+          <span className={styles.downloadVisualIcon} aria-hidden="true">
+            <MonitorSmartphone />
+          </span>
+          <AhedBrand alt="" className={styles.downloadBrandLogo} locale={locale} />
+          <span className={styles.downloadVisualRule} aria-hidden="true" />
+          <strong>{labels.downloadNav}</strong>
         </div>
       </section>
 
