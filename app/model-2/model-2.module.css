@@ -3,6 +3,9 @@
   --wine-900: #3c0017;
   --wine-800: #5d0a2a;
   --wine-700: #78173a;
+  --wine-heading: #500b29;
+  --wine-subheading: #7c1f46;
+  --wine-body: #61263f;
   /* Locked to the approved logo's bright satin-gold palette. */
   --gold-700: #7e470f;
   --gold-600: #a36013;
@@ -22,7 +25,7 @@
   );
   --ivory: #fffaf1;
   --paper: #f8efe1;
-  --ink: var(--wine-950);
+  --ink: var(--wine-body);
   min-height: 100vh;
   overflow: hidden;
   color: var(--ink);
@@ -4275,7 +4278,7 @@
   }
 }
 
-/* Larger type scale and one near-black burgundy ink across every ivory surface. */
+/* Larger type scale with a clearly burgundy hierarchy across every ivory surface. */
 .nav,
 .eyebrow,
 .eyebrowLight,
@@ -4317,7 +4320,43 @@
 .decisionCard h2,
 .decisionCardCopy p,
 .decisionChoice h2 {
-  color: var(--wine-950);
+  color: var(--wine-body);
+}
+
+.hero h1,
+.hero h1 em,
+.editorialHeading h2,
+.ringsContent h2,
+.compatibilityHeader h2,
+.storyIntro h2,
+.faqHeading h2,
+.decisionCard h2,
+.decisionChoice h2 {
+  color: var(--wine-heading);
+}
+
+.nav,
+.eyebrow,
+.eyebrowLight,
+.heroNote,
+.editorialHeading > span,
+.editorialHeading small,
+.journeyCard h3,
+.storyIndex,
+.ringsContent > small,
+.compatibilityHeader .storyIndex,
+.compatibilityHeader small,
+.compatibilityCards h3,
+.compatibilityFooter,
+.storyIntro small,
+.storyTimeline strong,
+.faqHeading .eyebrow,
+.faqDoorHint,
+.faqContact,
+.faqDoorAnswerLabel,
+.faqDoorAnswerQuestion,
+.decisionCardEyebrow {
+  color: var(--wine-subheading);
 }
 
 .nav {
