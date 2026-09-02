@@ -364,74 +364,68 @@ export default function ModelTwo() {
               viewBox="0 0 1400 100"
             >
               <defs>
-                <linearGradient id="journey-rope-gold" x1="0" x2="1" y1="0" y2="1">
+                <linearGradient id="journey-drapery-gold" x1="0" x2="1" y1="0" y2="1">
                   <stop offset="0" stopColor="#a36013" />
                   <stop offset="0.23" stopColor="#f3ce7e" />
                   <stop offset="0.5" stopColor="#d6993a" />
                   <stop offset="0.76" stopColor="#fdf7d3" />
                   <stop offset="1" stopColor="#a36013" />
                 </linearGradient>
-                <linearGradient id="journey-wreath-gold" x1="0" x2="1" y1="1" y2="0">
-                  <stop offset="0" stopColor="#a36013" />
-                  <stop offset="0.34" stopColor="#e9b559" />
-                  <stop offset="0.62" stopColor="#fdf7d3" />
-                  <stop offset="1" stopColor="#d6993a" />
+                <linearGradient id="journey-drapery-wine" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stopColor="#8b2048" />
+                  <stop offset="0.42" stopColor="#6f1438" />
+                  <stop offset="0.76" stopColor="#4b001d" />
+                  <stop offset="1" stopColor="#350014" />
                 </linearGradient>
-                <path
-                  id="journey-laurel-leaf"
-                  d="M0 0C7-8 16-7 20-1C14 5 6 6 0 0Z"
-                />
               </defs>
 
               <path
-                className={styles.journeyRopeShadow}
-                d="M-10 64C150 55 255 29 410 38C532 45 610 60 700 62C790 60 868 45 990 38C1145 29 1250 55 1410 64"
+                className={styles.journeyDraperyShadow}
+                d="M-10 52H1410"
               />
               <path
-                className={styles.journeyRopeMain}
-                d="M-10 64C150 55 255 29 410 38C532 45 610 60 700 62C790 60 868 45 990 38C1145 29 1250 55 1410 64"
+                className={styles.journeyDraperyRail}
+                d="M-10 48H1410"
               />
               <path
-                className={styles.journeyRopeHighlight}
-                d="M-10 62C150 53 255 27 410 36C532 43 610 58 700 60C790 58 868 43 990 36C1145 27 1250 53 1410 62"
+                className={styles.journeyDraperyHighlight}
+                d="M-10 46H1410"
               />
 
-              <g className={styles.journeyWreathLeaves}>
-                <use href="#journey-laurel-leaf" transform="translate(35 61) rotate(-22)" />
-                <use href="#journey-laurel-leaf" transform="translate(94 55) rotate(-34) scale(.92)" />
-                <use href="#journey-laurel-leaf" transform="translate(155 47) rotate(-42)" />
-                <use href="#journey-laurel-leaf" transform="translate(220 38) rotate(-48) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(285 32) rotate(-54)" />
-                <use href="#journey-laurel-leaf" transform="translate(352 31) rotate(-60) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(420 36) rotate(-68)" />
-                <use href="#journey-laurel-leaf" transform="translate(492 44) rotate(-72) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(560 51) rotate(-78)" />
-                <use href="#journey-laurel-leaf" transform="translate(627 57) rotate(-84) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(1375 61) rotate(202)" />
-                <use href="#journey-laurel-leaf" transform="translate(1316 55) rotate(214) scale(.92)" />
-                <use href="#journey-laurel-leaf" transform="translate(1255 47) rotate(222)" />
-                <use href="#journey-laurel-leaf" transform="translate(1190 38) rotate(228) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(1125 32) rotate(234)" />
-                <use href="#journey-laurel-leaf" transform="translate(1058 31) rotate(240) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(990 36) rotate(248)" />
-                <use href="#journey-laurel-leaf" transform="translate(918 44) rotate(252) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(850 51) rotate(258)" />
-                <use href="#journey-laurel-leaf" transform="translate(783 57) rotate(264) scale(.9)" />
-                <use href="#journey-laurel-leaf" transform="translate(55 68) rotate(158) scale(.82)" />
-                <use href="#journey-laurel-leaf" transform="translate(180 53) rotate(142) scale(.8)" />
-                <use href="#journey-laurel-leaf" transform="translate(315 41) rotate(130) scale(.82)" />
-                <use href="#journey-laurel-leaf" transform="translate(455 48) rotate(118) scale(.8)" />
-                <use href="#journey-laurel-leaf" transform="translate(590 61) rotate(102) scale(.82)" />
-                <use href="#journey-laurel-leaf" transform="translate(1355 68) rotate(22) scale(.82)" />
-                <use href="#journey-laurel-leaf" transform="translate(1230 53) rotate(38) scale(.8)" />
-                <use href="#journey-laurel-leaf" transform="translate(1095 41) rotate(50) scale(.82)" />
-                <use href="#journey-laurel-leaf" transform="translate(955 48) rotate(62) scale(.8)" />
-                <use href="#journey-laurel-leaf" transform="translate(820 61) rotate(78) scale(.82)" />
+              <g className={styles.journeyDraperyFabric}>
+                <path d="M-10 48C54 50 112 55 175 48V61C112 78 54 72-10 58Z" />
+                <path d="M175 48C286 57 414 57 525 48V61C414 84 286 84 175 61Z" />
+                <path d="M525 48C636 57 764 57 875 48V61C764 84 636 84 525 61Z" />
+                <path d="M875 48C986 57 1114 57 1225 48V61C1114 84 986 84 875 61Z" />
+                <path d="M1225 48C1288 55 1346 50 1410 48V58C1346 72 1288 78 1225 61Z" />
               </g>
 
-              <g className={styles.journeyWreathClasp}>
-                <path d="M682 61C688 45 700 43 700 54C700 43 712 45 718 61C709 70 704 73 700 77C696 73 691 70 682 61Z" />
-                <circle cx="700" cy="61" r="4" />
+              <g className={styles.journeyDraperyTrim}>
+                <path d="M-10 58C54 72 112 78 175 61" />
+                <path d="M175 61C286 84 414 84 525 61" />
+                <path d="M525 61C636 84 764 84 875 61" />
+                <path d="M875 61C986 84 1114 84 1225 61" />
+                <path d="M1225 61C1288 78 1346 72 1410 58" />
+              </g>
+
+              <g className={styles.journeyDraperySheen}>
+                <path d="M184 52C292 60 408 60 516 52" />
+                <path d="M534 52C642 60 758 60 866 52" />
+                <path d="M884 52C992 60 1108 60 1216 52" />
+              </g>
+
+              <g className={styles.journeyDraperyTassels}>
+                <path d="M350 78V87" />
+                <path d="M340 97L345 86H355L360 97Z" />
+                <path d="M700 78V87" />
+                <path d="M690 97L695 86H705L710 97Z" />
+                <path d="M1050 78V87" />
+                <path d="M1040 97L1045 86H1055L1060 97Z" />
+              </g>
+
+              <g className={styles.journeyDraperyEnds}>
+                <circle cx="12" cy="48" r="8" />
+                <circle cx="1388" cy="48" r="8" />
               </g>
             </svg>
 
