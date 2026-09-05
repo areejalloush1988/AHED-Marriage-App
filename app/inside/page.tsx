@@ -7,7 +7,6 @@ import {
   Bell,
   BookOpen,
   Check,
-  CheckCheck,
   ChevronLeft,
   CircleDot,
   Clock3,
@@ -27,7 +26,6 @@ import {
   RotateCcw,
   Save,
   Search,
-  Send,
   Shield,
   ShieldCheck,
   SlidersHorizontal,
@@ -38,6 +36,7 @@ import {
 } from "lucide-react";
 
 import { AhedBrand } from "@/components/ahed-brand";
+import { AhedChat, enableAhedNotifications } from "@/components/ahed-chat";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
@@ -45,10 +44,6 @@ import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 import "./inside.css";
 
 type Section = "home" | "discover" | "online" | "posts" | "requests" | "messages" | "saved" | "profile";
-type ConversationItem = { id: string; partnerId?: string; name: string; headline: string; time: string; unread: number; isDemo: boolean };
-type ChatMessage = { id: string; senderId: string; body: string; createdAt: string; readAt?: string | null };
-type ConversationRow = { id: string; participant_a: string; participant_b: string; status: string; last_message_at: string };
-type MessageRow = { id: number; sender_id: string; body: string; created_at: string; read_at: string | null };
 
 type DiscoveryProfile = {
   id: string; code: string; displayName: string; age: number; country: string; city: string;
@@ -102,22 +97,6 @@ const navItems: Array<{ id: Section; label: string; icon: typeof Home }> = [
   { id: "saved", label: "المحفوظات", icon: Heart },
   { id: "profile", label: "مواصفاتي", icon: UserRound },
 ];
-
-const demoConversations: ConversationItem[] = [
-  { id: "demo-1", name: "ملف تجريبي 01", headline: "آخر رسالة منذ 5 دقائق", time: "10:42", unread: 2, isDemo: true },
-  { id: "demo-2", name: "ملف تجريبي 02", headline: "شكراً، يسعدني التعارف بوضوح", time: "أمس", unread: 0, isDemo: true },
-  { id: "demo-3", name: "ملف تجريبي 03", headline: "تم قبول طلب التعارف", time: "الأحد", unread: 0, isDemo: true },
-];
-
-const demoMessages: Record<string, ChatMessage[]> = {
-  "demo-1": [
-    { id: "demo-message-1", senderId: "partner", body: "السلام عليكم، قرأت ملفك وأعجبني وضوح أهدافك.", createdAt: "10:35" },
-    { id: "demo-message-2", senderId: "me", body: "وعليكم السلام، شكراً لك. الوضوح والجدية أهم شيء عندي.", createdAt: "10:38", readAt: "10:39" },
-    { id: "demo-message-3", senderId: "partner", body: "ممتاز، ممكن نبدأ بأسئلة القيم ونظرتنا للحياة الأسرية.", createdAt: "10:42" },
-  ],
-  "demo-2": [{ id: "demo-message-4", senderId: "partner", body: "شكراً، يسعدني التعارف بوضوح واحترام.", createdAt: "أمس" }],
-  "demo-3": [{ id: "demo-message-5", senderId: "system", body: "تم قبول طلب التعارف. أصبحت المحادثة متاحة للطرفين.", createdAt: "الأحد" }],
-};
 
 const demoProfiles: DiscoveryProfile[] = [
   {
@@ -204,14 +183,6 @@ function Brand() {
   );
 }
 
-function formatConversationTime(value: string) {
-  return new Intl.DateTimeFormat("ar-AE", { hour: "2-digit", minute: "2-digit" }).format(new Date(value));
-}
-
-function mapMessage(row: MessageRow): ChatMessage {
-  return { id: String(row.id), senderId: row.sender_id, body: row.body, createdAt: formatConversationTime(row.created_at), readAt: row.read_at };
-}
-
 function SelectField({ label, value, onChange, children, hint }: { label: string; value: string; onChange: (value: string) => void; children: ReactNode; hint?: string }) {
   return <label className="inside-field"><span>{label}</span><select value={value} onChange={(event) => onChange(event.target.value)}>{children}</select>{hint ? <small>{hint}</small> : null}</label>;
 }
@@ -234,13 +205,9 @@ function ProfileCard({ profile, saved, exact, score, onSave, onOpen }: { profile
 
 export default function InsidePage() {
   const [section, setSection] = useState<Section>("home");
-  const [conversations, setConversations] = useState<ConversationItem[]>(demoConversations);
-  const [activeConversationId, setActiveConversationId] = useState(demoConversations[0].id);
-  const [messages, setMessages] = useState<ChatMessage[]>(demoMessages[demoConversations[0].id]);
-  const [messageDraft, setMessageDraft] = useState("");
   const [currentUserId, setCurrentUserId] = useState<string>();
   const [mode, setMode] = useState<"demo" | "live" | "empty">("demo");
-  const [chatError, setChatError] = useState("");
+  const [unreadMessages, setUnreadMessages] = useState(2);
   const [featureError, setFeatureError] = useState("");
   const [notice, setNotice] = useState("");
   const [savedIds, setSavedIds] = useState<string[]>([]);
@@ -256,7 +223,6 @@ export default function InsidePage() {
   const [partnerSpecs, setPartnerSpecs] = useState<PartnerSpecs>(defaultPartnerSpecs);
   const [specTab, setSpecTab] = useState<"mine" | "partner">("mine");
 
-  const activeConversation = useMemo(() => conversations.find((conversation) => conversation.id === activeConversationId), [activeConversationId, conversations]);
   const availableProfiles = useMemo(() => liveProfiles.length === 0 ? demoProfiles : liveProfiles.map((profile) => ({ ...profile, isOnline: onlineIds.includes(profile.id) })), [liveProfiles, onlineIds]);
   const searchResults = useMemo(() => {
     const min = Number(appliedFilters.ageMin) || 18;
@@ -286,19 +252,7 @@ export default function InsidePage() {
     async function loadAccount() {
       const { data: { session } } = await supabase.auth.getSession();
       if (cancelled || !session?.user) return;
-      const userId = session.user.id;
-      setCurrentUserId(userId);
-      const { data, error } = await supabase.from("conversations").select("id, participant_a, participant_b, status, last_message_at").order("last_message_at", { ascending: false });
-      if (cancelled || error) return;
-      const rows = (data ?? []) as ConversationRow[];
-      if (rows.length === 0) { setMode("empty"); setConversations([]); setMessages([]); return; }
-      const liveConversations = rows.map((row, index) => ({
-        id: row.id, partnerId: row.participant_a === userId ? row.participant_b : row.participant_a,
-        name: `حساب عَهْد ${String(index + 1).padStart(2, "0")}`,
-        headline: row.status === "active" ? "محادثة خاصة بعد قبول متبادل" : "المحادثة مغلقة",
-        time: formatConversationTime(row.last_message_at), unread: 0, isDemo: false,
-      }));
-      setMode("live"); setConversations(liveConversations); setActiveConversationId(liveConversations[0].id);
+      setCurrentUserId(session.user.id);
     }
     void loadAccount();
     return () => { cancelled = true; };
@@ -366,46 +320,6 @@ export default function InsidePage() {
     return () => { stopped = true; window.clearInterval(timer); void supabase.from("presence_sessions").delete().eq("user_id", currentUserId); };
   }, [currentUserId, showOnline]);
 
-  useEffect(() => {
-    if (activeConversationId.startsWith("demo-") || !currentUserId || !isSupabaseConfigured) return;
-    const supabase = getSupabaseClient();
-    let active = true;
-    async function loadMessages() {
-      const { data, error } = await supabase.from("messages").select("id, sender_id, body, created_at, read_at").eq("conversation_id", activeConversationId).order("created_at", { ascending: true });
-      if (!active) return;
-      if (error) { setChatError("تعذّر تحميل الرسائل الآن."); return; }
-      setMessages(((data ?? []) as MessageRow[]).map(mapMessage));
-    }
-    void loadMessages();
-    const channel = supabase.channel(`ahed-chat-${activeConversationId}`).on("postgres_changes", { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${activeConversationId}` }, (payload) => {
-      const incoming = mapMessage(payload.new as MessageRow);
-      setMessages((current) => current.some((message) => message.id === incoming.id) ? current : [...current, incoming]);
-    }).subscribe();
-    return () => { active = false; void supabase.removeChannel(channel); };
-  }, [activeConversationId, currentUserId]);
-
-  const openConversation = (conversation: ConversationItem) => {
-    setChatError("");
-    if (conversation.isDemo) setMessages(demoMessages[conversation.id] ?? []);
-    setActiveConversationId(conversation.id); setSection("messages");
-  };
-
-  const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const body = messageDraft.trim();
-    if (!body || !activeConversation) return;
-    setMessageDraft(""); setChatError("");
-    if (activeConversation.isDemo || !currentUserId) {
-      setMessages((current) => [...current, { id: `local-${Date.now()}`, senderId: "me", body, createdAt: new Intl.DateTimeFormat("ar-AE", { hour: "2-digit", minute: "2-digit" }).format(new Date()), readAt: null }]);
-      return;
-    }
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase.from("messages").insert({ conversation_id: activeConversation.id, sender_id: currentUserId, body }).select("id, sender_id, body, created_at, read_at").single();
-    if (error) { setMessageDraft(body); setChatError("لم تُرسل الرسالة. حاولي مرة أخرى."); return; }
-    const sent = mapMessage(data as MessageRow);
-    setMessages((current) => current.some((message) => message.id === sent.id) ? current : [...current, sent]);
-  };
-
   const applySearch = () => { setAppliedFilters(filterDraft); setSection("discover"); setNotice("تم ترتيب النتائج حسب مواصفاتك."); };
   const toggleSaved = (id: string) => setSavedIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   const updateOnlinePreference = async () => {
@@ -461,6 +375,18 @@ export default function InsidePage() {
 
   const toggleArrayValue = (values: string[], value: string) => values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
 
+  const openNotifications = async () => {
+    const permission = await enableAhedNotifications();
+    if (permission === "unsupported") {
+      setNotice("هذا الجهاز لا يدعم إشعارات التطبيق، لكن عدّاد الرسائل سيبقى ظاهراً.");
+    } else if (permission === "denied") {
+      setNotice("الإشعارات محظورة من إعدادات الجهاز. اسمحي بها لتظهر خارج المحادثة.");
+    } else {
+      setNotice("تم تفعيل إشعارات الرسائل الجديدة.");
+    }
+    if (unreadMessages) setSection("messages");
+  };
+
   return (
     <main className="inside-app" dir="rtl">
       <aside className="inside-sidebar">
@@ -469,7 +395,7 @@ export default function InsidePage() {
         <nav className="inside-nav" aria-label="القائمة الرئيسية">
           {navItems.map((item) => {
             const Icon = item.icon;
-            return <button key={item.id} type="button" className={section === item.id ? "is-active" : ""} onClick={() => setSection(item.id)}><Icon /><span>{item.label}</span>{item.id === "messages" ? <b className="nav-count">2</b> : null}{item.id === "online" ? <b className="nav-live-dot" /> : null}</button>;
+            return <button key={item.id} type="button" className={section === item.id ? "is-active" : ""} onClick={() => setSection(item.id)}><Icon /><span>{item.label}</span>{item.id === "messages" && unreadMessages ? <b className="nav-count">{unreadMessages}</b> : null}{item.id === "online" ? <b className="nav-live-dot" /> : null}</button>;
           })}
         </nav>
         <div className="inside-safety"><ShieldCheck /><span><strong>مساحتك محمية</strong><small>لا محادثة إلا بعد القبول المتبادل</small></span></div>
@@ -480,12 +406,13 @@ export default function InsidePage() {
         <header className="inside-topbar">
           <div className="inside-mobile-brand"><Brand /></div>
           <form className="inside-search" onSubmit={(event) => { event.preventDefault(); applySearch(); }}><Search /><Input aria-label="البحث" placeholder="ابحث بالمواصفات..." /></form>
-          <div className="inside-top-actions"><button type="button" aria-label="الإشعارات"><Bell /><span /></button><div className="inside-stage"><Sparkles /> النسخة التأسيسية</div></div>
+          <div className="inside-top-actions"><button type="button" aria-label={unreadMessages ? `لديك ${unreadMessages} رسائل غير مقروءة` : "تفعيل الإشعارات"} onClick={() => void openNotifications()}><Bell />{unreadMessages ? <span className="notification-count">{unreadMessages}</span> : null}</button><div className="inside-stage"><Sparkles /> النسخة التأسيسية</div></div>
         </header>
 
         <div className="inside-preview-notice"><Shield /><p><strong>معاينة الهيكل الداخلي المطوّر</strong>الملفات والإعلانات الموسومة «تجريبي» ليست لأشخاص حقيقيين.</p><span>{mode === "live" ? "بيانات الحساب الفعلية" : mode === "empty" ? "حساب فعلي بلا محادثات" : "وضع المعاينة"}</span></div>
         {notice ? <button type="button" className="inside-toast" onClick={() => setNotice("")}><Check />{notice}<span>×</span></button> : null}
         {featureError ? <p className="inside-inline-error">{featureError}</p> : null}
+        <AhedChat currentUserId={currentUserId} isVisible={section === "messages"} onModeChange={setMode} onUnreadCountChange={setUnreadMessages} onOpenChat={() => setSection("messages")} />
 
         {section === "home" ? (
           <div className="inside-content">
@@ -509,7 +436,7 @@ export default function InsidePage() {
               <article><span className="stat-icon stat-icon--spark"><Sparkles /></span><div><small>مطابقات قوية</small><strong>{searchResults.filter((result) => result.exact).length}</strong><p>حسب مواصفاتك</p></div></article>
               <article><span className="stat-icon stat-icon--online"><Users /></span><div><small>متواجدون الآن</small><strong>{onlineProfiles.length}</strong><p>مع خيار إخفاء الظهور</p></div></article>
               <article><span className="stat-icon stat-icon--heart"><HeartHandshake /></span><div><small>طلبات تعارف</small><strong>4</strong><p>بانتظار المراجعة</p></div></article>
-              <article><span className="stat-icon stat-icon--chat"><MessageCircle /></span><div><small>رسائل جديدة</small><strong>2</strong><p>في محادثة واحدة</p></div></article>
+              <article><span className="stat-icon stat-icon--chat"><MessageCircle /></span><div><small>رسائل جديدة</small><strong>{unreadMessages}</strong><p>{unreadMessages ? "بانتظار قراءتك" : "لا توجد رسائل غير مقروءة"}</p></div></article>
             </section>
 
             <section className="inside-section">
@@ -596,36 +523,6 @@ export default function InsidePage() {
           </div>
         ) : null}
 
-        {section === "messages" ? (
-          <div className="messages-page">
-            <div className="messages-heading"><div><span className="inside-eyebrow">تواصل واضح وآمن</span><h1>المحادثات</h1></div><button type="button" aria-label="فلترة المحادثات"><SlidersHorizontal /></button></div>
-            <div className="chat-layout">
-              <aside className="conversation-list">
-                <div className="conversation-search"><Search /><Input placeholder="ابحث في المحادثات..." /></div>
-                <div className="conversation-scroll">
-                  {conversations.map((conversation, index) => <button type="button" key={conversation.id} className={activeConversationId === conversation.id ? "conversation-row is-active" : "conversation-row"} onClick={() => openConversation(conversation)}><span className="conversation-avatar">ع{index + 1}</span><span className="conversation-copy"><strong>{conversation.name}</strong><small>{conversation.headline}</small></span><span className="conversation-meta"><small>{conversation.time}</small>{conversation.unread ? <b>{conversation.unread}</b> : null}</span></button>)}
-                  {conversations.length === 0 ? <div className="inside-empty"><MessageCircle /><strong>لا توجد محادثات بعد</strong><p>يظهر هنا أي تعارف يقبله الطرفان.</p></div> : null}
-                </div>
-              </aside>
-              <section className="chat-panel">
-                {activeConversation ? (
-                  <>
-                    <header className="chat-header"><div><span className="conversation-avatar">ع</span><span><strong>{activeConversation.name}</strong><small><span className="online-dot" /> مساحة تعارف خاصة</small></span></div><button type="button"><ShieldCheck /> الأمان</button></header>
-                    <div className="chat-safety-line"><LockKeyhole /> هذه المحادثة لا يراها إلا الحسابان المشاركان.</div>
-                    <div className="chat-messages" aria-live="polite"><div className="chat-day"><span>اليوم</span></div>{messages.map((message) => {
-                      const isMine = message.senderId === currentUserId || message.senderId === "me";
-                      const isSystem = message.senderId === "system";
-                      return <div key={message.id} className={isSystem ? "message-bubble message-bubble--system" : isMine ? "message-bubble message-bubble--mine" : "message-bubble"}><p>{message.body}</p><span>{message.createdAt}{isMine ? <CheckCheck /> : null}</span></div>;
-                    })}</div>
-                    <form className="chat-composer" onSubmit={sendMessage}><Input value={messageDraft} onChange={(event) => setMessageDraft(event.target.value)} maxLength={2000} placeholder="اكتب رسالة باحترام ووضوح..." aria-label="نص الرسالة" /><Button type="submit" aria-label="إرسال الرسالة"><Send /></Button></form>
-                    {chatError ? <p className="chat-error" role="alert">{chatError}</p> : null}
-                  </>
-                ) : <div className="inside-empty inside-empty--large"><MessageCircle /><strong>اختاري محادثة</strong><p>ستظهر الرسائل هنا بعد بدء تعارف متبادل.</p></div>}
-              </section>
-            </div>
-          </div>
-        ) : null}
-
         {section === "requests" ? (
           <div className="inside-content">
             <section className="inside-page-heading"><div><span className="inside-eyebrow">القبول المتبادل أولاً</span><h1>طلبات التعارف</h1><p>لن تُفتح أي محادثة قبل موافقة الحسابين.</p></div></section>
@@ -688,7 +585,7 @@ export default function InsidePage() {
         <nav className="inside-mobile-nav" aria-label="التنقل على الهاتف">
           {navItems.filter((item) => ["home", "discover", "online", "messages", "profile"].includes(item.id)).map((item) => {
             const Icon = item.icon;
-            return <button key={item.id} type="button" className={section === item.id ? "is-active" : ""} onClick={() => setSection(item.id)}><Icon /><span>{item.label}</span></button>;
+            return <button key={item.id} type="button" className={section === item.id ? "is-active" : ""} onClick={() => setSection(item.id)}><Icon /><span>{item.label}</span>{item.id === "messages" && unreadMessages ? <b className="mobile-nav-count">{unreadMessages}</b> : null}</button>;
           })}
         </nav>
       </section>
