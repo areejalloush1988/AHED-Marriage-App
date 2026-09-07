@@ -40,10 +40,8 @@ import { AhedChat, enableAhedNotifications } from "@/components/ahed-chat";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
-import { isAndroidPhoneDevice } from "@/lib/android-device";
 
 import "./inside.css";
-import "./samsung-phone.generated.css";
 
 type Section = "home" | "discover" | "online" | "posts" | "requests" | "messages" | "saved" | "subscriptions" | "profile";
 
@@ -195,7 +193,7 @@ const demoPosts: MarriagePost[] = [
   {
     id: "demo-post-3", author: "حساب عَهْد 17", headline: "الاحترام قبل أي شيء",
     body: "شخصية عملية وهادئة من الخليج، أبحث عن شريك يحترم الخصوصية ويؤمن بالحوار والمسؤولية المشتركة.",
-    partnerSummary: "هادئ، صادق، لديه هدف واضح من وجوده في التطبيق.", time: "أمس", featured: false,
+    partnerSummary: "هادئ، صادق، لديه هدف واضح من وجوده في المنصة.", time: "أمس", featured: false,
     status: "approved", isDemo: true,
   },
 ];
@@ -252,30 +250,6 @@ export default function InsidePage() {
   const [mySpecs, setMySpecs] = useState<MySpecs>(defaultMySpecs);
   const [partnerSpecs, setPartnerSpecs] = useState<PartnerSpecs>(defaultPartnerSpecs);
   const [specTab, setSpecTab] = useState<"mine" | "partner">("mine");
-
-  useEffect(() => {
-    const viewport = document.querySelector<HTMLMetaElement>('meta[name="viewport"]');
-    const originalViewport = viewport?.content;
-
-    const updateSamsungPhoneMode = () => {
-      const isAndroidPhone = isAndroidPhoneDevice();
-      document.documentElement.classList.toggle("ahed-samsung-phone", isAndroidPhone);
-      if (isAndroidPhone && viewport) {
-        viewport.content = "width=device-width, initial-scale=1, viewport-fit=cover";
-      }
-    };
-
-    updateSamsungPhoneMode();
-    window.addEventListener("resize", updateSamsungPhoneMode);
-    window.addEventListener("orientationchange", updateSamsungPhoneMode);
-
-    return () => {
-      window.removeEventListener("resize", updateSamsungPhoneMode);
-      window.removeEventListener("orientationchange", updateSamsungPhoneMode);
-      document.documentElement.classList.remove("ahed-samsung-phone");
-      if (viewport && originalViewport) viewport.content = originalViewport;
-    };
-  }, []);
 
   const availableProfiles = useMemo(() => liveProfiles.length === 0 ? demoProfiles : liveProfiles.map((profile) => ({ ...profile, isOnline: onlineIds.includes(profile.id) })), [liveProfiles, onlineIds]);
   const searchResults = useMemo(() => {
@@ -432,7 +406,7 @@ export default function InsidePage() {
   const openNotifications = async () => {
     const permission = await enableAhedNotifications();
     if (permission === "unsupported") {
-      setNotice("هذا الجهاز لا يدعم إشعارات التطبيق، لكن عدّاد الرسائل سيبقى ظاهراً.");
+      setNotice("هذا المتصفح لا يدعم إشعارات الموقع، لكن عدّاد الرسائل سيبقى ظاهراً.");
     } else if (permission === "denied") {
       setNotice("الإشعارات محظورة من إعدادات الجهاز. اسمحي بها لتظهر خارج المحادثة.");
     } else {

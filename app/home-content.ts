@@ -168,7 +168,7 @@ export const homeContent = {
       description: "ما زال لديك سؤال؟ تواصل مع فريق عَهْد عبر البريد الرسمي وسنجيبك.",
       items: [
         {
-          question: "هل عَهْد تطبيق تعارف؟",
+          question: "هل عَهْد منصة تعارف؟",
           answer:
             "لا. عَهْد منصة مخصّصة للزواج الجاد فقط. بُنيت رحلة الاستخدام حول وضوح النية، مراجعة الملفات، والقبول المتبادل قبل أي محادثة.",
         },
@@ -373,7 +373,7 @@ export const homeContent = {
       description: "Still have a question? Contact the AHED team through our official email.",
       items: [
         {
-          question: "Is AHED a dating app?",
+          question: "Is AHED a dating platform?",
           answer:
             "No. AHED is a platform for serious marriage only, built around clear intention, profile review, and mutual acceptance before conversation.",
         },

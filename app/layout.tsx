@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import "@fontsource/noto-naskh-arabic/400.css";
 import "@fontsource/noto-naskh-arabic/600.css";
 import "@fontsource/noto-naskh-arabic/700.css";
+
+import { WebOnlyCleanup } from "@/components/web-only-cleanup";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +16,6 @@ export const metadata: Metadata = {
   description:
     "عَهْد منصة للزواج الجاد تقوم على وضوح النية، الخصوصية، مراجعة الملفات، والقبول المتبادل قبل التواصل.",
   applicationName: "AHED | عَهْد",
-  manifest: "/site.webmanifest",
   keywords: [
     "زواج جاد",
     "منصة زواج",
@@ -42,7 +44,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
-    apple: "/favicon.png",
   },
 };
 
@@ -53,7 +54,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body>{children}</body>
+      <body>
+        <WebOnlyCleanup />
+        {children}
+      </body>
     </html>
   );
 }

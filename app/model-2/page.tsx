@@ -2,13 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   CalendarDays,
   ClipboardCheck,
-  Download,
   Globe2,
   GraduationCap,
   Handshake,
@@ -18,8 +17,6 @@ import {
   Mail,
   MapPin,
   MessageCircleMore,
-  MonitorSmartphone,
-  ShieldCheck,
   Sparkles,
   Star,
   UserRoundPlus,
@@ -35,11 +32,6 @@ const fireworkRays = Array.from({ length: 12 }, (_, index) => index);
 const compatibilityIcons = [Heart, Sparkles, GraduationCap, Handshake];
 const journeyIcons = [UserRoundPlus, ClipboardCheck, UserSearch, MessageCircleMore];
 const ratingStars = Array.from({ length: 5 }, (_, index) => index);
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
-}
 
 function WhatsAppMark() {
   return (
@@ -62,9 +54,6 @@ function TikTokMark() {
 export default function ModelTwo() {
   const [locale, setLocale] = useState<HomeLocale>("ar");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [installMessage, setInstallMessage] = useState("");
-  const [isAppInstalled, setIsAppInstalled] = useState(false);
   const copy = homeContent[locale];
   const isArabic = locale === "ar";
   const DirectionalArrow = isArabic ? ArrowLeft : ArrowRight;
@@ -152,25 +141,6 @@ export default function ModelTwo() {
         decisionChoiceTitle: "اختر الطريق الأنسب لك",
         decisionChooseProfile: "ابدأ بإنشاء ملفك",
         decisionChooseMatchmaker: "دع الموفّق يساعدك",
-        downloadNav: "حمّل التطبيق",
-        downloadEyebrow: "عَهْد معك أينما كنت",
-        downloadTitle: "ثبّت تطبيق عَهْد وابدأ رحلتك بسهولة.",
-        downloadDescription:
-          "أضف عَهْد إلى شاشة جهازك للوصول السريع إلى ملفك وترشيحاتك ومحادثاتك.",
-        downloadInstall: "ثبّت التطبيق على جهازك",
-        downloadWeb: "ابدأ عبر المتصفح",
-        downloadFeatures: [
-          "وصول سريع وآمن",
-          "متوافق مع الهاتف والتابلت",
-          "تجربتك مرتبطة بحسابك",
-        ],
-        downloadIosHint:
-          "على iPhone أو iPad: افتح زر المشاركة ثم اختر «إضافة إلى الشاشة الرئيسية».",
-        downloadFallback:
-          "إذا لم تظهر نافذة التثبيت، افتح قائمة المتصفح واختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».",
-        downloadAccepted: "بدأ تثبيت تطبيق عَهْد على جهازك.",
-        downloadDismissed: "يمكنك تثبيت التطبيق لاحقًا من زر التحميل نفسه.",
-        downloadVisualLabel: "تطبيق عَهْد للزواج الجاد",
         profileAge: "العمر",
         profileLocation: "الموقع",
         profileEducation: "المستوى التعليمي",
@@ -276,25 +246,6 @@ export default function ModelTwo() {
         decisionChoiceTitle: "Choose the path that suits you",
         decisionChooseProfile: "Start with your profile",
         decisionChooseMatchmaker: "Let a matchmaker help",
-        downloadNav: "Download the app",
-        downloadEyebrow: "AHED wherever you are",
-        downloadTitle: "Install AHED and begin your journey with ease.",
-        downloadDescription:
-          "Add AHED to your device for quick access to your profile, recommendations, and conversations.",
-        downloadInstall: "Install on this device",
-        downloadWeb: "Continue on the web",
-        downloadFeatures: [
-          "Fast and secure access",
-          "Made for phones and tablets",
-          "Your experience stays with your account",
-        ],
-        downloadIosHint:
-          "On iPhone or iPad, open Share and choose “Add to Home Screen.”",
-        downloadFallback:
-          "If the install window does not appear, open your browser menu and choose “Install app” or “Add to Home Screen.”",
-        downloadAccepted: "AHED installation has started on your device.",
-        downloadDismissed: "You can install AHED later from the same button.",
-        downloadVisualLabel: "AHED serious-marriage app",
         profileAge: "Age",
         profileLocation: "Location",
         profileEducation: "Education",
@@ -318,59 +269,6 @@ export default function ModelTwo() {
         tiktok: "TikTok",
         support: "Support",
       };
-
-  useEffect(() => {
-    const captureInstallPrompt = (event: Event) => {
-      event.preventDefault();
-      setInstallPrompt(event as BeforeInstallPromptEvent);
-    };
-
-    const markAppInstalled = () => {
-      setIsAppInstalled(true);
-      setInstallPrompt(null);
-      setInstallMessage("");
-    };
-
-    const navigatorWithStandalone = window.navigator as Navigator & { standalone?: boolean };
-    const standaloneQuery = window.matchMedia("(display-mode: standalone)");
-    const updateInstalledState = () => {
-      setIsAppInstalled(
-        standaloneQuery.matches || navigatorWithStandalone.standalone === true,
-      );
-    };
-    const initialCheck = window.requestAnimationFrame(updateInstalledState);
-
-    window.addEventListener("beforeinstallprompt", captureInstallPrompt);
-    window.addEventListener("appinstalled", markAppInstalled);
-    standaloneQuery.addEventListener("change", updateInstalledState);
-    return () => {
-      window.cancelAnimationFrame(initialCheck);
-      window.removeEventListener("beforeinstallprompt", captureInstallPrompt);
-      window.removeEventListener("appinstalled", markAppInstalled);
-      standaloneQuery.removeEventListener("change", updateInstalledState);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!installMessage) return;
-    const timeout = window.setTimeout(() => setInstallMessage(""), 12000);
-    return () => window.clearTimeout(timeout);
-  }, [installMessage]);
-
-  const handleInstall = async () => {
-    if (installPrompt) {
-      await installPrompt.prompt();
-      const choice = await installPrompt.userChoice;
-      setInstallMessage(
-        choice.outcome === "accepted" ? labels.downloadAccepted : labels.downloadDismissed,
-      );
-      setInstallPrompt(null);
-      return;
-    }
-
-    const isIos = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
-    setInstallMessage(isIos ? labels.downloadIosHint : labels.downloadFallback);
-  };
 
   return (
     <main
@@ -398,7 +296,6 @@ export default function ModelTwo() {
             <a href="#compatibility">{labels.compatibilityNav}</a>
             <a href="#story">{labels.storyNav}</a>
             <a href="#faq">{copy.nav.faq}</a>
-            <a href="#download">{labels.downloadNav}</a>
           </nav>
 
           <div className={styles.headerActions}>
@@ -421,20 +318,6 @@ export default function ModelTwo() {
           </div>
         </div>
       </header>
-
-      {!isAppInstalled ? (
-        <aside className={styles.floatingInstall} aria-label={labels.downloadNav}>
-          {installMessage ? (
-            <p className={styles.floatingInstallMessage} role="status">
-              {installMessage}
-            </p>
-          ) : null}
-          <button type="button" onClick={() => void handleInstall()}>
-            <Download aria-hidden="true" />
-            <span>{labels.downloadNav}</span>
-          </button>
-        </aside>
-      ) : null}
 
       <section className={styles.hero} data-hero-layout="static-couple">
         <div className={styles.heroCopy}>
@@ -968,52 +851,6 @@ export default function ModelTwo() {
               {labels.decisionChooseMatchmaker}
             </a>
           </div>
-        </div>
-      </section>
-
-      <section id="download" className={styles.downloadSection} aria-labelledby="download-title">
-        <div className={styles.downloadCopy}>
-          <span className={styles.downloadEyebrow}>
-            <Download aria-hidden="true" />
-            {labels.downloadEyebrow}
-          </span>
-          <h2 id="download-title">{labels.downloadTitle}</h2>
-          <p>{labels.downloadDescription}</p>
-
-          <ul className={styles.downloadFeatures}>
-            {labels.downloadFeatures.map((feature) => (
-              <li key={feature}>
-                <ShieldCheck aria-hidden="true" />
-                {feature}
-              </li>
-            ))}
-          </ul>
-
-          <div className={styles.downloadActions}>
-            <button type="button" onClick={() => void handleInstall()}>
-              <Download aria-hidden="true" />
-              {labels.downloadInstall}
-            </button>
-            <Link href="/register">
-              <Globe2 aria-hidden="true" />
-              {labels.downloadWeb}
-            </Link>
-          </div>
-
-          {installMessage ? (
-            <p className={styles.downloadStatus} role="status">
-              {installMessage}
-            </p>
-          ) : null}
-        </div>
-
-        <div className={styles.downloadVisual} aria-label={labels.downloadVisualLabel} role="img">
-          <span className={styles.downloadVisualIcon} aria-hidden="true">
-            <MonitorSmartphone />
-          </span>
-          <AhedBrand alt="" className={styles.downloadBrandLogo} locale={locale} />
-          <span className={styles.downloadVisualRule} aria-hidden="true" />
-          <strong>{labels.downloadNav}</strong>
         </div>
       </section>
 

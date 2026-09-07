@@ -205,7 +205,7 @@ export default function LoginPage() {
           </div>
 
           <Link className="login-preview" href="/inside">
-            معاينة التطبيق من الداخل
+            معاينة المنصة من الداخل
           </Link>
 
           <p className="login-register">

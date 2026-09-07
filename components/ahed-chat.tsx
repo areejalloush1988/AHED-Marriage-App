@@ -302,22 +302,11 @@ const demoMessages: Record<string, ChatMessage[]> = {
   ],
 };
 
-async function registerAhedServiceWorker() {
-  if (!("serviceWorker" in navigator)) return undefined;
-  try {
-    const scriptUrl = new URL("../ahed-sw.js", window.location.href);
-    return await navigator.serviceWorker.register(scriptUrl);
-  } catch {
-    return undefined;
-  }
-}
-
 export async function enableAhedNotifications() {
   if (typeof window === "undefined" || !("Notification" in window)) {
     return "unsupported" as const;
   }
 
-  await registerAhedServiceWorker();
   if (Notification.permission === "granted") return "granted" as const;
   if (Notification.permission === "denied") return "denied" as const;
 
@@ -329,17 +318,15 @@ async function showDeviceNotification(conversationName: string, conversationId: 
   if (!("Notification" in window) || Notification.permission !== "granted") return;
 
   try {
-    const registration = await registerAhedServiceWorker();
-    if (registration) {
-      const appRoot = new URL("../", window.location.href);
-      await registration.showNotification("رسالة جديدة في عَهْد", {
-        body: `وصلتك رسالة جديدة من ${conversationName}`,
-        icon: new URL("favicon.png", appRoot).href,
-        badge: new URL("favicon.png", appRoot).href,
-        tag: `ahed-message-${conversationId}`,
-        data: { url: new URL("inside/", appRoot).href, conversationId },
-      });
-    }
+    const notification = new Notification("رسالة جديدة في عَهْد", {
+      body: `وصلتك رسالة جديدة من ${conversationName}`,
+      icon: new URL("../favicon.png", window.location.href).href,
+      tag: `ahed-message-${conversationId}`,
+    });
+    notification.onclick = () => {
+      window.focus();
+      notification.close();
+    };
   } catch {
     // The in-app notification remains available when system notifications fail.
   }
@@ -448,10 +435,6 @@ export function AhedChat({
       ? `(${unreadCount}) عَهْد | المحادثات`
       : "عَهْد | منصة زواج جاد وموثوق";
   }, [onUnreadCountChange, unreadCount]);
-
-  useEffect(() => {
-    void registerAhedServiceWorker();
-  }, []);
 
   useEffect(() => {
     const timer = window.setInterval(() => setEditClock(Date.now()), 30_000);
@@ -1155,7 +1138,7 @@ export function AhedChat({
       }, 500);
     } catch {
       setRecording(false);
-      setChatError("تعذّر تشغيل الميكروفون. تأكدي من السماح للتطبيق باستخدامه.");
+      setChatError("تعذّر تشغيل الميكروفون. تأكدي من السماح للموقع باستخدامه.");
     }
   };
 
