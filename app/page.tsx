@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 
 import { AhedBrand } from "@/components/ahed-brand";
+import { isAndroidPhoneDevice, isStandaloneApp } from "@/lib/android-device";
 
 import { homeContent, type HomeLocale } from "./home-content";
 import styles from "./home.module.css";
@@ -61,6 +62,12 @@ export default function Home() {
   const copy = homeContent[locale];
   const isArabic = locale === "ar";
   const DirectionalArrow = isArabic ? ArrowLeft : ArrowRight;
+
+  useEffect(() => {
+    if (isStandaloneApp() && isAndroidPhoneDevice()) {
+      window.location.replace("/inside/");
+    }
+  }, []);
 
   return (
     <main

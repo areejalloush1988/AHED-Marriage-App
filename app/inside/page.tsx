@@ -40,8 +40,10 @@ import { AhedChat, enableAhedNotifications } from "@/components/ahed-chat";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
+import { isAndroidPhoneDevice } from "@/lib/android-device";
 
 import "./inside.css";
+import "./samsung-phone.generated.css";
 
 type Section = "home" | "discover" | "online" | "posts" | "requests" | "messages" | "saved" | "profile";
 
@@ -224,45 +226,26 @@ export default function InsidePage() {
   const [specTab, setSpecTab] = useState<"mine" | "partner">("mine");
 
   useEffect(() => {
-    const samsungPhoneQuery = window.matchMedia("(max-width: 620px) and (pointer: coarse)");
-    const userAgent = window.navigator.userAgent;
-    const userAgentData = (window.navigator as Navigator & {
-      userAgentData?: {
-        mobile?: boolean;
-        platform?: string;
-        getHighEntropyValues?: (hints: string[]) => Promise<{ model?: string }>;
-      };
-    }).userAgentData;
-    const isAndroidPhone = (/Android/i.test(userAgent) || userAgentData?.platform === "Android")
-      && (/Mobile/i.test(userAgent) || userAgentData?.mobile === true);
-    let active = true;
-    let highEntropyModel = "";
-
-    const isSamsungPhoneModel = (model: string) => /^(?:SAMSUNG[- ]?)?SM-(?!T|X|P)[A-Z0-9-]+$/i.test(model);
-    const isSamsungDevice = () => /SAMSUNG|SM-(?!T|X|P)[A-Z0-9-]+/i.test(userAgent)
-      || isSamsungPhoneModel(highEntropyModel);
+    const viewport = document.querySelector<HTMLMetaElement>('meta[name="viewport"]');
+    const originalViewport = viewport?.content;
 
     const updateSamsungPhoneMode = () => {
-      document.documentElement.classList.toggle(
-        "ahed-samsung-phone",
-        isAndroidPhone && isSamsungDevice() && samsungPhoneQuery.matches,
-      );
+      const isAndroidPhone = isAndroidPhoneDevice();
+      document.documentElement.classList.toggle("ahed-samsung-phone", isAndroidPhone);
+      if (isAndroidPhone && viewport) {
+        viewport.content = "width=device-width, initial-scale=1, viewport-fit=cover";
+      }
     };
 
     updateSamsungPhoneMode();
-    void userAgentData?.getHighEntropyValues?.(["model"])
-      .then(({ model }) => {
-        if (!active) return;
-        highEntropyModel = model ?? "";
-        updateSamsungPhoneMode();
-      })
-      .catch(() => undefined);
-    samsungPhoneQuery.addEventListener("change", updateSamsungPhoneMode);
+    window.addEventListener("resize", updateSamsungPhoneMode);
+    window.addEventListener("orientationchange", updateSamsungPhoneMode);
 
     return () => {
-      active = false;
-      samsungPhoneQuery.removeEventListener("change", updateSamsungPhoneMode);
+      window.removeEventListener("resize", updateSamsungPhoneMode);
+      window.removeEventListener("orientationchange", updateSamsungPhoneMode);
       document.documentElement.classList.remove("ahed-samsung-phone");
+      if (viewport && originalViewport) viewport.content = originalViewport;
     };
   }, []);
 
