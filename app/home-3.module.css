@@ -248,16 +248,17 @@
 
 .plansGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(940px, 100%);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
   gap: 17px;
-  margin-top: 58px;
+  margin: 58px auto 0;
 }
 
 .planCard {
   position: relative;
   display: flex;
-  min-height: 610px;
+  min-height: 530px;
   flex-direction: column;
   padding: 31px;
   border: 1px solid var(--line);
@@ -305,7 +306,7 @@
 
 .priceRows {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 10px;
   margin-top: 24px;
 }

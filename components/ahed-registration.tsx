@@ -46,7 +46,7 @@ type Step =
   | "complete"
   | "waitlist"
   | "waitlist-complete";
-type Plan = "basic" | "pro" | "matchmaker";
+type Plan = "pro" | "matchmaker";
 
 type WomanDraft = {
   firstName: string;
@@ -126,23 +126,17 @@ const countries = [
 ];
 
 const planDetails = {
-  basic: {
-    name: "عَهْد الأساسي",
-    price: 50,
-    description: "تفعيل لمرة واحدة دون تجديد تلقائي",
-    features: ["ملف موثّق", "طلبات اهتمام", "محادثة بعد القبول"],
-  },
   pro: {
-    name: "عَهْد Pro",
-    price: 250,
-    description: "خصوصية وتحكم أكبر في رحلة البحث",
-    features: ["كل مزايا الأساسي", "فلاتر دقيقة", "وضع مخفي"],
+    name: "عَهْد بلاس",
+    price: 99,
+    description: "الأدوات الأساسية للبحث الجاد والتواصل الآمن",
+    features: ["بحث متقدم", "حفظ الملفات", "طلبات تعارف", "محادثة بعد القبول"],
   },
   matchmaker: {
-    name: "الموفّق الشخصي",
-    price: 850,
-    description: "مراجعة بشرية وترشيحات مدروسة",
-    features: ["يشمل Pro", "جلسة تعريف", "ترشيحات يدوية"],
+    name: "عَهْد VIP",
+    price: 199,
+    description: "ظهور أقوى وخصوصية أوسع داخل عَهْد",
+    features: ["كل مزايا بلاس", "شارة VIP", "أولوية الظهور", "خيارات خصوصية إضافية"],
   },
 } satisfies Record<
   Plan,
@@ -216,7 +210,7 @@ export function AhedRegistration({
 }) {
   const [step, setStep] = useState<Step>(initialStep);
   const [gender, setGender] = useState<Gender | undefined>(initialGender);
-  const [plan, setPlan] = useState<Plan>("basic");
+  const [plan, setPlan] = useState<Plan>("pro");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [waitlistSent, setWaitlistSent] = useState(false);
   const [waitlistTermsAccepted, setWaitlistTermsAccepted] = useState(false);
@@ -244,7 +238,7 @@ export function AhedRegistration({
   const restart = () => {
     setStep("entry");
     setGender(undefined);
-    setPlan("basic");
+    setPlan("pro");
     setTermsAccepted(false);
     setWaitlistSent(false);
     setWaitlistTermsAccepted(false);
@@ -433,8 +427,8 @@ export function AhedRegistration({
               <div>
                 <HeartHandshake />
                 <span>
-                  <strong>دفع مرة واحدة</strong>
-                  <small>لا اشتراك ولا تجديد تلقائي</small>
+                  <strong>اشتراكان واضحان</strong>
+                  <small>بلاس وVIP بفوترة شهرية</small>
                 </span>
               </div>
             </div>
@@ -497,7 +491,7 @@ export function AhedRegistration({
                         التسجيل مفتوح
                       </span>
                       <strong>حساب امرأة</strong>
-                      <small>50 درهماً لمرة واحدة بعد قبول وتوثيق الملف</small>
+                      <small>الاشتراك يبدأ من 99 درهماً شهرياً</small>
                     </span>
                     <ChevronLeft className="choice-arrow" />
                   </Label>
@@ -510,7 +504,7 @@ export function AhedRegistration({
                     <span className="choice-copy">
                       <span className="status-pill">قائمة انتظار</span>
                       <strong>حساب رجل</strong>
-                      <small>لن يتم تحصيل 150 درهماً قبل فتح التسجيل</small>
+                      <small>الاشتراك يبدأ من 99 درهماً شهرياً عند فتح التسجيل</small>
                     </span>
                     <ChevronLeft className="choice-arrow" />
                   </Label>
@@ -831,7 +825,7 @@ export function AhedRegistration({
                 <StepHeader
                   eyebrow="الخطوة 4 من 4"
                   title="اختاري المستوى المناسب"
-                  description="كل باقة تُدفع مرة واحدة فقط. لا يوجد اشتراك شهري أو تجديد تلقائي."
+                  description="يتوفر اشتراكان شهريان فقط: عَهْد بلاس وعَهْد VIP."
                 />
                 <RadioGroup
                   value={plan}
@@ -847,10 +841,10 @@ export function AhedRegistration({
                     <Label
                       key={key}
                       htmlFor={`plan-${key}`}
-                      className={`plan-card ${key === "pro" ? "plan-card--featured" : ""}`}
+                      className={`plan-card ${key === "matchmaker" ? "plan-card--featured" : ""}`}
                     >
-                      {key === "pro" ? (
-                        <span className="recommended-badge">الأكثر توازناً</span>
+                      {key === "matchmaker" ? (
+                        <span className="recommended-badge">الأكثر تميزاً</span>
                       ) : null}
                       <div className="plan-topline">
                         <RadioGroupItem value={key} id={`plan-${key}`} />
@@ -858,7 +852,7 @@ export function AhedRegistration({
                       </div>
                       <div className="plan-price">
                         <strong>{item.price}</strong>
-                        <span>درهماً</span>
+                        <span>درهماً شهرياً</span>
                       </div>
                       <p>{item.description}</p>
                       <ul>
@@ -878,8 +872,8 @@ export function AhedRegistration({
                     <strong>{selectedPlan.name}</strong>
                   </div>
                   <div>
-                    <span>الإجمالي لمرة واحدة</span>
-                    <strong>{selectedPlan.price} درهماً</strong>
+                    <span>الإجمالي الشهري</span>
+                    <strong>{selectedPlan.price} درهماً شهرياً</strong>
                   </div>
                 </div>
                 <Button
@@ -955,8 +949,8 @@ export function AhedRegistration({
                 <div className="waitlist-banner">
                   <ShieldCheck />
                   <p>
-                    <strong>السعر عند فتح التسجيل: 150 درهماً</strong>
-                    دفعة واحدة بعد قبول الملف، دون اشتراك أو تجديد تلقائي.
+                    <strong>الاشتراك عند فتح التسجيل يبدأ من 99 درهماً شهرياً</strong>
+                    يمكنك الاختيار بين عَهْد بلاس وعَهْد VIP بعد قبول الملف.
                   </p>
                 </div>
                 <div className="form-grid">

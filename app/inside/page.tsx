@@ -45,7 +45,7 @@ import { isAndroidPhoneDevice } from "@/lib/android-device";
 import "./inside.css";
 import "./samsung-phone.generated.css";
 
-type Section = "home" | "discover" | "online" | "posts" | "requests" | "messages" | "saved" | "profile";
+type Section = "home" | "discover" | "online" | "posts" | "requests" | "messages" | "saved" | "subscriptions" | "profile";
 
 type DiscoveryProfile = {
   id: string; code: string; displayName: string; age: number; country: string; city: string;
@@ -97,8 +97,36 @@ const navItems: Array<{ id: Section; label: string; icon: typeof Home }> = [
   { id: "requests", label: "طلبات التعارف", icon: HeartHandshake },
   { id: "messages", label: "المحادثات", icon: MessageCircle },
   { id: "saved", label: "المحفوظات", icon: Heart },
+  { id: "subscriptions", label: "الاشتراكات", icon: Crown },
   { id: "profile", label: "مواصفاتي", icon: UserRound },
 ];
+
+const subscriptionPlans = [
+  {
+    id: "plus",
+    name: "عَهْد بلاس",
+    price: 99,
+    description: "كل الأدوات الأساسية للبحث الجاد والتواصل بأمان.",
+    features: [
+      "البحث المتقدم بالمواصفات",
+      "حفظ الملفات المفضلة",
+      "إرسال طلبات التعارف",
+      "المحادثة بعد القبول المتبادل",
+    ],
+  },
+  {
+    id: "vip",
+    name: "عَهْد VIP",
+    price: 199,
+    description: "ظهور أقوى وخصوصية أوسع لرحلة بحث أكثر تميزاً.",
+    features: [
+      "جميع مزايا عَهْد بلاس",
+      "شارة VIP على الملف",
+      "أولوية الظهور في نتائج البحث",
+      "خيارات خصوصية وظهور إضافية",
+    ],
+  },
+] as const;
 
 const demoProfiles: DiscoveryProfile[] = [
   {
@@ -432,7 +460,7 @@ export default function InsidePage() {
         <header className="inside-topbar">
           <div className="inside-mobile-brand"><Brand /></div>
           <form className="inside-search" onSubmit={(event) => { event.preventDefault(); applySearch(); }}><Search /><Input aria-label="البحث" placeholder="ابحث بالمواصفات..." /></form>
-          <div className="inside-top-actions"><button type="button" aria-label={unreadMessages ? `لديك ${unreadMessages} رسائل غير مقروءة` : "تفعيل الإشعارات"} onClick={() => void openNotifications()}><Bell />{unreadMessages ? <span className="notification-count">{unreadMessages}</span> : null}</button><div className="inside-stage"><Sparkles /> النسخة التأسيسية</div></div>
+          <div className="inside-top-actions"><button type="button" aria-label="عرض الاشتراكات" onClick={() => setSection("subscriptions")}><Crown /></button><button type="button" aria-label={unreadMessages ? `لديك ${unreadMessages} رسائل غير مقروءة` : "تفعيل الإشعارات"} onClick={() => void openNotifications()}><Bell />{unreadMessages ? <span className="notification-count">{unreadMessages}</span> : null}</button><div className="inside-stage"><Sparkles /> النسخة التأسيسية</div></div>
         </header>
 
         <div className="inside-preview-notice"><Shield /><p><strong>معاينة الهيكل الداخلي المطوّر</strong>الملفات والإعلانات الموسومة «تجريبي» ليست لأشخاص حقيقيين.</p><span>{mode === "live" ? "بيانات الحساب الفعلية" : mode === "empty" ? "حساب فعلي بلا محادثات" : "وضع المعاينة"}</span></div>
@@ -560,6 +588,31 @@ export default function InsidePage() {
           <div className="inside-content">
             <section className="inside-page-heading"><div><span className="inside-eyebrow">قائمة خاصة بك</span><h1>الملفات المحفوظة</h1><p>الحفظ لا يرسل إشعاراً لصاحب الملف.</p></div></section>
             {savedIds.length ? <div className="recommendation-grid recommendation-grid--wide">{availableProfiles.filter((profile) => savedIds.includes(profile.id)).map((profile) => <ProfileCard key={profile.id} profile={profile} saved onSave={() => toggleSaved(profile.id)} onOpen={() => setSection("requests")} />)}</div> : <div className="inside-placeholder"><Heart /><h2>لا توجد ملفات محفوظة بعد</h2><p>اضغطي على القلب في أي نتيجة للعودة إليها لاحقاً.</p><button type="button" onClick={() => setSection("discover")}>ابدئي البحث</button></div>}
+          </div>
+        ) : null}
+
+        {section === "subscriptions" ? (
+          <div className="inside-content subscription-page">
+            <section className="inside-page-heading subscription-heading">
+              <div><span className="inside-eyebrow">اشتراكان فقط</span><h1>اختاري اشتراك عَهْد المناسب</h1><p>باقات شهرية واضحة، من دون مستويات إضافية أو أسعار مخفية.</p></div>
+              <span className="subscription-heading-icon"><Crown /></span>
+            </section>
+            <div className="subscription-plans">
+              {subscriptionPlans.map((plan) => {
+                const PlanIcon = plan.id === "vip" ? Crown : Sparkles;
+                return (
+                  <article className={`subscription-card subscription-card--${plan.id}`} key={plan.id}>
+                    {plan.id === "vip" ? <span className="subscription-featured-badge"><Crown /> الأكثر تميزاً</span> : null}
+                    <div className="subscription-card-head"><span><PlanIcon /></span><div><small>اشتراك شهري</small><h2>{plan.name}</h2></div></div>
+                    <p>{plan.description}</p>
+                    <div className="subscription-price"><strong>{plan.price}</strong><span><b>درهم</b><small>شهرياً</small></span></div>
+                    <ul>{plan.features.map((feature) => <li key={feature}><Check />{feature}</li>)}</ul>
+                    <button type="button" onClick={() => setNotice(`تم اختيار ${plan.name} بقيمة ${plan.price} درهماً شهرياً.`)}>اختيار {plan.name}<ChevronLeft /></button>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="subscription-note"><ShieldCheck /><p><strong>بلاس وVIP فقط.</strong> لن يظهر أي اشتراك آخر داخل عَهْد، وستظهر تفاصيل الدفع كاملة قبل تأكيد الاشتراك.</p></div>
           </div>
         ) : null}
 

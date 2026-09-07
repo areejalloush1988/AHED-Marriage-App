@@ -263,14 +263,9 @@ export default function Home() {
               </div>
               <div className={styles.priceRows}>
                 <div>
-                  <span>{copy.plans.women}</span>
-                  <strong>{plan.womenPrice}</strong>
-                  <small>{copy.plans.currency}</small>
-                </div>
-                <div>
-                  <span>{copy.plans.men}</span>
-                  <strong>{plan.menPrice}</strong>
-                  <small>{copy.plans.currency}</small>
+                  <span>{isArabic ? "السعر الشهري" : "Monthly price"}</span>
+                  <strong>{plan.price}</strong>
+                  <small>{copy.plans.currency} / {isArabic ? "شهرياً" : "month"}</small>
                 </div>
               </div>
               <span className={styles.onceLabel}>{copy.plans.once}</span>

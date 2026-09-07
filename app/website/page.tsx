@@ -26,26 +26,17 @@ const trustItems = [
 
 const plans = [
   {
-    name: "عَهْد الأساسي",
-    subtitle: "دخول موثّق إلى المنصة والبدء في رحلة البحث الجاد.",
-    women: "50",
-    men: "150",
-    features: ["ملف شخصي موثّق", "طلبات تواصل للزواج", "محادثة بعد القبول"],
+    name: "عَهْد بلاس",
+    subtitle: "كل الأدوات الأساسية للبحث الجاد والتواصل الآمن.",
+    price: "99",
+    features: ["البحث المتقدم بالمواصفات", "حفظ الملفات المفضلة", "طلبات التعارف", "محادثة بعد القبول"],
   },
   {
-    name: "عَهْد Pro",
-    subtitle: "تحكم وخصوصية أكبر مع أدوات بحث وترشيح متقدمة.",
-    women: "250",
-    men: "350",
+    name: "عَهْد VIP",
+    subtitle: "ظهور أقوى وخصوصية أوسع لرحلة بحث أكثر تميزاً.",
+    price: "199",
     featured: true,
-    features: ["جميع مزايا الأساسي", "فلاتر بحث دقيقة", "خيارات ظهور وخصوصية إضافية"],
-  },
-  {
-    name: "الموفّق الشخصي",
-    subtitle: "خدمة مخصصة لمن يريد ترشيحات مدروسة ومتابعة شخصية.",
-    women: "850",
-    men: "950",
-    features: ["جميع مزايا Pro", "جلسة تعريف", "ترشيحات يدوية مدروسة"],
+    features: ["جميع مزايا بلاس", "شارة VIP", "أولوية الظهور", "خيارات خصوصية إضافية"],
   },
 ];
 
@@ -97,7 +88,7 @@ export default function WebsiteConceptPage() {
 
             <div className="hero-mini">
               <span><CircleCheckBig /> 18+ فقط</span>
-              <span><CircleCheckBig /> بدون تجديد تلقائي</span>
+              <span><CircleCheckBig /> اشتراكان شهريان فقط</span>
               <span><CircleCheckBig /> خصوصية عالية</span>
             </div>
           </div>
@@ -231,7 +222,7 @@ export default function WebsiteConceptPage() {
             />
             <div className="privacy-stats">
               <div className="privacy-stat"><strong>18+</strong><small>للبالغين فقط</small></div>
-              <div className="privacy-stat"><strong>1×</strong><small>دفع لمرة واحدة</small></div>
+              <div className="privacy-stat"><strong>2</strong><small>اشتراكان فقط</small></div>
               <div className="privacy-stat"><strong>خاص</strong><small>بيانات التواصل</small></div>
             </div>
           </div>
@@ -243,7 +234,7 @@ export default function WebsiteConceptPage() {
           <div className="section-heading">
             <span className="section-kicker">باقات واضحة</span>
             <h2>اختر مستوى الخدمة الذي يناسب رحلتك.</h2>
-            <p>جميع الأسعار دفعة واحدة، بدون اشتراك شهري وبدون تجديد تلقائي.</p>
+            <p>عَهْد بلاس بـ99 درهماً وعَهْد VIP بـ199 درهماً، باشتراك شهري واضح.</p>
           </div>
 
           <div className="plans-grid">
@@ -252,8 +243,7 @@ export default function WebsiteConceptPage() {
                 {plan.featured ? <span className="plan-badge">الأكثر تميزًا</span> : null}
                 <h3>{plan.name}</h3>
                 <p className="plan-subtitle">{plan.subtitle}</p>
-                <div className="plan-price"><strong>{plan.women}</strong><span>درهم للنساء</span></div>
-                <p className="plan-secondary-price">{plan.men} درهم للرجال</p>
+                <div className="plan-price"><strong>{plan.price}</strong><span>درهم شهرياً</span></div>
                 <ul className="plan-features">
                   {plan.features.map((feature) => <li key={feature}><Check /> {feature}</li>)}
                 </ul>
