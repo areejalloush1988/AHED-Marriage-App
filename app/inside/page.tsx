@@ -233,6 +233,7 @@ function ProfileCard({ profile, saved, exact, score, onSave, onOpen }: { profile
 
 export default function InsidePage() {
   const [section, setSection] = useState<Section>("home");
+  const [selectedPlan, setSelectedPlan] = useState<"plus" | "vip" | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string>();
   const [mode, setMode] = useState<"demo" | "live" | "empty">("demo");
   const [unreadMessages, setUnreadMessages] = useState(2);
@@ -571,17 +572,36 @@ export default function InsidePage() {
               <div><span className="inside-eyebrow">اشتراكان فقط</span><h1>اختاري اشتراك عَهْد المناسب</h1><p>باقات شهرية واضحة، من دون مستويات إضافية أو أسعار مخفية.</p></div>
               <span className="subscription-heading-icon"><Crown /></span>
             </section>
-            <div className="subscription-plans">
+            <div className="subscription-plans" aria-label="اختيار اشتراك عَهْد">
               {subscriptionPlans.map((plan) => {
                 const PlanIcon = plan.id === "vip" ? Crown : Sparkles;
+                const isSelected = selectedPlan === plan.id;
+                const choosePlan = () => {
+                  setSelectedPlan(plan.id);
+                  setNotice(`تم اختيار ${plan.name} بقيمة ${plan.price} درهماً شهرياً.`);
+                };
                 return (
-                  <article className={`subscription-card subscription-card--${plan.id}`} key={plan.id}>
+                  <article
+                    className={`subscription-card subscription-card--${plan.id}${isSelected ? " is-selected" : ""}`}
+                    data-selected={isSelected}
+                    key={plan.id}
+                    onClick={choosePlan}
+                  >
                     {plan.id === "vip" ? <span className="subscription-featured-badge"><Crown /> الأكثر تميزاً</span> : null}
                     <div className="subscription-card-head"><span><PlanIcon /></span><div><small>اشتراك شهري</small><h2>{plan.name}</h2></div></div>
                     <p>{plan.description}</p>
                     <div className="subscription-price"><strong>{plan.price}</strong><span><b>درهم</b><small>شهرياً</small></span></div>
                     <ul>{plan.features.map((feature) => <li key={feature}><Check />{feature}</li>)}</ul>
-                    <button type="button" onClick={() => setNotice(`تم اختيار ${plan.name} بقيمة ${plan.price} درهماً شهرياً.`)}>اختيار {plan.name}<ChevronLeft /></button>
+                    <button
+                      type="button"
+                      aria-pressed={isSelected}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        choosePlan();
+                      }}
+                    >
+                      {isSelected ? <><Check /> تم اختيار {plan.name}</> : <>اختيار {plan.name}<ChevronLeft /></>}
+                    </button>
                   </article>
                 );
               })}
@@ -636,7 +656,7 @@ export default function InsidePage() {
         ) : null}
 
         <nav className="inside-mobile-nav" aria-label="التنقل على الهاتف">
-          {navItems.filter((item) => ["home", "discover", "online", "messages", "profile"].includes(item.id)).map((item) => {
+          {navItems.filter((item) => ["home", "discover", "subscriptions", "messages", "profile"].includes(item.id)).map((item) => {
             const Icon = item.icon;
             return <button key={item.id} type="button" className={section === item.id ? "is-active" : ""} onClick={() => setSection(item.id)}><Icon /><span>{item.label}</span>{item.id === "messages" && unreadMessages ? <b className="mobile-nav-count">{unreadMessages}</b> : null}</button>;
           })}
