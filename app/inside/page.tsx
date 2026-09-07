@@ -223,6 +223,49 @@ export default function InsidePage() {
   const [partnerSpecs, setPartnerSpecs] = useState<PartnerSpecs>(defaultPartnerSpecs);
   const [specTab, setSpecTab] = useState<"mine" | "partner">("mine");
 
+  useEffect(() => {
+    const samsungPhoneQuery = window.matchMedia("(max-width: 620px) and (pointer: coarse)");
+    const userAgent = window.navigator.userAgent;
+    const userAgentData = (window.navigator as Navigator & {
+      userAgentData?: {
+        mobile?: boolean;
+        platform?: string;
+        getHighEntropyValues?: (hints: string[]) => Promise<{ model?: string }>;
+      };
+    }).userAgentData;
+    const isAndroidPhone = (/Android/i.test(userAgent) || userAgentData?.platform === "Android")
+      && (/Mobile/i.test(userAgent) || userAgentData?.mobile === true);
+    let active = true;
+    let highEntropyModel = "";
+
+    const isSamsungPhoneModel = (model: string) => /^(?:SAMSUNG[- ]?)?SM-(?!T|X|P)[A-Z0-9-]+$/i.test(model);
+    const isSamsungDevice = () => /SAMSUNG|SM-(?!T|X|P)[A-Z0-9-]+/i.test(userAgent)
+      || isSamsungPhoneModel(highEntropyModel);
+
+    const updateSamsungPhoneMode = () => {
+      document.documentElement.classList.toggle(
+        "ahed-samsung-phone",
+        isAndroidPhone && isSamsungDevice() && samsungPhoneQuery.matches,
+      );
+    };
+
+    updateSamsungPhoneMode();
+    void userAgentData?.getHighEntropyValues?.(["model"])
+      .then(({ model }) => {
+        if (!active) return;
+        highEntropyModel = model ?? "";
+        updateSamsungPhoneMode();
+      })
+      .catch(() => undefined);
+    samsungPhoneQuery.addEventListener("change", updateSamsungPhoneMode);
+
+    return () => {
+      active = false;
+      samsungPhoneQuery.removeEventListener("change", updateSamsungPhoneMode);
+      document.documentElement.classList.remove("ahed-samsung-phone");
+    };
+  }, []);
+
   const availableProfiles = useMemo(() => liveProfiles.length === 0 ? demoProfiles : liveProfiles.map((profile) => ({ ...profile, isOnline: onlineIds.includes(profile.id) })), [liveProfiles, onlineIds]);
   const searchResults = useMemo(() => {
     const min = Number(appliedFilters.ageMin) || 18;
