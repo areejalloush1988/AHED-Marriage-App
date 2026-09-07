@@ -841,7 +841,8 @@ export function AhedRegistration({
                     <Label
                       key={key}
                       htmlFor={`plan-${key}`}
-                      className={`plan-card ${key === "matchmaker" ? "plan-card--featured" : ""}`}
+                      className={`plan-card ${key === "matchmaker" ? "plan-card--featured" : ""} ${plan === key ? "plan-card--selected" : ""}`}
+                      data-selected={plan === key}
                     >
                       {key === "matchmaker" ? (
                         <span className="recommended-badge">الأكثر تميزاً</span>
